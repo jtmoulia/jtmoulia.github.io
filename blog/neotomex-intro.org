@@ -1,0 +1,17 @@
+#+TITLE:       Neotomex: An Elixir PEG Interface
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       jtmoulia@gmail.com
+#+DATE:        2014-09-09 Tue
+#+URI:         /blog/%y/%m/%d/norse-attack-map
+#+KEYWORDS:    elixir, erlang, neotoma, peg, parser, neotomex
+#+TAGS:        elixir, erlang
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Neotomex: An Elixir PEG Interface
+
+[[https://github.com/jtmoulia/neotomex][Neotomex]] is an Elixir PEG interface. It is loosely based on Sean
+Cribb's [[https://github.com/seancribbs/neotoma][neotoma]], though it doesn't yet support packrat parsing. Soon!
+
+I wrote it so that I could implement a saner IMAP parser than [[https://github.com/thusfresh/switchboard/blob/c103bc61635eebafa1a2d2964d34a7d91de773c2/src/imap.erl#L976][this]].
+
+More to come!
