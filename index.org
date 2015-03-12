@@ -1,6 +1,10 @@
-#+TITLE: Index
+#+TITLE:    Index
+#+AUTHOR:   Thomas Moulia
+#+EMAIL:    jtmoulia@gmail.com
+#+LANGUAGE: en
+#+OPTIONS:  num:nil toc:nil
 
-Once I've decided on the perfect groupings and tags I'll link to them
-from here.
+#+ATTR_HTML: :alt dogneill :width 400px :style float:right;
+[[file:./assets/img/slugbug.jpg]]
 
-But, at the moment there is nothing,
+Notes on [[./tags/emacs][Emacs]], [[./tags/elixir][Elixir]] + [[./tags/erlang][Erlang]]. Some [[./tags/contracting][past work]].

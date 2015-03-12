@@ -4,7 +4,7 @@
 #+DATE:        2015-03-11 Wed
 #+URI:         /blog/%y/%m/%d/elixir-and-distel
 #+KEYWORDS:    elixir, emacs
-#+TAGS:        elixir, emacs
+#+TAGS:        elixir, emacs, erlang
 #+LANGUAGE:    en
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: Distel: Emacs talking Erlixir
@@ -26,9 +26,9 @@
   Clojurian, said:
 
   #+BEGIN_QUOTE
-  One of the great pleasures of working with a dynamic language is
-  being able to build a system while simultaneously interacting with
-  it.
+    One of the great pleasures of working with a dynamic language is
+    being able to build a system while simultaneously interacting with
+    it.
   #+END_QUOTE
 
 
