@@ -1,0 +1,33 @@
+#+TITLE:       Switchboard
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       jtmoulia@gmail.com
+#+DATE:        2014-06-05 Fri
+#+URI:         /blog/%y/%m/%d/switchboard
+#+KEYWORDS:    erlang, email
+#+TAGS:        erlang, email, contracting
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Switchboard: An IMAP connection manager [Spatch]
+
+[[file:../assets/img/switchboard_by_spatch.png]]
+
+I developed [[http://switchboard.spatch.co][Switchboard]] with [[http://spatch.co][Spatch]] to provide their mobile
+application with real-time push notifications and processing.
+
+* What is it?
+
+  Switchboard provides high level tools for managing IMAP clients across
+  email accounts and providers:
+
+  - Manages the lifecycle of IMAP processes, and handles error conditions;
+  - Provides an API allowing workers to process emails as they arrive;
+  - Handles the boilerplate of IMAP connection management and monitoring for new emails.
+
+  Switchboard frees you from the plumbing of server-side email handling,
+  allowing you to focus on your products and services.
+
+* Links
+
+  - [[https://news.ycombinator.com/item?id=7905318][HN Thread]]
+  - [[https://github.com/thusfresh/switchboard][Switchboard Repo]]
+  - [[https://github.com/jtmoulia/switchboard-python][Python Client Repo]]

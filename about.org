@@ -2,15 +2,21 @@
 #+AUTHOR:   Thomas Moulia
 #+EMAIL:    jtmoulia@gmail.com
 #+LANGUAGE: en
-#+OPTIONS:  H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+OPTIONS:  num:nil toc:nil
 
-I live in South Lake Tahoe with my fiancee, Caitria, and dog, Curie.
+#+ATTR_HTML: :alt dogneill :width 200px :style float:right;
+[[file:./assets/img/dogneill.jpg]]
+
+I live in South Lake Tahoe (the Nevada side) with my [[http://overthemoon2015.com][fiancee]], Caitria,
+and dog, Curie.
+
+I recently read and loved [[https://www.goodreads.com/book/show/12074927-the-fractal-prince][The Fractal Prince]] -- it's turtles all the
+way down.
 
 * Spatch
 
-  I work fulltime with the fine folk at [[http://spatch.co/][Spatch]] on designing and
-  implementing the backend for a modern, decentralized communication
-  system.
+  I work with the fine folk at [[http://spatch.co/][Spatch]] on designing and implementing
+  the backend for a modern, decentralized communication system.
 
   Interesting parts of the job have been working with [[https://en.wikipedia.org/wiki/Operational_transformation][operational transform]],
   decentralized systems, and [[http://elixir-lang.org/][Elixir]].
