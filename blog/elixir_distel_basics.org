@@ -28,7 +28,7 @@
    First, you need a node running distributed Erlang; an booting an
    elixir console will do:
 
-   #+BEGIN_SRC shell
+   #+BEGIN_SRC sh
      iex --sname emacs [-S mix]
    #+END_SRC
 
