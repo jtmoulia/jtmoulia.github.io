@@ -1,0 +1,65 @@
+#+TITLE:       Elixir and Distel
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       jtmoulia@gmail.com
+#+DATE:        2015-03-11 Wed
+#+URI:         /blog/%y/%m/%d/elixir-and-distel
+#+KEYWORDS:    elixir, emacs
+#+TAGS:        elixir, emacs
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Distel: Emacs talking Erlixir
+
+* Distel: Emacs talking Erlixir
+
+  [[https://github.com/tonini/alchemist.el][alchemist.el]] is a Swiss army knife for working with Elixir from the
+  comfort of emacs. It can run [[http://elixir-lang.org/getting-started/mix-otp/introduction-to-mix.html][mix]] tasks, look up Elixir source
+  documentation, autocomplete, ... etc. For may of the
+
+  Enter [[https://github.com/massemanet/distel][distel]]. Distel implements the Erlang distribution protocol in
+  ELisp. More on the nitty gritty of that later, but long story short:
+  distel allows Emacs to pass as an Erlang node; a gnu in erlang's
+  clothing?
+
+** Using Distel
+
+   For programming with distel, the Emacs info pages are surprisingly
+   mediocre. Instead, see the included [[https://github.com/massemanet/distel/blob/master/doc/gorrie02distel.pdf][Gorrie 02]].
+
+   First, you need a node running distributed Erlang; an booting an
+   elixir console will do:
+
+   #+BEGIN_SRC shell
+     iex --sname emacs [-S mix]
+   #+END_SRC
+
+   If you're having issues, make sure that your cookie matches.
+
+   Distel loads an RPC library, rex, into the remote node. On the
+   Emacs side, distel provides =erl-send-rpc= as a helper to call into
+   rex. The function signature, =(erl-send-rpc NODE MODULE FUNCTION
+   ARGS)=, is reminiscient to Erlang RPC and apply calls, and works
+   similarly. After handling the call, the target node sends a message
+   back wrapped in an =rex= tuple, which can be caught with
+   =erl-receive=.
+
+   Putting it all together, here's a function that will call =Enum.count/1=
+   against a list on the remote node:
+
+   #+BEGIN_SRC elisp
+     (defun elixir-enum-count (node list)
+       "Use NODE to call `Enum.count(LIST)'"
+       (erl-spawn
+         (erl-send-rpc node 'Elixir.Enum 'count (list expr))
+         (erl-receive (callback)
+             ((['rex results] (message "results: %S" results))))))
+   #+END_SRC
+
+
+** Demos: Proximel
+
+   I put together a basic repo, [[https://github.com/jtmoulia/proximel][proximel]], which demos loading beam
+   files compiled from Elixir source into a remote node, and basic
+   Elixir autocompletion.
+
+   In a future post I'd like to dissect Elixir autocompletion over
+   distel with [[http://company-mode.github.io/][company-mode]].
