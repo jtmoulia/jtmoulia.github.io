@@ -12,48 +12,118 @@
 * Distel: Emacs talking Erlixir
 
   [[https://github.com/tonini/alchemist.el][alchemist.el]] is a Swiss army knife for working with Elixir from the
-  comfort of emacs. It can run [[http://elixir-lang.org/getting-started/mix-otp/introduction-to-mix.html][mix]] tasks, look up Elixir source
-  documentation, autocomplete, ... etc. For may of the
+  comfort of Emacs. It can run [[http://elixir-lang.org/getting-started/mix-otp/introduction-to-mix.html][mix]] tasks, look up Elixir source
+  documentation, autocomplete, ... etc. Alchemist is awesome.
+
+  But, here's the rub: often alchemist has to boot an Erlang VM to
+  evaluate a single expression. Running tests boots a VM, looking up a
+  function's source doc boots a VM, each prefix autocompletion boots a
+  VM. This is slow, and if you want the VM to load the code you're
+  actively developing you better not have any compile-time errors.
+
+  Plus, with features like hot code reloading, supervision trees, and
+  remote shells, Erlang loves to be manipulated live. Stuart Sierra, a
+  Clojurian, said:
+
+  #+BEGIN_QUOTE
+  One of the great pleasures of working with a dynamic language is
+  being able to build a system while simultaneously interacting with
+  it.
+  #+END_QUOTE
+
 
   Enter [[https://github.com/massemanet/distel][distel]]. Distel implements the Erlang distribution protocol in
   ELisp. More on the nitty gritty of that later, but long story short:
-  distel allows Emacs to pass as an Erlang node; a gnu in erlang's
-  clothing?
+  distel allows Emacs to pass as an Erlang node; a gnu in Erlang's
+  clothing (?!). Instead of booting a new Erlang VM to evaluate an
+  expression, the functions can be called on a running node via
+  RPC. Start your application on the remote node with an [[https://github.com/herenowcoder/reprise][autoreloader]]
+  and you have a [[http://thinkrelevance.com/blog/2013/06/04/clojure-workflow-reloaded][long-lived development session]].
 
-** Using Distel
+  The rest of this post is a brief overview of how to use distel from
+  an Elixir perspective.
+
+** Connecting Distel
+
+   I'll leave the installation up to you, clever reader.
 
    For programming with distel, the Emacs info pages are surprisingly
    mediocre. Instead, see the included [[https://github.com/massemanet/distel/blob/master/doc/gorrie02distel.pdf][Gorrie 02]].
 
-   First, you need a node running distributed Erlang; an booting an
-   elixir console will do:
+   First, you need a node running distributed Erlang; booting an
+   Erlang VM running an Elixir console will do:
 
    #+BEGIN_SRC sh
      iex --sname emacs [-S mix]
    #+END_SRC
 
+   The first time you run any distel command you'll be prompted for
+   the name of the Erlang node to connect to. If you used the short
+   name =emacs= as above, the node name is just =emacs=
+
    If you're having issues, make sure that your cookie matches.
+
+** RPC against an Erlang node
 
    Distel loads an RPC library, rex, into the remote node. On the
    Emacs side, distel provides =erl-send-rpc= as a helper to call into
    rex. The function signature, =(erl-send-rpc NODE MODULE FUNCTION
-   ARGS)=, is reminiscient to Erlang RPC and apply calls, and works
-   similarly. After handling the call, the target node sends a message
-   back wrapped in an =rex= tuple, which can be caught with
-   =erl-receive=.
+   ARGS)=, is reminiscient to Erlang RPC and apply calls and works
+   similarly.
 
-   Putting it all together, here's a function that will call =Enum.count/1=
-   against a list on the remote node:
+   After handling the call, the target node sends a message
+   back to Emacs wrapped in an =rex= tuple, which can be caught with
+   =erl-receive=. Look at the function docs for =erl-receive= -- between
+   pattern matching and variable binding it does quite a bit.
+
+   Putting it all together, here's a function that will call
+   =Enum.count/1= with the arg =LIST= on the remote node:
 
    #+BEGIN_SRC elisp
      (defun elixir-enum-count (node list)
        "Use NODE to call `Enum.count(LIST)'"
        (erl-spawn
          (erl-send-rpc node 'Elixir.Enum 'count (list expr))
-         (erl-receive (callback)
+         (erl-receive ()
              ((['rex results] (message "results: %S" results))))))
    #+END_SRC
 
+   Notice that the module, =Enum= is referenced using its absolute
+   name: =Elixir.Enum=. You must use the absolute name when
+   referencing an Elixir module.
+
+   Another catch: the result of =erl-receive= isn't returned to the
+   calling context; you must use the [[https://en.wikipedia.org/wiki/Continuation-passing_style][continuation passing-style]] to
+   handle results. i.e. callbacks, ahoy! Here's the previous example
+   rewritten with the result being passed to the callback function.
+
+   #+BEGIN_SRC elisp
+     (defun proximel-enum-count (node expr &optional callback)
+       "Use NODE to generate a list of completions for EXPR.  Optionally
+     call CALLBACK with the completions."
+       (erl-spawn
+         (erl-send-rpc node 'Elixir.Proximel 'expand (list expr))
+         (erl-receive (callback)
+             ((['rex results]
+               (progn (message "results: %S" results)
+                      (if callback (funcall callback results))))))))
+   #+END_SRC
+
+   All iterations of =proximel-enum-count= accept the Erlang =NODE= as
+   the first argument. The current value of =NODE= can be fetched with
+   the function =erl-target-node=. This makes it easy to define
+   interactive functions that accept a node:
+
+   #+BEGIN_SRC elisp
+     (defun elixir-enum-count (node list)
+       "Use NODE to call `Enum.count(LIST)'"
+       (interactive (list (erl-target-node)
+                          (read-minbuffer "Enter list: ")))
+       (erl-spawn
+         (erl-send-rpc node 'Elixir.Enum 'count (list expr))
+         (erl-receive ()
+             ((['rex results] (message "results: %S" results))))))
+   #+END_SRC
 
 ** Demos: Proximel
 
@@ -61,5 +131,5 @@
    files compiled from Elixir source into a remote node, and basic
    Elixir autocompletion.
 
-   In a future post I'd like to dissect Elixir autocompletion over
-   distel with [[http://company-mode.github.io/][company-mode]].
+   In a future post I'll dissect Elixir autocompletion over distel
+   with [[http://company-mode.github.io/][company-mode]].
