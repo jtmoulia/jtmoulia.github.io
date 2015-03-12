@@ -1,5 +1,17 @@
-#+TITLE: About
+#+TITLE:    About
+#+AUTHOR:   Thomas Moulia
+#+EMAIL:    jtmoulia@gmail.com
+#+LANGUAGE: en
+#+OPTIONS:  H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 
-* About Thomas Moulia
+I live in South Lake Tahoe with my fiancee, Caitria, and dog, Curie.
 
-  I live in South Lake Tahoe with my fiancee and dog.
+* Spatch
+
+  I work fulltime with the fine folk at [[http://spatch.co/][Spatch]] on designing and
+  implementing the backend for a modern, decentralized communication
+  system.
+
+  Interesting parts of the job have been working with [[https://en.wikipedia.org/wiki/Operational_transformation][operational transform]],
+  decentralized systems, and [[http://elixir-lang.org/][Elixir]].
+

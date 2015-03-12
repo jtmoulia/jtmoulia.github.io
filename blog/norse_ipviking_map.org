@@ -1,0 +1,77 @@
+#+TITLE:       Norse Live Attack Map Visualization
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       jtmoulia@gmail.com
+#+DATE:        2014-03-01 Sat
+#+URI:         /blog/%y/%m/%d/norse-attack-map
+#+KEYWORDS:    javascript, mapping
+#+TAGS:        javascript, mapping, contracting
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: On contract with Norse, IPViking attack map visualization
+
+[[file:../assets/img/norse-map.gif]] linked from [[http://www.buzzfeed.com/josephbernstein/watch-the-endless-global-cyberwar-in-real-time#2dsddi2][buzzfeed]]
+
+I was hired by the [[http://www.norse-corp.com/][Norse Corporation]] to create a visualization that
+demo'd the rich stream of threat data underlying their IPViking
+product. I worked with Norse and their [[http://d3.artzub.com/wbca/][initial]] [[http://map.honeycloud.net][inspiration]] to decide
+on the style of visualization, and how the salient dimensions of time,
+location, and service could be explored. The result was the improved
+[[http://www.norse-corp.com/blog-thursday-140320.html][Live Attack Map]].
+
+* Building It
+
+  The visualization is built using `d3.js` to handle data to code
+  mappings and consistency. It draws to an HTML canvas. I wrote all of
+  the code in HTML, CSS, and javascript, except for the generation of
+  the particle. This approach of using d3 to draw particles to an html
+  canvas was inspired by [[http://d3.artzub.com][ArtZub's]] [[http://d3.artzub.com/wbca/][visualization]].
+
+  Mouse-over interactions are used to highlight an interesting
+  attribute of the underlying data, particularly threats targeting a
+  country, originating from a country, and made over a particular
+  service.
+
+  The sliding tick marks at the bottom left of the screen are my
+  favorite part: they're an attempt to provide a window into timing
+  patterns 10-90s scale. However, at the moment tick marks overlap
+  preventing it from showing more than 1 attack per application
+  "tick".
+
+  As part of the contract we decided to not make the initial version
+  responsive to different display sizes, so it does have some issues
+  with tables overlapping.
+
+
+* Reception
+
+** Publications
+
+   - [[http://realbusiness.co.uk/article/27070-ipviking-map-cybercrime-hunting-just-got-real-time][IPViking map: Cybercrime hunting just got real(-time)]] (realbusiness.co.uk)
+   - [[http://www.dailymail.co.uk/sciencetech/article-2670710/Think-youre-safe-internet-Think-Map-reveals-millions-cyber-attacks-happening-world-real-time.html][Think you're safe on the internet? Think again ...]] (Daily Mail)
+   - [[http://www.nbcnews.com/tech/security/hacking-world-map-shows-global-cyberattacks-happening-real-time-n138391][Hacking the World: Map Shows Global Cyberattacks Happening in Real Time]] (NBC News)
+   - [[http://www.vox.com/2014/6/26/5845916/watch-cyberattacks-around-the-world-in-real-time][This mesmerizing map shows cyberattacks across the world in real time]] (Vox)
+   - [[http://www.networkworld.com/article/2366962/microsoft-subnet/spellbound-by-maps-tracking-hack-attacks-and-cyber-threats-in-real-time.html][Spellbound by maps tracking hack attacks and cyber threats in real-time]] (Network World)
+
+** Reddit
+
+   - [[http://www.reddit.com/r/videos/comments/28ks9n/this_cyber_attack_map_shows_what_happened_just/][This cyber attack map shows what happened just before today's facebook downtime.]] (/r/videos)
+   - [[http://www.reddit.com/r/technology/comments/295r55/hackers_from_different_countries_attacking_each/][Hackers from different countries attacking each other in real time.]] (/r/technology)
+   - [[http://www.reddit.com/r/InternetIsBeautiful/comments/28o4rv/norse_watch_cyber_attacks_from_across_the_world/][Norse - Watch cyber attacks from across the world]] (/r/InternetIsBeautiful )
+
+** Hacker News
+
+   - [[https://news.ycombinator.com/item?id=8154740][Live attacks against the Norse honeypot infrastructure]]
+
+** Twitter
+
+   [[https://twitter.com/search?q=map.ipviking.com][map.ipviking.com search]]
+
+   #+BEGIN_HTML
+     <blockquote class="twitter-tweet" data-cards="hidden" lang="en"><p>Watching <a href="http://t.co/ADnPN9ScDa">http://t.co/ADnPN9ScDa</a> much more fun than the world cup :p <a href="http://t.co/T4yKe5iJOs">pic.twitter.com/T4yKe5iJOs</a></p>&mdash; Linda Martin (@Lindoox) <a href="https://twitter.com/Lindoox/statuses/482975092360884224">June 28, 2014</a></blockquote>
+     <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+     <blockquote class="twitter-tweet" lang="en"><p>If people are interested in DDoS activity, the dudes at IPViking have a badass map. US getting hammered right now&#10;&#10;<a href="http://t.co/iFCOdqvTHL">http://t.co/iFCOdqvTHL</a></p>&mdash; Trent Farrell (@RiotForo) <a href="https://twitter.com/RiotForo/statuses/494013234169401344">July 29, 2014</a></blockquote>
+
+     <blockquote class="twitter-tweet" lang="en"><p>This is insanely compelling viewing: <a href="http://t.co/cXUXhCLkfl">http://t.co/cXUXhCLkfl</a> Live graphical representation of global DDOS attacks.</p>&mdash; Darren Grey (@dgrey0) <a href="https://twitter.com/dgrey0/statuses/496974316840710144">August 6, 2014</a></blockquote>
+     <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+   #+END_HTML
