@@ -1,0 +1,256 @@
+#+TITLE:       Elixir 0-Arity Functions: Drop the Parens?
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       jtmoulia@gmail.com
+#+DATE:        2015-03-12 Thu
+#+URI:         /blog/%y/%m/%d/elixir-fun-call-parens
+#+KEYWORDS:    elixir, style, erlang, parentheses, parens, function, variable
+#+TAGS:        elixir, style
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Include the parens when calling 0 arity functions?
+
+A question [[https://github.com/niftyn8/elixir_style_guide][from github]]: =func= or =func()= ? And, my opinion...
+
+tl;dr; consistent use of trailing parens increases code clarity by
+explicitly signaling whether a reference is being used as a function
+call or a variable. Style decisions are case by case, but I'd default
+to keeping the parens when calling a 0 arity function.
+
+* Elixir + Barewords
+
+  Elixir's Ruby heritage is apparent in its expressive and flexible
+  syntax -- Elixir is unabashed about adding syntactic sugar to make
+  your life easier.
+
+  In particular, it carries over what Avdi Grimm calls Ruby's
+  "barewords", references without decoration which can refer to
+  different things depending on the context. While it sounds exotic,
+  barewords are fundamental to the Elixir, e.g. variable references
+  are barewords. =thing= or =Module.thing= is a bareword, while
+  =thing()= or =Module= are not. Functions without arguments may be
+  called using the function's name as a bareword, i.e. =func= and
+  =func()=.
+
+  In Elixir, a bareword is evaluated by first checking the bareword's
+  name (the bareword itself) against variables in the context. If it
+  isn't a defined variable, Elixir attempts to call the name as a
+  function with no arguments. This doesn't have any special error
+  handling: a =RuntimeError= is raised if the function is undefined:
+
+  #+begin_src elixir
+    iex> a
+    ** (RuntimeError) undefined function: a/0
+
+    iex> a()
+    ** (RuntimeError) undefined function: a/0
+  #+end_src
+
+  Here's an example of how barewords are first checked against the
+  variables in the context, then called as a function:
+
+  #+headers: :exports both
+  #+begin_src elixir
+    defmodule Example do
+
+      def five, do: 5
+
+      @doc """
+      Returns the function `five`, 5 in this case, plus `x`.
+      """
+      def five_plus_fn(x) do
+        five + x
+      end
+
+      @doc """
+      Returns the variable `five`, 4 in this case, plus `x`.
+      """
+      def five_plus_var(x) do
+        five = 4
+        five + x
+      end
+    end
+
+    IO.inspect [[:five_plus_fn,  Example.five_plus_fn(5)],
+                [:five_plus_var, Example.five_plus_var(5)]]
+  #+end_src
+
+  #+RESULTS:
+  | :five_plus_fn  | 10 |
+  | :five_plus_var |  9 |
+
+
+* For Keeping Parens
+
+  =func()=
+
+  Unless I have a good reason, I default to using parens because of
+  the clarity it adds to the code.
+
+** Clarity
+
+   Using parens to call 0 arity functions increases code clarity by
+   explicitly signaling that the reference is a function.
+
+   Reading code is a non-linear process of untangling threads of logic
+   until you understand the whole. Having contextual signals (funcall
+   vs var) makes references easier to trace.
+
+   The other day, [[https://twitter.com/bismark][Ryan Johnson]] was digging around in
+   [[https://github.com/elixir-lang/elixir/blob/69c1cf27b0c491fb9b489fb1ed0f6f6a5ce31816/lib/ex_unit/lib/ex_unit/case.ex#L203][ExUnit.Case.test/2,3]]. He asked:
+
+   #+begin_quote
+     what does `binding` refer to?
+   #+end_quote
+
+   Here's the macro in question, trimmed down for easy digestion:
+
+   #+begin_src elixir
+     defmacro test(message, var \\ quote(do: _), contents) do
+       contents = ...
+       var      = Macro.escape(var)
+       contents = Macro.escape(contents, unquote: true)
+
+       quote bind_quoted: binding do
+         test = :"test #{message}"
+         ExUnit.Case.__on_definition__(__ENV__, test)
+         def unquote(test)(unquote(var)), do: unquote(contents)
+       end
+     end
+    #+end_src
+
+   Here's the process for figuring out what =binding=, or any
+   bareword, refers to:
+
+   1. Are there any variables bound to =binding= in the context?
+      It's a bit easier in the example above since I cut out half of
+      the macro at the =...=. Answer: no
+   2. Are there any 0 arity functions called =binding= defined in
+      =ExUnit.Case= ? Answer: no
+   3. Are there any 0 arity functions called =binding= imported by
+      =ExUnit.Case=? =ExUnit.Case= imports four modules, any of which
+      might define the function. Answer: yes
+   4. Still can't find it? Try starting back at (1).
+
+   This process is trivial for a computer brain running the correct
+   program, but our human brains are not nearly as well equipped to
+   glean the answer from source code. If you know of any tooling that
+   helps with this, let me know!
+
+   After some spelunking, Ryan found did find the answer to his
+   question in the nifty [[http://elixir-lang.org/docs/stable/elixir/Kernel.html#binding/1][binding/0]] macro. However, even if he'd known
+   about =Kernel.binding/0=, he still would have had to verify that
+   their are no variables named =binding= which supersede the function
+   call.
+
+   If =binding()= had been used instead of =binding=, you could
+   scratch step 1: the parens signal that the reference is to a
+   function rather than a variable. Moreover, if you're wiser than
+   Ryan and I and know of =Kernel.binding/0=, your job is easy.
+
+   In complex code where reference tracing is already difficult,
+   forcing the reader to check through multiple contexts is painful
+   and unnecessary.
+
+* For Dropping Parens
+
+  =func=
+
+  Dogma has no place in coding style -- here are some situations
+  where it might make sense to drop the parens:
+
+** One Name, Multiple Contexts
+
+   The bareword duality between variables and function calls allows
+   for easy refactoring from a variable to a function call with no
+   arguments. The follow two code snippets show how most [[http://elixir-lang.org/docs/stable/mix/][Mixfiles]] take
+   advantage of this:
+
+   #+begin_src elixir
+     defmodule MyApp.Mixfile do
+       def project do
+         deps = [{:ecto, "~> 0.8.0"}]
+         [app: :my_app,
+          deps: deps]
+       end
+     end
+   #+end_src
+
+   The punchline: refactoring out the =deps= variable to its own
+   function without changing the reference to it:
+
+   #+begin_src elixir
+     defmodule MyApp.Mixfile do
+       def project do
+         [app: :my_app,
+          deps: deps]
+       end
+
+       defp deps do
+         [{:ecto, "~> 0.8.0"}]
+       end
+     end
+   #+end_src
+
+   It's a neat pattern, and works well in simple modules like a
+   mixfile. I'd avoid using this when the function being called does
+   significant computation, as opposed to the =deps/0= function which
+   only returns a value.
+
+   See Avdi Grimm's [[http://devblog.avdi.org/2012/10/01/barewords/][barewords ruby tapas episode]] for a great
+   description of this.
+
+** Piping
+
+   Empty trailing parentheses are unnecessary when using the pipe
+   macro.
+
+   A simple, contrived example:
+
+   #+header: :exports both
+   #+begin_src elixir
+     1..10
+       |> Enum.count
+       |> IO.inspect
+   #+end_src
+
+   #+RESULTS:
+   : 10
+
+   When using piping, there is /no/ ambiguity about what =Enum.count=
+   is referring to: it's being called as function with one
+   argument. Empty trailing parens provide no additional information.
+
+   However, in practice you'll often find yourself piping through
+   functions which take more than one argument, which muddies the
+   parens aesthetic situation a bit:
+
+   #+header: :exports both
+   #+begin_src elixir
+     1..10
+       |> Enum.filter(&(rem(&1, 2) == 0))
+       |> Enum.count
+       |> IO.inspect
+   #+end_src
+
+   #+RESULTS:
+   : 5
+
+   In sum, dropping parens when piping doesn't introduce ambiguity for
+   the reader. Use what works best for your situation.
+
+** Readability
+
+   The argument goes that parantheses are noise, and getting rid of
+   them improves the clarity of your source. But, as argued above,
+   parens are /not/ noise; their presence signals that name refers to
+   a 0-arity function.
+
+   As for the scannability of =func= vs =func()=, I'm not going to
+   argue aesthetics. Instead, I'll say that from Prolog to C to
+   mathematics, trailing parens as notation for a function call is
+   ubiquitous, arguments or no.
+
+* Other
+
+  - Discussion of parentheses in function definitions and piping
+    in [[https://github.com/niftyn8/elixir_style_guide/pull/3][the elixir style guide]].
