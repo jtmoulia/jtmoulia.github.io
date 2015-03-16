@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Intro to ob-elixir, Written with ob-elixir - jtmoulia</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Thomas Moulia" />
+    <meta name="description" content="ob-elixir: interactive development in elixir using org-mode" />
+    <meta name="keywords" content="elixir, emacs, org-mode, org-babel, interactive development, literate programming" />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">jtmoulia</a></h1>
+        <p>public notebook 📓</p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="http://github.com/jtmoulia">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="http://www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="jtmoulia.pocketknife.io">
+        </form>
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Intro to ob-elixir, Written with ob-elixir</h1>
+<p>
+<a href="http://about.me/olinasc">Victor Olinasc's</a> <a href="https://github.com/victorolinasc/ob-elixir">ob-elixir</a> does what it says on the tin: Org Mode
+Elixir language support. Also known as Elixir <a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a>
+using Emacs.
+</p>
+
+<p>
+The implementation is still a ways from parity with something like
+<a href="http://orgmode.org/w/?p=org-mode.git;a=blob_plain;f=lisp/ob-python.el;hb=c7ed6cde3aa115b7c262d0d9d3938392c4c63499">ob-python</a>, but let's kick the tires and see where it's at. This post
+will run through examples showing some of the features ob-elixir
+currently supports. All of the code snippets were run from within
+Emacs using ob-elixir.
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Org-Babel + Elixir</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+The best place to get started is with the <a href="http://orgmode.org/org.html#Working-With-Source-Code">documentation</a>, but here
+is what an Elixir code block should resemble:
+</p>
+
+<pre class="example">
+#+begin_src elixir
+  IO.inspect :result
+#+_end_src
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Output</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+ob-elixir writes your code block to a <code>.exs</code> file and then evaluates
+the file using the <code>elixir</code> executable. The first line of standard
+output is passed off to Org Mode, which then does its best to
+transform it into a table.
+</p>
+
+<p>
+A one dimensional list or tuple is transformed into a table row:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-elixir"><span style="color: #75715E;"># </span><span style="color: #75715E;">it's as easy as</span>
+[42, <span style="color: #87cefa;">:foo</span>, <span style="color: #E6DB74;">"bar"</span>]
+  |&gt; <span style="color: #AE81FF;">IO</span>.inspect
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 1:</span> Values</caption>
+
+<colgroup>
+<col  class="right" />
+
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="right">42</td>
+<td class="left">:foo</td>
+<td class="left">bar</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Each row in a two dimensional list becomes a row in a table:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-elixir">[1, 2, 3]
+  |&gt; <span style="color: #AE81FF;">Enum</span>.map(&amp;({&amp;1, &amp;1*&amp;1}))
+  |&gt; <span style="color: #AE81FF;">IO</span>.inspect
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 2:</span> Squares</caption>
+
+<colgroup>
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="right">1</td>
+<td class="right">1</td>
+</tr>
+
+<tr>
+<td class="right">2</td>
+<td class="right">4</td>
+</tr>
+
+<tr>
+<td class="right">3</td>
+<td class="right">9</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Finally, a potentially useful example of getting the top 5 processes
+sorted by heap size. It also prints the total heap size and number
+of reductions:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-elixir"><span style="color: #FD971F;">output_keys</span> = [<span style="color: #87cefa;">:registered_name</span>, <span style="color: #87cefa;">:heap_size</span>, <span style="color: #87cefa;">:total_heap_size</span>, <span style="color: #87cefa;">:reductions</span>]
+<span style="color: #AE81FF;">Process</span>.list()
+  |&gt; <span style="color: #AE81FF;">Enum</span>.map(&amp;Process.info/1)
+  |&gt; <span style="color: #AE81FF;">Enum</span>.filter(&amp;Dict.has_key?(&amp;1, <span style="color: #87cefa;">:registered_name</span>))
+  |&gt; <span style="color: #AE81FF;">Enum</span>.sort(&amp;(&amp;1[<span style="color: #87cefa;">:heap_size</span>] &gt; &amp;2[<span style="color: #87cefa;">:heap_size</span>]))
+  |&gt; <span style="color: #AE81FF;">Enum</span>.map(&amp;(<span style="color: #F92672;">for</span> key &lt;- output_keys, <span style="color: #87cefa;">do:</span> &amp;1[key]))
+  |&gt; <span style="color: #AE81FF;">Enum</span>.take(5)
+  |&gt; <span style="color: #AE81FF;">IO</span>.inspect
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 3:</span> Top 5 processes by heap size</caption>
+
+<colgroup>
+<col  class="left" />
+
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="left">:application_controller</td>
+<td class="right">28690</td>
+<td class="right">75112</td>
+<td class="right">53231</td>
+</tr>
+
+<tr>
+<td class="left">:kernel_sup</td>
+<td class="right">6772</td>
+<td class="right">35462</td>
+<td class="right">48964</td>
+</tr>
+
+<tr>
+<td class="left">:code_server</td>
+<td class="right">4185</td>
+<td class="right">32875</td>
+<td class="right">176097</td>
+</tr>
+
+<tr>
+<td class="left">:erl_prim_loader</td>
+<td class="right">4185</td>
+<td class="right">8370</td>
+<td class="right">1142203</td>
+</tr>
+
+<tr>
+<td class="left">:init</td>
+<td class="right">2586</td>
+<td class="right">3573</td>
+<td class="right">12554</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">Parsing Issues</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+The parser currently uses python style syntax parsing, and doesn't
+support Elixir reader expressions within lists, i.e. values
+prefixed with <code>#</code>, like <code>#PID&lt;0.0.0&gt;</code>:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-elixir"><span style="color: #75715E;"># </span><span style="color: #75715E;">Works</span>
+<span style="color: #AE81FF;">IO</span>.inspect self
+</pre>
+</div>
+
+<pre class="example">
+#PID&lt;0.48.0&gt;
+</pre>
+
+<div class="org-src-container">
+
+<pre class="src src-elixir"><span style="color: #75715E;"># </span><span style="color: #75715E;">Raises an error -- `Invalid read syntax: "#"`</span>
+<span style="color: #AE81FF;">IO</span>.inspect [self]
+</pre>
+</div>
+
+<p>
+I'm sure there are additional parsing issues -- <a href="https://github.com/victorolinasc/ob-elixir/issues">report them</a> if you
+find them!
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Input</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+You can pass variables into a code block:
+</p>
+
+<table id="mammals" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 4:</span> Some mammals</caption>
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">Common Name</th>
+<th scope="col" class="left">Order</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">tiger</td>
+<td class="left">carnivora</td>
+</tr>
+
+<tr>
+<td class="left">orangutan</td>
+<td class="left">primate</td>
+</tr>
+
+<tr>
+<td class="left">armadillo</td>
+<td class="left">cingulata</td>
+</tr>
+
+<tr>
+<td class="left">brown bear</td>
+<td class="left">carnivora</td>
+</tr>
+
+<tr>
+<td class="left">capuchin</td>
+<td class="left">primate</td>
+</tr>
+</tbody>
+</table>
+
+<div class="org-src-container">
+
+<pre class="src src-elixir">mammals
+  |&gt; <span style="color: #AE81FF;">Enum</span>.filter(<span style="color: #F92672;">fn</span> ([<span style="color: #AE81FF;">_</span>, <span style="color: #E6DB74;">"primate"</span>]) -&gt; true; <span style="color: #AE81FF;">_</span> -&gt; false <span style="color: #F92672;">end</span>)
+  |&gt; <span style="color: #AE81FF;">IO</span>.inspect
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 5:</span> Some primates</caption>
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="left">orangutan</td>
+<td class="left">primate</td>
+</tr>
+
+<tr>
+<td class="left">capuchin</td>
+<td class="left">primate</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">Future work?</h2>
+<div class="outline-text-2" id="text-4">
+<ul class="org-ul">
+<li>Persistent sessions -- could be backed by emacs comint or distel
+style distributed erlang.
+</li>
+<li>Avoid having to call <code>IO.inspect</code> to return a value.
+</li>
+<li>Parsing reader values
+</li>
+<li>Optionally cleanup <code>.exs</code> file
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2015-03-15</span>
+        <span title="last modification date" class="post-info">2015-03-15</span>
+        <span title="tags" class="post-info"><a href="/tags/elixir/">elixir</a> <a href="/tags/emacs/">emacs</a> <a href="/tags/org-mode/">org-mode</a></span>
+        <span title="author" class="post-info">Thomas Moulia</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+      </section>
+      <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+      <script src="https://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+      <script src="/media/js/main.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.x (<a href="http://orgmode.org">Org mode</a> 8.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:jtmoulia &lt;at&gt; pocketknife &lt;dot&gt; io">Thomas Moulia</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
