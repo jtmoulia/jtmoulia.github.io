@@ -17,6 +17,7 @@
       op/site-sub-title "public notebook 📓"
       op/personal-github-link "http://github.com/jtmoulia"
       op/theme 'mdo
+      op/personal-google-analytics-id "UA-60774978-1"
       op/category-config-alist '(("blog" ;; this is the default configuration
                                   :show-meta t
                                   :show-comment t
