@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Distributed Sequence Diagram Syntax - jtmoulia</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Thomas Moulia" />
+    <meta name="description" content="Distributed systems in message sequence charts." />
+    <meta name="keywords" content="distributed, viz, diagram, sequence, uml" />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">jtmoulia</a></h1>
+        <p>public notebook 📓</p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="http://github.com/jtmoulia">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="http://www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="jtmoulia.pocketknife.io">
+        </form>
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Distributed Sequence Diagram Syntax</h1>
+<p>
+At <a href="http://spatch.co">Spatch</a> we're planning towards a federated system which uses
+<a href="http://en.wikipedia.org/wiki/Operational_transformation">operational transform</a> (OT) for conflict resolution. Part of that
+process is brainstorming edge or corner cases for challenging our
+assumptions. I'd like to be able to record these cases in a
+human-readable format -- suites of tests for our ideas.
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Academic Figures</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Academic OT papers often feature figures similar to Fig 1. In these
+diagrams, operations are created at one site, and then shipped to
+other sites.
+</p>
+
+
+<div class="figure">
+<p><img src="/assets/blog/2015/03/16/distrib-seq-diagram/cherif_2011_fig3.png" alt="cherif_2011_fig3.png" />
+</p>
+<p><span class="figure-number">Figure 1:</span> Cherif, 2011</p>
+</div>
+
+<p>
+These diagrams are a great way to explore causality in a distributed
+system. They'd be useful to illustrate the edge cases, but how do
+you draw them?
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">UML Sequence Diagrams</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+I first tried to figure out the name of the diagram. Some brief
+googling took me to <a href="http://www.plantuml.com/">plantuml</a> and its fellow <a href="https://en.wikipedia.org/wiki/Unified_Modeling_Language">UML</a> tools.
+</p>
+
+<p>
+The UML <a href="https://en.wikipedia.org/wiki/Sequence_diagram">sequence diagram</a> is clearly heading in the right direction
+visually, and the plantuml syntax is effortless. The catch is that
+the diagram restricts messages to being delivered instantly -- the
+signals are fixed to the horizontal:
+</p>
+
+<blockquote>
+<p>
+Messages, written with horizontal arrows with the message name
+written above them, display interaction
+</p>
+</blockquote>
+
+<p>
+You can hack around it, but the hacks are visual and distracting:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-plantuml">activate A
+activate B
+A -&gt; B
+B -&gt; C
+B -&gt; A
+A -&gt; C
+deactivate A
+deactivate B
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="/assets/blog/2015/03/16/distrib-seq-diagram/plantuml_example.png" alt="plantuml_example.png" />
+</p>
+<p><span class="figure-number">Figure 2:</span> Hacking at concurrent ops with plantuml</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">mscgen</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Next I found out about <a href="https://en.wikipedia.org/wiki/Message_sequence_chart">message sequence charts</a>: a category of
+diagrams that encompasses UML sequence diagrams.
+</p>
+
+<p>
+<a href="http://www.mcternan.me.uk/mscgen/">mscgen</a> is an fantastically simple executable (despite a X11 dep) for
+drawing a subset of message sequence charts. It supports delaying
+the delivery of messages with the <code>arcskip</code> option, but not altering
+when a message is sent: message <code>n</code> is sent at time <code>n</code>.
+</p>
+
+<p>
+Though on the right track, mscgen isn't expressive enough.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-mscgen">msc {
+  A,B,C;
+  A -&gt; B [ arcskip = "4" ];
+  B -&gt; C;
+  B -&gt; A;
+  A -&gt; C [ arcskip = "3" ];
+}
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="/assets/blog/2015/03/16/distrib-seq-diagram/mscgen_example.png" alt="mscgen_example.png" />
+</p>
+<p><span class="figure-number">Figure 3:</span> mscgen: simple, but not expressive enough</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">mscpackage</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+<a href="http://satoss.uni.lu/software/mscpackage/">mscpackage</a> is a LaTeX package for drawing message sequence
+charts. As usual around LaTeX, mscpackage overcomes its LaTeX
+dependency and syntax by being the most expressive option. In fact,
+it's the only option so far which can draw the reference diagram:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-latex"><span style="color: #F92672;">\begin</span>{<span style="color: #A6E22E;">msc</span>}{Classic Example}
+
+<span style="color: #F92672;">\declinst</span>{s1}{Site 1}{abc}
+<span style="color: #F92672;">\declinst</span>{s2}{Site 2}{abc}
+
+<span style="color: #F92672;">\msccomment</span>[l]{A = Ins(0, x)}{s1}
+<span style="color: #F92672;">\mess</span>{A}{s1}[0.1]{s2}[3]
+
+<span style="color: #F92672;">\msccomment</span>[r]{B = Del(2)}{s2}
+<span style="color: #F92672;">\mess</span>{B}{s2}[0.1]{s1}[3]
+
+<span style="color: #F92672;">\nextlevel</span>
+<span style="color: #F92672;">\action</span>{xabc}{s1}
+<span style="color: #F92672;">\action</span>{ab}{s2}
+
+<span style="color: #F92672;">\nextlevel</span>
+
+<span style="color: #F92672;">\nextlevel</span>
+<span style="color: #F92672;">\msccomment</span>[l]{IT(B, A)}{s1}
+<span style="color: #F92672;">\msccomment</span>[r]{IT(A, B)}{s2}
+
+<span style="color: #F92672;">\nextlevel</span>
+<span style="color: #F92672;">\action</span>{xab}{s1}
+<span style="color: #F92672;">\action</span>{xab}{s2}
+
+<span style="color: #F92672;">\end</span>{<span style="color: #A6E22E;">msc</span>}
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="/assets/blog/2015/03/16/distrib-seq-diagram/mscpackage_example.png" alt="mscpackage_example.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5">Summary</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+For my use case, mscpackage is both the winner and only
+contestant. While it strikes a decent balance between simplicity and
+power, I think that plantuml's simple syntax could be easily
+extended to support the control over messages which I need. Food for
+thought.
+</p>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2015-03-16</span>
+        <span title="last modification date" class="post-info">2015-03-18</span>
+        <span title="tags" class="post-info"><a href="/tags/distrib/">distrib</a> <a href="/tags/viz/">viz</a></span>
+        <span title="author" class="post-info">Thomas Moulia</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+      </section>
+      <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+      <script src="https://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-60774978-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.x (<a href="http://orgmode.org">Org mode</a> 8.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:jtmoulia &lt;at&gt; gmail &lt;dot&gt; com">Thomas Moulia</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
