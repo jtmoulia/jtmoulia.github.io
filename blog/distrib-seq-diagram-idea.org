@@ -1,0 +1,178 @@
+#+TITLE:       Distributed Sequence Diagram Syntax Ideas
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       jtmoulia@gmail.com
+#+DATE:        2015-03-16 Mon
+#+URI:         /blog/%y/%m/%d/distrib-seq-diagram-idea
+#+KEYWORDS:    distributed, viz, diagram, sequence, uml
+#+TAGS:        distrib, viz
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Allow signal start/end to be set in a UML sequence diagram.
+
+At [[http://spatch.co][Spatch]] we're planning towards a federated system which uses
+[[http://en.wikipedia.org/wiki/Operational_transformation][operational transform]] (OT) for conflict resolution. Part of that is
+brainstorming edge or corner cases for challenging our
+assumptions. I'd like to be able to record these cases in a
+human-readable format -- suites of tests for our ideas.
+
+* Academic Figures
+
+  Academic OT papers often feature figures similar to Fig 1. In these
+  diagrams, operations are created at one site, and then shipped to
+  other sites.
+
+  These diagrams are perfect -- they showcase the edge cases around
+  concurrent operations.
+
+  #+CAPTION: Cherif, 2011
+  [[file:../assets/img/cherif_2011_fig3.png]]
+
+* UML Sequence Diagrams
+
+  However, I wasn't even sure what to call that diagram. I ended up
+  posting a [[http://cs.stackexchange.com/questions/40497/identify-this-diagram-similar-to-a-sequence-diagram-but-the-network-isnt-re][question]] on cs.stackexchange.com. I went for pithy +
+  funny, and the question was downvoted and put on hold. Next time, more
+  background for those CS'ers.
+
+  I also tried to google out a quick way to specify and draw these
+  diagrams. I was dropped in the lap of [[http://www.plantuml.com/][plantuml]] and its fellow [[https://en.wikipedia.org/wiki/Unified_Modeling_Language][UML]]
+  tools.
+
+  The UML [[https://en.wikipedia.org/wiki/Sequence_diagram][sequence diagram]] is clearly heading in the right direction
+  visually, and the plantuml syntax is effortless. The catch is that
+  the diagram restricts messages to being delivered instantly -- the
+  signals are fixed to the horizontal:
+
+  #+CAPTION: Wikipedia on sequence diagram messages
+  #+BEGIN_QUOTE
+    Messages, written with horizontal arrows with the message name
+    written above them, display interaction
+  #+END_QUOTE
+
+  You can hack around it, but the hacks are visual and distracting:
+
+  #+BEGIN_SRC plantuml :file ../assets/img/plantuml_example.png :exports both
+    activate A
+    activate B
+    A -> B
+    B -> C
+    B -> A
+    A -> C
+    deactivate A
+    deactivate B
+  #+END_SRC
+
+  #+CAPTION: Hacking at concurrent ops with plantuml
+  #+RESULTS:
+  [[file:../assets/img/plantuml_example.png]]
+
+
+
+* mscgen
+
+  Next I found out about [[https://en.wikipedia.org/wiki/Message_sequence_chart][message sequence charts]], which is a category
+  of diagrams that encompasses UML sequence diagrams.
+
+  [[http://www.mcternan.me.uk/mscgen/][mscgen]] is an fantastically simple executable (despite a X11 dep) for
+  drawing a subset of message sequence charts. It supports delaying
+  the delivery of messages with the =arcskip= option, but not altering
+  when a message is sent: message =n= is sent at time =n=.
+
+  Though on the right track, mscgen isn't expressive enough.
+
+  #+BEGIN_SRC mscgen :file ../assets/img/mscgen_example.png :exports both
+     msc {
+       A,B,C;
+       A -> B [ arcskip = "4" ];
+       B -> C;
+       B -> A;
+       A -> C [ arcskip = "3" ];
+     }
+  #+END_SRC
+
+  #+RESULTS:
+  [[file:../assets/img/mscgen_example.png]]
+
+
+* mscpackage
+
+  [[http://satoss.uni.lu/software/mscpackage/][mscpackage]] is a LaTeX package for drawing message sequence
+  charts. As usual around LaTeX, mscpackage overcomes it's LaTeX
+  dependency and syntax by being the most expressive option. In fact,
+  it's the option so far able to draw the reference diagram:
+
+  And stuff \(f(x) = \frac{x^3}{n}\)
+
+    # \setlength{\envinstdist}{2*\envinstdist}
+
+  #  test.png 
+  #+name: hello-world
+  #+header: :file :headers '("\\usepackage{msc}")
+  #+BEGIN_SRC latex
+    \begin{msc}{Classic Example}
+
+    \declinst{s1}{Site 1}{abc}
+    \declinst{s2}{Site 2}{abc}
+    \end{msc}
+  #+END_SRC
+
+  #+RESULTS: hello-world
+  #+BEGIN_LaTeX
+  \begin{msc}{Classic Example}
+
+  \declinst{s1}{Site 1}{abc}
+  \declinst{s2}{Site 2}{abc}
+  \end{msc}
+  #+END_LaTeX
+
+
+
+
+  #+BEGIN_SRC latex :file latex.pdf
+    \latex
+  #+END_SRC
+
+  #+RESULTS:
+  #+BEGIN_LaTeX
+  [[file:latex.png]]
+  #+END_LaTeX
+
+  #+HEADER: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 800
+  # +HEADER: :fit yes
+
+  #+HEADER: :packages '(("msc"))
+  #+HEADER: :results file raw
+  #+HEADER: :file ../assets/img/mscpackage_example.png
+  #+HEADER: :exports both
+  #+BEGIN_SRC latex
+    \begin{msc}{Classic Example}
+
+    \declinst{s1}{Site 1}{abc}
+    \declinst{s2}{Site 2}{abc}
+
+    \msccomment[l]{A = Ins(0, x)}{s1}
+    \mess{A}{s1}[0.1]{s2}[3]
+
+    \msccomment[r]{B = Del(2)}{s2}
+    \mess{B}{s2}[0.1]{s1}[3]
+
+    \nextlevel
+    \action{xabc}{s1}
+    \action{ab}{s2}
+
+    \nextlevel
+
+    \nextlevel
+    \msccomment[l]{IT(B, A)}{s1}
+    \msccomment[r]{IT(A, B)}{s2}
+
+    \nextlevel
+    \action{xab}{s1}
+    \action{xab}{s2}
+
+    \end{msc}
+  #+END_SRC
+
+  #+RESULTS:
+  [[file:../assets/img/mscpackage_example.png]]
+
