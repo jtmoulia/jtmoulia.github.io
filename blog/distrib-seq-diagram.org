@@ -1,17 +1,17 @@
-#+TITLE:       Distributed Sequence Diagram Syntax Ideas
+#+TITLE:       Distributed Sequence Diagram Syntax
 #+AUTHOR:      Thomas Moulia
 #+EMAIL:       jtmoulia@gmail.com
 #+DATE:        2015-03-16 Mon
-#+URI:         /blog/%y/%m/%d/distrib-seq-diagram-idea
+#+URI:         /blog/%y/%m/%d/distrib-seq-diagram
 #+KEYWORDS:    distributed, viz, diagram, sequence, uml
 #+TAGS:        distrib, viz
 #+LANGUAGE:    en
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
-#+DESCRIPTION: Allow signal start/end to be set in a UML sequence diagram.
+#+DESCRIPTION: Distributed systems in message sequence charts.
 
 At [[http://spatch.co][Spatch]] we're planning towards a federated system which uses
-[[http://en.wikipedia.org/wiki/Operational_transformation][operational transform]] (OT) for conflict resolution. Part of that is
-brainstorming edge or corner cases for challenging our
+[[http://en.wikipedia.org/wiki/Operational_transformation][operational transform]] (OT) for conflict resolution. Part of that
+process is brainstorming edge or corner cases for challenging our
 assumptions. I'd like to be able to record these cases in a
 human-readable format -- suites of tests for our ideas.
 
@@ -21,22 +21,17 @@ human-readable format -- suites of tests for our ideas.
   diagrams, operations are created at one site, and then shipped to
   other sites.
 
-  These diagrams are perfect -- they showcase the edge cases around
-  concurrent operations.
-
   #+CAPTION: Cherif, 2011
   [[file:../assets/img/cherif_2011_fig3.png]]
 
+  These diagrams are a great way to explore causality in a distributed
+  system. They'd be useful to illustrate the edge cases, but how do
+  you draw them?
+
 * UML Sequence Diagrams
 
-  However, I wasn't even sure what to call that diagram. I ended up
-  posting a [[http://cs.stackexchange.com/questions/40497/identify-this-diagram-similar-to-a-sequence-diagram-but-the-network-isnt-re][question]] on cs.stackexchange.com. I went for pithy +
-  funny, and the question was downvoted and put on hold. Next time, more
-  background for those CS'ers.
-
-  I also tried to google out a quick way to specify and draw these
-  diagrams. I was dropped in the lap of [[http://www.plantuml.com/][plantuml]] and its fellow [[https://en.wikipedia.org/wiki/Unified_Modeling_Language][UML]]
-  tools.
+  I first tried to figure out the name of the diagram. Some brief
+  googling took me to [[http://www.plantuml.com/][plantuml]] and its fellow [[https://en.wikipedia.org/wiki/Unified_Modeling_Language][UML]] tools.
 
   The UML [[https://en.wikipedia.org/wiki/Sequence_diagram][sequence diagram]] is clearly heading in the right direction
   visually, and the plantuml syntax is effortless. The catch is that
@@ -70,8 +65,8 @@ human-readable format -- suites of tests for our ideas.
 
 * mscgen
 
-  Next I found out about [[https://en.wikipedia.org/wiki/Message_sequence_chart][message sequence charts]], which is a category
-  of diagrams that encompasses UML sequence diagrams.
+  Next I found out about [[https://en.wikipedia.org/wiki/Message_sequence_chart][message sequence charts]]: a category of
+  diagrams that encompasses UML sequence diagrams.
 
   [[http://www.mcternan.me.uk/mscgen/][mscgen]] is an fantastically simple executable (despite a X11 dep) for
   drawing a subset of message sequence charts. It supports delaying
@@ -90,6 +85,7 @@ human-readable format -- suites of tests for our ideas.
      }
   #+END_SRC
 
+  #+CAPTION: mscgen: simple, but not expressive enough
   #+RESULTS:
   [[file:../assets/img/mscgen_example.png]]
 
@@ -97,54 +93,11 @@ human-readable format -- suites of tests for our ideas.
 * mscpackage
 
   [[http://satoss.uni.lu/software/mscpackage/][mscpackage]] is a LaTeX package for drawing message sequence
-  charts. As usual around LaTeX, mscpackage overcomes it's LaTeX
+  charts. As usual around LaTeX, mscpackage overcomes its LaTeX
   dependency and syntax by being the most expressive option. In fact,
-  it's the option so far able to draw the reference diagram:
+  it's the only option so far which can draw the reference diagram:
 
-  And stuff \(f(x) = \frac{x^3}{n}\)
-
-    # \setlength{\envinstdist}{2*\envinstdist}
-
-  #  test.png 
-  #+name: hello-world
-  #+header: :file :headers '("\\usepackage{msc}")
-  #+BEGIN_SRC latex
-    \begin{msc}{Classic Example}
-
-    \declinst{s1}{Site 1}{abc}
-    \declinst{s2}{Site 2}{abc}
-    \end{msc}
-  #+END_SRC
-
-  #+RESULTS: hello-world
-  #+BEGIN_LaTeX
-  \begin{msc}{Classic Example}
-
-  \declinst{s1}{Site 1}{abc}
-  \declinst{s2}{Site 2}{abc}
-  \end{msc}
-  #+END_LaTeX
-
-
-
-
-  #+BEGIN_SRC latex :file latex.pdf
-    \latex
-  #+END_SRC
-
-  #+RESULTS:
-  #+BEGIN_LaTeX
-  [[file:latex.png]]
-  #+END_LaTeX
-
-  #+HEADER: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 800
-  # +HEADER: :fit yes
-
-  #+HEADER: :packages '(("msc"))
-  #+HEADER: :results file raw
-  #+HEADER: :file ../assets/img/mscpackage_example.png
-  #+HEADER: :exports both
-  #+BEGIN_SRC latex
+  #+BEGIN_SRC latex :eval no :exports source
     \begin{msc}{Classic Example}
 
     \declinst{s1}{Site 1}{abc}
@@ -173,6 +126,13 @@ human-readable format -- suites of tests for our ideas.
     \end{msc}
   #+END_SRC
 
-  #+RESULTS:
   [[file:../assets/img/mscpackage_example.png]]
 
+
+* Summary
+
+  For my use case, mscpackage is both the winner and only
+  contestant. While it strikes a decent balance between simplicity and
+  power, I think that plantuml's simple syntax could be easily
+  extended to support the control over messages which I need. Food for
+  thought.
