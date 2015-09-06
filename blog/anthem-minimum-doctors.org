@@ -1,0 +1,367 @@
+#+TITLE:       Narrow and Phantom: California Health Insurance Networks
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       jtmoulia@gmail.com
+#+DATE:        2015-06-01 Mon
+#+URI:         /blog/%y/%m/%d/narrow-and-phantom
+#+KEYWORDS:    health insurance,data,california,health
+#+TAGS:        health
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: The Anthem Minimum Coverage PPO network is not what's advertised.
+
+/Overview:/ health insurance plans have out of date physician listings. Why is
+that, and how might we fix it?
+
+* The Background
+
+Late in May, 2015, I married Caitria O'Neill in Joshua Tree, CA. Our honeymoon
+was a cross-country road-trip, but Caitria wanted to get a standard physical
+before we took off.
+
+We were both on the same plan: the Anthem Blue Cross Minimum Coverage PPO; one
+of the Covered California exchange's Catastrophic plans. We'd decided to go with
+a PPO because we don't have permanent home address, and the directory for the
+PPO listed doctors across the state.
+
+Caitria looked up a doctor by logging into Anthem's website and using the "Find
+a Doctor" service dialed for primary care physicians accepting new patients;
+Anthem's recommended approach. Phone trees led to a receptionists who'd report
+that the physician had...
+
+- moved or never worked there
+- was no longer a primary care physician (specialist)
+- wasn't taking Anthem Blue Cross Minimum coverage PPO.
+
+After more than ten strike-outs, Caitria found a doctor through a phone call
+listing service not associated with Anthem.
+
+This frustrated us, but reading similar reports across the state made us
+pissed. So we created a survey.
+
+** Survey
+
+*** California's Department of Managed Healthcare's survey
+
+Through friends, we found out later that Anthem /is/ being investigated by the
+Department of Managed Health Care in California for variances between Anthem's
+doctor directory and a phone survey. This is far more complete than our ad-hoc
+survey, but was conducted in November of 2014, with a planned follow-up six
+months later. After our phone calls, I'd bet Anthem will perform worse in the
+follow-up.
+
+*** Method
+
+Feedback on the methodology is welcome! We want to have accurate information on
+which insurance plans a phsyician accepts.
+
+The Anthem "Find a Doctor" service lists doctors by insurance plan, and distance
+from a zip-code.  We created a list of random California zip-codes, searched for
+primary care physicians accepting new patients with our insurance, and then
+randomly selected a physician from that list.
+
+For each physician, we would call their phone number and attempt to verify
+whether...
+
+- the contact information was correct given the physician
+- the physician performed primary care
+- the physician accepted the specified health insurance
+
+Often we were provided with additional contact information, which we would
+follow until successful or reaching a dead-end.
+
+*** Results
+
+Out of 73 zip-codes, 16 zip-codes had no listed physician given the 30 mile
+radius. 11 physicians couldn't be reached due to the office being closed, the
+line being dead, or the call going to an answering machine.
+
+Additionally, our method of selecting a random physician from a random zip-code
+led to some phsyicians being selected multiple times, sometimes with different
+contact information. We removed duplicates without discarding any successful
+contact information.
+
+Out of the 33 physician phone numbers for which we were able to speak with a
+receptionist or representative, 7 were correctly listed or 21.2%.
+
+
+Include graph!
+
+* Our Questions
+
+** Legality
+
+Regulations regarding health insurance plan's network adequacy are federally
+relegated, but left up to the states; plans are required to be in "compliance
+with state insurance laws" including "network adequacy rules."
+
+The ACA gives the Secretary of Health and Human Services the responsibility of
+ensuring that cerified health plans "ensure a sufficient choice of providers
+... and provide information to enrollees and prospective enrollees on the
+availability of in-network and out-of-network providers".
+
+
+California has relatively rigorous network adequacy laws with Knox Keene:
+California: Knox Keen
+
+**** 
+
+*** 1:2000 ratio of primary care physicians to patients?
+
+Under California's network adequacy laws, qualified health plans like the Anthem
+Blue Cross Minimum Coverage PPO are required to maintain a minimum ratio of one
+primary care doctor per two thousand patients. We are 
+
+To get an idea for what the true ratio might be we've issued a FOIA request
+for documents 
+
+Additionally, there is a 1:1200 requirement for specialists, but that's another
+can of worms.
+
+http://healthconsumer.org/081214-ManagedCareinCaliforniaSeries-2-networkadequacy-coveredca.pdf
+
+** Can an up-to-date survey of which plans a physician accepts be maintained?
+
+I tend to think that we, the people looking for a physician, can keep a more
+better physician directory than Anthem. By mechanizing or crowd-sourcing the
+survey process, we could have accurate information about physicians and the
+insurance plans they accept.
+
+*** Getting lists of physicias by health insurance plan.
+
+
+**** List of all insurance plan.
+
+**** List of doctors per-insurance plan.
+
+Health insurance plans are required to publish contact and geographic
+information for physicians contracted to accept their insurance; it's a vital
+feature of a plan to patients. Insurers appear to do a great job adding
+physicians to a directory, but to fail at removing them or keeping their
+information up-to-date. These lists should provide a somewhat super-set of
+physicians whom accept an insurance plan.
+
+
+*** Scaling up the survey.
+
+**** Mechanizing the survey.
+
+The surveyor would need to navigate the different types of answering services on
+the other end of a physician's phone number:
+
+- Phone tree
+- Receptionist
+- Being redirected to a new phone number
+
+Several ways to automate the survey:
+
+- Call centers: e.g. a community might want to update it's provider information
+  and host a volunteer call center.
+- Twilio can be used to robo-call in a survey.
+- Amazon's Mechanical Turk would scalably distribute our survey to people.
+
+**** Getting data from California's Department of Managed Health Care?
+
+I have to verify this, but ... California's Department of Managed Health Care
+conducts regular surveys monitoring health insurers networks. If the data is
+public, it could be used to bootstrap the physician information and provide
+regular benchmarks.
+
+**** Machine learning
+
+Clark Davenport brought up that machine learning could be used to identify
+physicians which might be mis-listed. This prioritized list could minimize
+the surveying which has to be done, lowering costs.
+
+I'd imagine there's plenty of potential for other classifications / features in
+there.
+
+*** Crowd-sourcing
+
+There are many physicians to keep track of, but people are constantly and
+repeatedly figuring out how physicians can be contacted, the type of medicine
+the physician performs, their geopgraphic location, and what insurance plans the
+physician takes.
+
+That information usually gets scribbled in a notebook and forgotten about once
+the search is over. If we provide a place for people to find up to date
+information and report back we might be able to scale up physician surveys.
+
+** Our plan is one facet of a larger context.
+
+For our mini-survey we started with our own need: primary care physicians
+accepting new patients for the Anthem Blue Cross Minimum Coverage PPO. But, this
+is just one plan in one state from one insurance company.
+
+*** Multiple Plans
+
+*** Multiple Insurance
+
+*** Exchanges vs private individual plans
+
+Washington Post article: 
+http://www.washingtonpost.com/blogs/wonkblog/wp/2014/01/13/obamacares-narrow-networks-are-going-to-make-people-furious-but-they-might-control-costs/
+
+** What is Anthem's process for maintaining their directory, and why is it failing?
+
+*** Primary care vs specialist not kept up to date, or listed incorrectly.
+
+*** Being able to contact the physician by phone/address is not an Anthem requirement.
+
+*** Repeated records in the directory.
+
+*** Doctors report being listed as contractors without their permission.
+
+* Analysis
+
+** Prelude
+
+Import pandas
+
+#+BEGIN_SRC python 
+  import pandas as pd
+
+  def dataframe_to_table(frame):
+      """
+      Convert the dataframe to a friendly list of lists.
+      """
+      frame_dict = frame.to_dict()
+      fields = frame_dict.keys()
+      cols = []
+      for field in fields:
+          cols.append(frame_dict[field].values())
+      return [fields] + zip(*cols)
+
+#+END_SRC
+
+#+RESULTS:
+: None
+
+Load the raw data from 
+#+BEGIN_SRC python
+  # Load the raw data
+  raw = pd.DataFrame.from_csv('anathema_raw.csv', index_col=False)
+
+  dataframe_to_table(raw[['Doctor', 'Zipcode', 'Phone']][:5])
+#+END_SRC
+
+#+RESULTS:
+
+** Cleaning the List
+
+#+BEGIN_SRC python
+  # The `docs` data contains only entries with a doctor who was contacted
+  docs = raw.copy()
+
+  # Remove uncontacted physicians: `Contacted? == NaN`
+  docs = docs[docs['Contacted?'].isnull()]
+
+  # Remove entries where a doctor couldn't be found for the zip code
+  docs = docs[docs['Doctor'].notnull()]
+  docs = docs[docs['Phone'].notnull()]
+
+  # Remove repeated physicians
+  docs.drop_duplicates('Doctor', inplace=True)
+
+  # Strip newlines from the doctor names, and phone numbers
+  docs['Doctor'] = docs['Doctor'].apply(lambda x: x.strip())
+
+  # Cast booleans: "y ..." == True, "n ..." == False, NaN == NaN
+  def clean_boolean(value):
+      try:
+          if value.startswith("y"):
+              return True
+          elif value.startswith("n"):
+              return False
+      except AttributeError:
+          if value != value:
+              return value
+          else:
+              raise
+
+  docs['Contact Correct?'] = docs['Contact Correct?'].apply(clean_boolean)
+  docs['Specialty Correct?'] = docs['Specialty Correct?'].apply(clean_boolean)
+  docs['Insurance Correct?'] = docs['Insurance Correct?'].apply(clean_boolean)
+  docs['New Patients?'] = docs['New Patients?'].apply(clean_boolean)
+
+  len(docs)
+#+END_SRC
+
+#+RESULTS:
+
+*** Unable to Contact
+
+#+BEGIN_SRC python
+  len(raw[raw['Contacted?'].notnull()])
+#+END_SRC
+
+#+RESULTS:
+: 11
+
+11 physicians who couldn't be contacted due to reaching an answering machine or
+requiring follow-up were removed.
+
+*** No Listed Physicians for Zip Code
+
+#+BEGIN_SRC python
+  len(raw[raw['Phone'].isnull()])
+#+END_SRC
+
+#+RESULTS:
+: 16
+
+16 zipcodes had had no listed physicians. These records were removed.
+
+
+*** Duplicated Physicians
+
+Our method led to repeated physicians (see discussion). Repeated records
+were removed.
+
+*TODO!* Removing a True repeat might be lowering the final count. DOUBLE CHECK
+
+
+** Counts
+
+*** Number of Physicians Considered
+
+#+BEGIN_SRC python
+  len(docs)
+#+END_SRC
+
+#+RESULTS:
+: 33
+
+*** Valid Physicians
+
+A valid physician is one who had valid contact information, and was
+a primary care physician accepting new patients.
+
+#+BEGIN_SRC python
+  def iter_valid(docs, fields=['Contact Correct?',
+                               'Specialty Correct?',
+                               'Insurance Correct?',
+                               'New Patients?']):
+      """
+      Yield physicians for which the specified fields are True.
+      """
+      for _, doc in docs.iterrows():
+          if all(doc[field] is True for field in fields):
+              yield doc
+
+  valid_docs = list(iter_valid(docs))
+  len(valid_docs)
+#+END_SRC
+
+#+RESULTS:
+: 7
+
+*** Percentage of Valid Physicians
+
+#+BEGIN_SRC python
+  float(len(valid_docs)) / float(len(docs))
+#+END_SRC
+
+#+RESULTS:
+: 0.212121212121
+
+21.2% valid out of 33 physicians contacted.
