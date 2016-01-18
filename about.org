@@ -7,17 +7,26 @@
 #+ATTR_HTML: :alt dogneill :width 320px :style float:right;
 [[file:./assets/img/dogneill.jpg]]
 
-I live in South Lake Tahoe (the Nevada side) with my [[http://overthemoon2015.com][fiancee]], Caitria,
-and dog, Curie.
+I live with my +fiancée+ wife and partner in all things, Caitria, and our small
+dog, Curie. We work together and with our clients on product design,
+architecture, engineering, and iteration; we strive to build what users want.
 
-I recently read and loved [[https://www.goodreads.com/book/show/12074927-the-fractal-prince][The Fractal Prince]] -- it's turtles all the
-way down.
+** Where
 
-* Spatch
+We tend to move around. Here's where we are, and where we've been:
 
-  I work with the fine folk at [[http://spatch.co/][Spatch]] on designing and implementing
-  the backend for a modern, decentralized communication system.
+- Redwood City, CA :: Dec 2015 to present
+- Monson, MA :: Sept 2015 to Nov 2015
+- Tahoe, CA :: Dec 2014 to May 2015
+- Palo Alto, CA :: Dec 2014 to June 2014
+- Pacifica, CA :: The Past
+- Somerville, MA :: The Far Past
 
-  Interesting parts of the job have been working with [[https://en.wikipedia.org/wiki/Operational_transformation][operational transform]],
-  decentralized systems, and [[http://elixir-lang.org/][Elixir]].
+** Books
 
+I love sci-fi books. Recent reads include:
+
+- Aurora :: Kim Stanley Robinson
+- The Peripheral :: William Gibson
+- Lexicon: A Novel :: Max Barry
+- The Fractal Prince :: Hannu Rajaniemi

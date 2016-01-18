@@ -4,7 +4,7 @@
 #+LANGUAGE: en
 #+OPTIONS:  num:nil toc:nil
 
-#+ATTR_HTML: :alt dogneill :width 400px :style float:right;
+#+ATTR_HTML: :alt dogneill :width 320px :class u-pull-right
 [[file:./assets/img/slugbug.jpg]]
 
 I'm a software engineer curious about how we might communicate. I do

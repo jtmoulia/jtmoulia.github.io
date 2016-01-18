@@ -1,10 +1,10 @@
 #+TITLE:       Intro to Spell: An Elixir WAMP Client
 #+AUTHOR:      Thomas Moulia
 #+EMAIL:       jtmoulia@pocketknife.io
-#+DATE:        2015-03-15 Sat
+#+DATE:        2015-04-01 Wed
 #+URI:         /blog/%y/%m/%d/intro-to-spell
-#+KEYWORDS:    elixir, 
-#+TAGS:        elixir, erlang, contracting
+#+KEYWORDS:    elixir, wamp, networking
+#+TAGS:        elixir, erlang, contracting, networking
 #+LANGUAGE:    en
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: ob-elixir: interactive development in elixir using org-mode
@@ -39,9 +39,10 @@ project took less than two months.
 
 * Comments
 
-There was another WAMP client written in Erlang, [[https://github.com/bwegh/awre][awre]]. We decided to implement a
-new client to take advantage of Elixir's extensibility and ecosystem. Spell uses
-Elixir libraries and tools where possible.
+There was another WAMP client written in Erlang, [[https://github.com/bwegh/awre][awre]]. While awre is a fine
+solution, we decided to implement a new client to take advantage of Elixir's
+extensibility and ecosystem. Spell uses Elixir libraries and tools where
+possible.
 
 Elixir was a great fit for development. Erlang's message passing architecture
 and failure handling is a natural fit for network applications. Overlaid with

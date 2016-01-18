@@ -24,53 +24,53 @@ Emacs using ob-elixir.
 
 * Org-Babel + Elixir
 
-  The best place to get started is with the [[http://orgmode.org/org.html#Working-With-Source-Code][documentation]], but here
-  is what an Elixir code block should resemble:
+The best place to get started is with the [[http://orgmode.org/org.html#Working-With-Source-Code][documentation]], but here
+is what an Elixir code block should resemble:
 
-  #+begin_src
-    #+begin_src elixir
-      IO.inspect :result
-    #+_end_src
-  #+end_src
+#+begin_src org :results silent :exports code
+  #+begin_src elixir
+    IO.inspect :result
+  \#+end_src
+#+end_src
 
 * Output
 
-  ob-elixir writes your code block to a =.exs= file and then evaluates
-  the file using the =elixir= executable. The first line of standard
-  output is passed off to Org Mode, which then does its best to
-  transform it into a table.
+ob-elixir writes your code block to a =.exs= file and then evaluates
+the file using the =elixir= executable. The first line of standard
+output is passed off to Org Mode, which then does its best to
+transform it into a table.
 
-  A one dimensional list or tuple is transformed into a table row:
+A one dimensional list or tuple is transformed into a table row:
 
-  #+BEGIN_SRC elixir
+#+BEGIN_SRC elixir
     # it's as easy as
     [42, :foo, "bar"]
       |> IO.inspect
-  #+END_SRC
+#+END_SRC
 
-  #+CAPTION: Values
-  #+RESULTS[d65a58a7c9a29b9264149c36dae91291e1f8489d]:
-  | 42 | :foo | bar |
+#+CAPTION: Values
+#+RESULTS[d65a58a7c9a29b9264149c36dae91291e1f8489d]:
+| 42 | :foo | bar |
 
-  Each row in a two dimensional list becomes a row in a table:
+Each row in a two dimensional list becomes a row in a table:
 
-  #+BEGIN_SRC elixir
+#+BEGIN_SRC elixir
     [1, 2, 3]
       |> Enum.map(&({&1, &1*&1}))
       |> IO.inspect
-  #+END_SRC
+#+END_SRC
 
-  #+CAPTION: Squares
-  #+RESULTS[83895b632a85618531490a0393d0c3e9440a2511]:
-  | 1 | 1 |
-  | 2 | 4 |
-  | 3 | 9 |
+#+CAPTION: Squares
+#+RESULTS[83895b632a85618531490a0393d0c3e9440a2511]:
+| 1 | 1 |
+| 2 | 4 |
+| 3 | 9 |
 
-  Finally, a potentially useful example of getting the top 5 processes
-  sorted by heap size. It also prints the total heap size and number
-  of reductions:
+Finally, a potentially useful example of getting the top 5 processes
+sorted by heap size. It also prints the total heap size and number
+of reductions:
 
-  #+BEGIN_SRC elixir
+#+BEGIN_SRC elixir
     output_keys = [:registered_name, :heap_size, :total_heap_size, :reductions]
     Process.list()
       |> Enum.map(&Process.info/1)
@@ -79,67 +79,67 @@ Emacs using ob-elixir.
       |> Enum.map(&(for key <- output_keys, do: &1[key]))
       |> Enum.take(5)
       |> IO.inspect
-  #+END_SRC
+#+END_SRC
 
-  #+CAPTION: Top 5 processes by heap size
-  #+RESULTS[01d758fa0bf108e1ccee3e83f1391496390ce6da]:
-  | :application_controller | 28690 | 75112 |   53231 |
-  | :kernel_sup             |  6772 | 35462 |   48964 |
-  | :code_server            |  4185 | 32875 |  176097 |
-  | :erl_prim_loader        |  4185 |  8370 | 1142203 |
-  | :init                   |  2586 |  3573 |   12554 |
+#+CAPTION: Top 5 processes by heap size
+#+RESULTS[01d758fa0bf108e1ccee3e83f1391496390ce6da]:
+| :application_controller | 28690 | 75112 |   53231 |
+| :kernel_sup             |  6772 | 35462 |   48964 |
+| :code_server            |  4185 | 32875 |  176097 |
+| :erl_prim_loader        |  4185 |  8370 | 1142203 |
+| :init                   |  2586 |  3573 |   12554 |
 
 ** Parsing Issues
 
-   The parser currently uses python style syntax parsing, and doesn't
-   support Elixir reader expressions within lists, i.e. values
-   prefixed with =#=, like =#PID<0.0.0>=:
+The parser currently uses python style syntax parsing, and doesn't
+support Elixir reader expressions within lists, i.e. values
+prefixed with =#=, like =#PID<0.0.0>=:
 
-  #+BEGIN_SRC elixir
+#+BEGIN_SRC elixir
     # Works
     IO.inspect self
-  #+END_SRC
+#+END_SRC
 
-  #+RESULTS[739922cbab4f4b28ac9a48bf11dcc24c5739f7a1]:
-  : #PID<0.48.0>
+#+RESULTS[739922cbab4f4b28ac9a48bf11dcc24c5739f7a1]:
+: #PID<0.48.0>
 
-  #+BEGIN_SRC elixir :eval no-export
+#+BEGIN_SRC elixir :eval no-export
     # Raises an error -- `Invalid read syntax: "#"`
     IO.inspect [self]
-  #+END_SRC
+#+END_SRC
 
-   I'm sure there are additional parsing issues -- [[https://github.com/victorolinasc/ob-elixir/issues][report them]] if you
-   find them!
+I'm sure there are additional parsing issues -- [[https://github.com/victorolinasc/ob-elixir/issues][report them]] if you
+find them!
 
 * Input
 
-  You can pass variables into a code block:
+You can pass variables into a code block:
 
-  #+CAPTION: Some mammals
-  #+NAME: mammals
-  | Common Name | Order     |
-  |-------------+-----------|
-  | tiger       | carnivora |
-  | orangutan   | primate   |
-  | armadillo   | cingulata |
-  | brown bear  | carnivora |
-  | capuchin    | primate   |
+#+CAPTION: Some mammals
+#+NAME: mammals
+| Common Name | Order     |
+|-------------+-----------|
+| tiger       | carnivora |
+| orangutan   | primate   |
+| armadillo   | cingulata |
+| brown bear  | carnivora |
+| capuchin    | primate   |
 
-  #+BEGIN_SRC elixir :var mammals=mammals
+#+BEGIN_SRC elixir :var mammals=mammals
     mammals
       |> Enum.filter(fn ([_, "primate"]) -> true; _ -> false end)
       |> IO.inspect
-  #+END_SRC
+#+END_SRC
 
-  #+CAPTION: Some primates
-  #+RESULTS[8b01ce2b08d07db7ff12dcfe134e717c5d9351fb]:
-  | orangutan | primate |
-  | capuchin  | primate |
+#+CAPTION: Some primates
+#+RESULTS[8b01ce2b08d07db7ff12dcfe134e717c5d9351fb]:
+| orangutan | primate |
+| capuchin  | primate |
 
 * Future work?
 
-  - Persistent sessions -- could be backed by emacs comint or distel
-    style distributed erlang.
-  - Avoid having to call =IO.inspect= to return a value.
-  - Parsing reader values
-  - Optionally cleanup =.exs= file
+- Persistent sessions -- could be backed by emacs comint or distel
+  style distributed erlang.
+- Avoid having to call =IO.inspect= to return a value.
+- Parsing reader values
+- Optionally cleanup =.exs= file
