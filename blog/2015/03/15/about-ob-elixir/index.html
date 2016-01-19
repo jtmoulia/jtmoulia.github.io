@@ -6,31 +6,58 @@
     <meta name="author" content="Thomas Moulia" />
     <meta name="description" content="ob-elixir: interactive development in elixir using org-mode" />
     <meta name="keywords" content="elixir, emacs, org-mode, org-babel, interactive development, literate programming" />
+    <!-- TODO Concatenate CSS -->
+    <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,700,300italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/media/css/main.css" type="text/css">
-    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
   </head>
-  <body class="container">
-    <div>
-      <header class="masthead">
-        <h1 class="masthead-title"><a href="/">jtmoulia</a></h1>
-        <p>public notebook 📓</p>
-        <ul>
-          <li><a href="/blog/">Blog</a></li>
-          <li><a href="/tags/">Tags</a></li>
-          <li><a href="/about/">About</a></li>
-          <li><a href="http://github.com/jtmoulia">GitHub</a></li>
-          <li><a href="/rss.xml">RSS</a></li>
-        </ul>
-        <form method="get" id="searchform" action="http://www.google.com/search">
-          <input type="text" class="field" name="q" id="s" placeholder="Search">
-          <input type="hidden" name="as_sitesearch" value="jtmoulia.pocketknife.io">
-        </form>
-      </header>
-    </div>
 
-<div>
+  <body class="container">
+<div class="masthead">
+  <div class="masthead-title-div u-pull-left">
+    <h1 class="masthead-title"><a href="/">
+      jtmoulia
+    </a></h1>
+    <!-- TODO Who needs a sub-title?? -->
+    <!-- <p class="masthead-sub-title"> -->
+    <!-- public notebook 📓 -->
+    <!-- </p> -->
+  </div>
+  <nav class="navbar u-pull-right">
+    <ul class="navbar-list">
+      <li><a href="/blog/">Posts</a></li>
+      <li><a href="/about/">Who</a></li>
+    </ul>
+  </nav>
+</div>
+<div class="u-cf"></div>
+
+    <!-- <div> -->
+    <!--   <header class="masthead"> -->
+    <!--     <h1 class="masthead-title"><a href="/">jtmoulia</a></h1> -->
+    <!--     <p>public notebook 📓</p> -->
+    <!--     <ul> -->
+    <!--        -->
+    <!--       <li><a href="/blog/">Blog</a></li> -->
+    <!--        -->
+    <!--       <li><a href="/tags/">Tags</a></li> -->
+    <!--       <li><a href="/about/">About</a></li> -->
+    <!--       <li><a href="http://github.com/jtmoulia">GitHub</a></li> -->
+    <!--       <li><a href="/rss.xml">RSS</a></li> -->
+    <!--     </ul> -->
+    <!--     <form method="get" id="searchform" action="http://www.google.com/search"> -->
+    <!--       <input type="text" class="field" name="q" id="s" placeholder="Search"> -->
+    <!--       <input type="hidden" name="as_sitesearch" value="jtmoulia.pocketknife.io"> -->
+    <!--     </form> -->
+    <!--      -->
+    <!--   </header> -->
+    <!-- </div> -->
+
+  <hr>
+<div class="content">
 <div class="post">
-<h1>Intro to ob-elixir, Written with ob-elixir</h1>
+<h3>Intro to ob-elixir, Written with ob-elixir</h3>
 <p>
 <a href="http://about.me/olinasc">Victor Olinasc's</a> <a href="https://github.com/victorolinasc/ob-elixir">ob-elixir</a> does what it says on the tin: Org Mode
 Elixir language support. Also known as Elixir <a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a>
@@ -45,25 +72,27 @@ currently supports. All of the code snippets were run from within
 Emacs using ob-elixir.
 </p>
 
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Org-Babel + Elixir</h2>
-<div class="outline-text-2" id="text-1">
+<div id="outline-container-orgheadline1" class="outline-4">
+<h4 id="orgheadline1">Org-Babel + Elixir</h4>
+<div class="outline-text-4" id="text-orgheadline1">
 <p>
 The best place to get started is with the <a href="http://orgmode.org/org.html#Working-With-Source-Code">documentation</a>, but here
 is what an Elixir code block should resemble:
 </p>
 
-<pre class="example">
-#+begin_src elixir
+<div class="org-src-container">
+
+<pre class="src src-org">#+begin_src elixir
   IO.inspect :result
-#+_end_src
+\#+end_src
 </pre>
 </div>
 </div>
+</div>
 
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2">Output</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgheadline2" class="outline-4">
+<h4 id="orgheadline2">Output</h4>
+<div class="outline-text-4" id="text-orgheadline2">
 <p>
 ob-elixir writes your code block to a <code>.exs</code> file and then evaluates
 the file using the <code>elixir</code> executable. The first line of standard
@@ -77,9 +106,9 @@ A one dimensional list or tuple is transformed into a table row:
 
 <div class="org-src-container">
 
-<pre class="src src-elixir"><span style="color: #75715E;"># </span><span style="color: #75715E;">it's as easy as</span>
-[42, <span style="color: #87cefa;">:foo</span>, <span style="color: #E6DB74;">"bar"</span>]
-  |&gt; <span style="color: #AE81FF;">IO</span>.inspect
+<pre class="src src-elixir"># it's as easy as
+[42, :foo, "bar"]
+  |&gt; IO.inspect
 </pre>
 </div>
 
@@ -87,17 +116,17 @@ A one dimensional list or tuple is transformed into a table row:
 <caption class="t-above"><span class="table-number">Table 1:</span> Values</caption>
 
 <colgroup>
-<col  class="right" />
+<col  class="org-right" />
 
-<col  class="left" />
+<col  class="org-left" />
 
-<col  class="left" />
+<col  class="org-left" />
 </colgroup>
 <tbody>
 <tr>
-<td class="right">42</td>
-<td class="left">:foo</td>
-<td class="left">bar</td>
+<td class="org-right">42</td>
+<td class="org-left">:foo</td>
+<td class="org-left">bar</td>
 </tr>
 </tbody>
 </table>
@@ -109,8 +138,8 @@ Each row in a two dimensional list becomes a row in a table:
 <div class="org-src-container">
 
 <pre class="src src-elixir">[1, 2, 3]
-  |&gt; <span style="color: #AE81FF;">Enum</span>.map(&amp;({&amp;1, &amp;1*&amp;1}))
-  |&gt; <span style="color: #AE81FF;">IO</span>.inspect
+  |&gt; Enum.map(&amp;({&amp;1, &amp;1*&amp;1}))
+  |&gt; IO.inspect
 </pre>
 </div>
 
@@ -118,24 +147,24 @@ Each row in a two dimensional list becomes a row in a table:
 <caption class="t-above"><span class="table-number">Table 2:</span> Squares</caption>
 
 <colgroup>
-<col  class="right" />
+<col  class="org-right" />
 
-<col  class="right" />
+<col  class="org-right" />
 </colgroup>
 <tbody>
 <tr>
-<td class="right">1</td>
-<td class="right">1</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
 </tr>
 
 <tr>
-<td class="right">2</td>
-<td class="right">4</td>
+<td class="org-right">2</td>
+<td class="org-right">4</td>
 </tr>
 
 <tr>
-<td class="right">3</td>
-<td class="right">9</td>
+<td class="org-right">3</td>
+<td class="org-right">9</td>
 </tr>
 </tbody>
 </table>
@@ -148,14 +177,14 @@ of reductions:
 
 <div class="org-src-container">
 
-<pre class="src src-elixir"><span style="color: #FD971F;">output_keys</span> = [<span style="color: #87cefa;">:registered_name</span>, <span style="color: #87cefa;">:heap_size</span>, <span style="color: #87cefa;">:total_heap_size</span>, <span style="color: #87cefa;">:reductions</span>]
-<span style="color: #AE81FF;">Process</span>.list()
-  |&gt; <span style="color: #AE81FF;">Enum</span>.map(&amp;Process.info/1)
-  |&gt; <span style="color: #AE81FF;">Enum</span>.filter(&amp;Dict.has_key?(&amp;1, <span style="color: #87cefa;">:registered_name</span>))
-  |&gt; <span style="color: #AE81FF;">Enum</span>.sort(&amp;(&amp;1[<span style="color: #87cefa;">:heap_size</span>] &gt; &amp;2[<span style="color: #87cefa;">:heap_size</span>]))
-  |&gt; <span style="color: #AE81FF;">Enum</span>.map(&amp;(<span style="color: #F92672;">for</span> key &lt;- output_keys, <span style="color: #87cefa;">do:</span> &amp;1[key]))
-  |&gt; <span style="color: #AE81FF;">Enum</span>.take(5)
-  |&gt; <span style="color: #AE81FF;">IO</span>.inspect
+<pre class="src src-elixir">output_keys = [:registered_name, :heap_size, :total_heap_size, :reductions]
+Process.list()
+  |&gt; Enum.map(&amp;Process.info/1)
+  |&gt; Enum.filter(&amp;Dict.has_key?(&amp;1, :registered_name))
+  |&gt; Enum.sort(&amp;(&amp;1[:heap_size] &gt; &amp;2[:heap_size]))
+  |&gt; Enum.map(&amp;(for key &lt;- output_keys, do: &amp;1[key]))
+  |&gt; Enum.take(5)
+  |&gt; IO.inspect
 </pre>
 </div>
 
@@ -163,56 +192,56 @@ of reductions:
 <caption class="t-above"><span class="table-number">Table 3:</span> Top 5 processes by heap size</caption>
 
 <colgroup>
-<col  class="left" />
+<col  class="org-left" />
 
-<col  class="right" />
+<col  class="org-right" />
 
-<col  class="right" />
+<col  class="org-right" />
 
-<col  class="right" />
+<col  class="org-right" />
 </colgroup>
 <tbody>
 <tr>
-<td class="left">:application_controller</td>
-<td class="right">28690</td>
-<td class="right">75112</td>
-<td class="right">53231</td>
+<td class="org-left">:application_controller</td>
+<td class="org-right">28690</td>
+<td class="org-right">75112</td>
+<td class="org-right">53231</td>
 </tr>
 
 <tr>
-<td class="left">:kernel_sup</td>
-<td class="right">6772</td>
-<td class="right">35462</td>
-<td class="right">48964</td>
+<td class="org-left">:kernel_sup</td>
+<td class="org-right">6772</td>
+<td class="org-right">35462</td>
+<td class="org-right">48964</td>
 </tr>
 
 <tr>
-<td class="left">:code_server</td>
-<td class="right">4185</td>
-<td class="right">32875</td>
-<td class="right">176097</td>
+<td class="org-left">:code_server</td>
+<td class="org-right">4185</td>
+<td class="org-right">32875</td>
+<td class="org-right">176097</td>
 </tr>
 
 <tr>
-<td class="left">:erl_prim_loader</td>
-<td class="right">4185</td>
-<td class="right">8370</td>
-<td class="right">1142203</td>
+<td class="org-left">:erl_prim_loader</td>
+<td class="org-right">4185</td>
+<td class="org-right">8370</td>
+<td class="org-right">1142203</td>
 </tr>
 
 <tr>
-<td class="left">:init</td>
-<td class="right">2586</td>
-<td class="right">3573</td>
-<td class="right">12554</td>
+<td class="org-left">:init</td>
+<td class="org-right">2586</td>
+<td class="org-right">3573</td>
+<td class="org-right">12554</td>
 </tr>
 </tbody>
 </table>
 </div>
 
-<div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1">Parsing Issues</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-orgheadline3" class="outline-5">
+<h5 id="orgheadline3">Parsing Issues</h5>
+<div class="outline-text-5" id="text-orgheadline3">
 <p>
 The parser currently uses python style syntax parsing, and doesn't
 support Elixir reader expressions within lists, i.e. values
@@ -221,8 +250,8 @@ prefixed with <code>#</code>, like <code>#PID&lt;0.0.0&gt;</code>:
 
 <div class="org-src-container">
 
-<pre class="src src-elixir"><span style="color: #75715E;"># </span><span style="color: #75715E;">Works</span>
-<span style="color: #AE81FF;">IO</span>.inspect self
+<pre class="src src-elixir"># Works
+IO.inspect self
 </pre>
 </div>
 
@@ -232,8 +261,8 @@ prefixed with <code>#</code>, like <code>#PID&lt;0.0.0&gt;</code>:
 
 <div class="org-src-container">
 
-<pre class="src src-elixir"><span style="color: #75715E;"># </span><span style="color: #75715E;">Raises an error -- `Invalid read syntax: "#"`</span>
-<span style="color: #AE81FF;">IO</span>.inspect [self]
+<pre class="src src-elixir"># Raises an error -- `Invalid read syntax: "#"`
+IO.inspect [self]
 </pre>
 </div>
 
@@ -245,51 +274,51 @@ find them!
 </div>
 </div>
 
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3">Input</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-orgheadline4" class="outline-4">
+<h4 id="orgheadline4">Input</h4>
+<div class="outline-text-4" id="text-orgheadline4">
 <p>
 You can pass variables into a code block:
 </p>
 
-<table id="mammals" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="orgtable1" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 <caption class="t-above"><span class="table-number">Table 4:</span> Some mammals</caption>
 
 <colgroup>
-<col  class="left" />
+<col  class="org-left" />
 
-<col  class="left" />
+<col  class="org-left" />
 </colgroup>
 <thead>
 <tr>
-<th scope="col" class="left">Common Name</th>
-<th scope="col" class="left">Order</th>
+<th scope="col" class="org-left">Common Name</th>
+<th scope="col" class="org-left">Order</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="left">tiger</td>
-<td class="left">carnivora</td>
+<td class="org-left">tiger</td>
+<td class="org-left">carnivora</td>
 </tr>
 
 <tr>
-<td class="left">orangutan</td>
-<td class="left">primate</td>
+<td class="org-left">orangutan</td>
+<td class="org-left">primate</td>
 </tr>
 
 <tr>
-<td class="left">armadillo</td>
-<td class="left">cingulata</td>
+<td class="org-left">armadillo</td>
+<td class="org-left">cingulata</td>
 </tr>
 
 <tr>
-<td class="left">brown bear</td>
-<td class="left">carnivora</td>
+<td class="org-left">brown bear</td>
+<td class="org-left">carnivora</td>
 </tr>
 
 <tr>
-<td class="left">capuchin</td>
-<td class="left">primate</td>
+<td class="org-left">capuchin</td>
+<td class="org-left">primate</td>
 </tr>
 </tbody>
 </table>
@@ -297,8 +326,8 @@ You can pass variables into a code block:
 <div class="org-src-container">
 
 <pre class="src src-elixir">mammals
-  |&gt; <span style="color: #AE81FF;">Enum</span>.filter(<span style="color: #F92672;">fn</span> ([<span style="color: #AE81FF;">_</span>, <span style="color: #E6DB74;">"primate"</span>]) -&gt; true; <span style="color: #AE81FF;">_</span> -&gt; false <span style="color: #F92672;">end</span>)
-  |&gt; <span style="color: #AE81FF;">IO</span>.inspect
+  |&gt; Enum.filter(fn ([_, "primate"]) -&gt; true; _ -&gt; false end)
+  |&gt; IO.inspect
 </pre>
 </div>
 
@@ -306,56 +335,55 @@ You can pass variables into a code block:
 <caption class="t-above"><span class="table-number">Table 5:</span> Some primates</caption>
 
 <colgroup>
-<col  class="left" />
+<col  class="org-left" />
 
-<col  class="left" />
+<col  class="org-left" />
 </colgroup>
 <tbody>
 <tr>
-<td class="left">orangutan</td>
-<td class="left">primate</td>
+<td class="org-left">orangutan</td>
+<td class="org-left">primate</td>
 </tr>
 
 <tr>
-<td class="left">capuchin</td>
-<td class="left">primate</td>
+<td class="org-left">capuchin</td>
+<td class="org-left">primate</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 
-<div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4">Future work?</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgheadline5" class="outline-4">
+<h4 id="orgheadline5">Future work?</h4>
+<div class="outline-text-4" id="text-orgheadline5">
 <ul class="org-ul">
 <li>Persistent sessions -- could be backed by emacs comint or distel
-style distributed erlang.
-</li>
-<li>Avoid having to call <code>IO.inspect</code> to return a value.
-</li>
-<li>Parsing reader values
-</li>
-<li>Optionally cleanup <code>.exs</code> file
-</li>
+style distributed erlang.</li>
+<li>Avoid having to call <code>IO.inspect</code> to return a value.</li>
+<li>Parsing reader values</li>
+<li>Optionally cleanup <code>.exs</code> file</li>
 </ul>
 </div>
 </div>
 
 </div>
 </div>
+
+    <hr />
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2015-03-15</span>
-        <span title="last modification date" class="post-info">2015-03-15</span>
-        <span title="tags" class="post-info"><a href="/tags/elixir/">elixir</a> <a href="/tags/emacs/">emacs</a> <a href="/tags/org-mode/">org-mode</a></span>
+        <span title="last modification date" class="post-info">2016-01-18</span>
+        <span title="tags" class="post-info"><a href="/tags/elixir/">elixir</a>, <a href="/tags/emacs/">emacs</a>, <a href="/tags/org-mode/">org-mode</a></span>
         <span title="author" class="post-info">Thomas Moulia</span>
       </div>
       <section>
-        <h1>Comments</h1>
+        <h3>Comments</h3>
       </section>
       <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-      <script src="https://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       <script src="/media/js/main.js"></script>
       <script type="text/javascript">
         var _gaq = _gaq || [];

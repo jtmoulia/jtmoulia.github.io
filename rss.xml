@@ -4,56 +4,63 @@
     <title>jtmoulia</title>
     <link>http://jtmoulia.pocketknife.io</link>
     <description>public notebook 📓</description>
-    <pubDate>Wed, 18 Mar 2015 21:01:39 PDT</pubDate>
-    <lastBuildDate>Wed, 18 Mar 2015 21:01:39 PDT</lastBuildDate>
+    <pubDate>Mon, 18 Jan 2016 16:50:25 PST</pubDate>
+    <lastBuildDate>Mon, 18 Jan 2016 16:50:25 PST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
     <item>
+      <title>Intro to ob-elixir, Written with ob-elixir</title>
+      <link>http://jtmoulia.pocketknife.io/blog/2015/03/15/about-ob-elixir</link>
+      <description><![CDATA[ob-elixir: interactive development in elixir using org-mode]]></description>
+      <pubDate>2016-01-18</pubDate>
+      <guid>http://jtmoulia.pocketknife.io/blog/2015/03/15/about-ob-elixir</guid>
+    </item>
+    <item>
+      <title>Intro to Spell: An Elixir WAMP Client</title>
+      <link>http://jtmoulia.pocketknife.io/blog/2015/04/01/intro-to-spell</link>
+      <description><![CDATA[ob-elixir: interactive development in elixir using org-mode]]></description>
+      <pubDate>2016-01-18</pubDate>
+      <guid>http://jtmoulia.pocketknife.io/blog/2015/04/01/intro-to-spell</guid>
+    </item>
+    <item>
       <title>Distributed Sequence Diagram Syntax</title>
       <link>http://jtmoulia.pocketknife.io/blog/2015/03/16/distrib-seq-diagram</link>
-      <description>Distributed systems in message sequence charts.</description>
+      <description><![CDATA[]]></description>
       <pubDate>2015-03-18</pubDate>
       <guid>http://jtmoulia.pocketknife.io/blog/2015/03/16/distrib-seq-diagram</guid>
     </item>
     <item>
-      <title>Intro to ob-elixir, Written with ob-elixir</title>
-      <link>http://jtmoulia.pocketknife.io/blog/2015/03/15/about-ob-elixir</link>
-      <description>ob-elixir: interactive development in elixir using org-mode</description>
-      <pubDate>2015-03-15</pubDate>
-      <guid>http://jtmoulia.pocketknife.io/blog/2015/03/15/about-ob-elixir</guid>
-    </item>
-    <item>
       <title>Elixir 0-Arity Functions: Drop the Parens?</title>
       <link>http://jtmoulia.pocketknife.io/blog/2015/03/12/elixir-fun-call-parens</link>
-      <description>Include the parens when calling 0 arity functions?</description>
+      <description><![CDATA[]]></description>
       <pubDate>2015-03-15</pubDate>
       <guid>http://jtmoulia.pocketknife.io/blog/2015/03/12/elixir-fun-call-parens</guid>
     </item>
     <item>
       <title>Elixir and Distel</title>
       <link>http://jtmoulia.pocketknife.io/blog/2015/03/11/elixir-and-distel</link>
-      <description>Distel: Emacs talking Erlixir</description>
+      <description><![CDATA[]]></description>
       <pubDate>2015-03-12</pubDate>
       <guid>http://jtmoulia.pocketknife.io/blog/2015/03/11/elixir-and-distel</guid>
     </item>
     <item>
       <title>Neotomex: An Elixir PEG Interface</title>
       <link>http://jtmoulia.pocketknife.io/blog/2014/09/09/norse-attack-map</link>
-      <description>Neotomex: An Elixir PEG Interface</description>
+      <description><![CDATA[]]></description>
       <pubDate>2015-03-12</pubDate>
       <guid>http://jtmoulia.pocketknife.io/blog/2014/09/09/norse-attack-map</guid>
     </item>
     <item>
       <title>Norse Live Attack Map Visualization</title>
       <link>http://jtmoulia.pocketknife.io/blog/2014/03/01/norse-attack-map</link>
-      <description>On contract with Norse, IPViking attack map visualization</description>
+      <description><![CDATA[]]></description>
       <pubDate>2015-03-12</pubDate>
       <guid>http://jtmoulia.pocketknife.io/blog/2014/03/01/norse-attack-map</guid>
     </item>
     <item>
       <title>Switchboard</title>
       <link>http://jtmoulia.pocketknife.io/blog/2014/06/05/switchboard</link>
-      <description>Switchboard: An IMAP connection manager [Spatch]</description>
+      <description><![CDATA[]]></description>
       <pubDate>2015-03-12</pubDate>
       <guid>http://jtmoulia.pocketknife.io/blog/2014/06/05/switchboard</guid>
     </item>

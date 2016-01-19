@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <title>About - jtmoulia</title>
+    <title>Intro to Spell: An Elixir WAMP Client - jtmoulia</title>
     <meta charset="utf-8" />
     <meta name="author" content="Thomas Moulia" />
+    <meta name="description" content="ob-elixir: interactive development in elixir using org-mode" />
+    <meta name="keywords" content="elixir, wamp, networking" />
     <!-- TODO Concatenate CSS -->
     <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
     <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
@@ -55,50 +57,65 @@
   <hr>
 <div class="content">
 <div class="post">
-<h3>About</h3>
-
-<div class="figure">
-<p><img src="/assets/about/dogneill.jpg" alt="dogneill" width="320px" style="float:right;" />
-</p>
-</div>
-
+<h3>Intro to Spell: An Elixir WAMP Client</h3>
 <p>
-I live with my <del>fiancée</del> wife and partner in all things, Caitria, and our small
-dog, Curie. We work together and with our clients on product design,
-architecture, engineering, and iteration; we strive to build what users want.
+I contracted with <a href="https://www.mymedsandme.com/">MyMeds&amp;Me</a>, a London based company focusing on pharmaceutical
+adverse event reporting and event capture, to build <a href="https://github.com/MyMedsAndMe/spell">Spell</a>.
 </p>
 
 <div id="outline-container-orgheadline1" class="outline-4">
-<h4 id="orgheadline1">Where</h4>
+<h4 id="orgheadline1">A WAMP Client</h4>
 <div class="outline-text-4" id="text-orgheadline1">
 <p>
-We tend to move around. Here's where we are, and where we've been:
+The <a href="http://wamp.ws/">Web Application Messaging Protocol</a> [WAMP] is an open messaging protocol
+designed by <a href="http://tavendo.com/">Tavendo GmbH</a>. It specifies Publish Subscribe [PubSub] and Remote
+Procedure Call [RPC] functionality using a modular approach; peers must
+implement the basic protocol, but can negotiate advanced features. As an open
+specification, it supports polyglot, service oriented backends.
 </p>
-
-<dl class="org-dl">
-<dt>Redwood City, CA</dt><dd>Dec 2015 to present</dd>
-<dt>Monson, MA</dt><dd>Sept 2015 to Nov 2015</dd>
-<dt>Tahoe, CA</dt><dd>Dec 2014 to May 2015</dd>
-<dt>Palo Alto, CA</dt><dd>Dec 2014 to June 2014</dd>
-<dt>Pacifica, CA</dt><dd>The Past</dd>
-<dt>Somerville, MA</dt><dd>The Far Past</dd>
-</dl>
 </div>
 </div>
 
 <div id="outline-container-orgheadline2" class="outline-4">
-<h4 id="orgheadline2">Books</h4>
+<h4 id="orgheadline2">Spell's Purpose and Implementation</h4>
 <div class="outline-text-4" id="text-orgheadline2">
 <p>
-I love sci-fi books. Recent reads include:
+MyMeds&amp;Me was interested in decoupling their backend and transitioning from Ruby
+to Elixir, which led them to WAMP. WAMP supports peers written in any language
+within the same distributed system, allowing which could implement or rewrite
+services in the most appropriate language. However, there was no WAMP client
+written in Elixir, i.e. no bridge for transitioning components over. 
 </p>
 
-<dl class="org-dl">
-<dt>Aurora</dt><dd>Kim Stanley Robinson</dd>
-<dt>The Peripheral</dt><dd>William Gibson</dd>
-<dt>Lexicon: A Novel</dt><dd>Max Barry</dd>
-<dt>The Fractal Prince</dt><dd>Hannu Rajaniemi</dd>
-</dl>
+<p>
+I worked with the MyMeds&amp;Me engineering team to specify the requirements for an
+Elixir WAMP client, and flesh out the requirements into a technical plan and
+timeline. The work was split into two steps: first, the basic WAMP profile, and
+secondly, particular advanced features (e.g. challenge response authentication
+[CRA]) critical to their application. From initial design to completion, the
+project took less than two months.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-4">
+<h4 id="orgheadline3">Comments</h4>
+<div class="outline-text-4" id="text-orgheadline3">
+<p>
+There was another WAMP client written in Erlang, <a href="https://github.com/bwegh/awre">awre</a>. While awre is a fine
+solution, we decided to implement a new client to take advantage of Elixir's
+extensibility and ecosystem. Spell uses Elixir libraries and tools where
+possible.
+</p>
+
+<p>
+Elixir was a great fit for development. Erlang's message passing architecture
+and failure handling is a natural fit for network applications. Overlaid with
+Elixir's extensibility (metaprogramming and protocols, anyone?) we had a client
+which supported synchronous and asynchronous styles of programming, and could be
+easily extended to support WAMP's serialization and transport options. You can
+read more about it in the <a href="https://github.com/MyMedsAndMe/spell/blob/master/README.md">README</a>.
+</p>
 </div>
 </div>
 
@@ -107,6 +124,15 @@ I love sci-fi books. Recent reads include:
 
     <hr />
     <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2015-04-01</span>
+        <span title="last modification date" class="post-info">2016-01-18</span>
+        <span title="tags" class="post-info"><a href="/tags/elixir/">elixir</a>, <a href="/tags/erlang/">erlang</a>, <a href="/tags/contracting/">contracting</a>, <a href="/tags/networking/">networking</a></span>
+        <span title="author" class="post-info">Thomas Moulia</span>
+      </div>
+      <section>
+        <h3>Comments</h3>
+      </section>
       <script src="http://code.jquery.com/jquery-latest.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
       <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -124,7 +150,7 @@ I love sci-fi books. Recent reads include:
       <div class="footer">
         <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.x (<a href="http://orgmode.org">Org mode</a> 8.x)</p>
         <p>
-          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:jtmoulia &lt;at&gt; gmail &lt;dot&gt; com">Thomas Moulia</a>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:jtmoulia &lt;at&gt; pocketknife &lt;dot&gt; io">Thomas Moulia</a>
           &nbsp;&nbsp;-&nbsp;&nbsp;
           Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
           <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
