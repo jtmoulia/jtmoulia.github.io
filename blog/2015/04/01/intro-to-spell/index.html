@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <title>Intro to Spell: An Elixir WAMP Client - jtmoulia</title>
-    <meta charset="utf-8" />
-    <meta name="author" content="Thomas Moulia" />
+<head>
+  <title>Intro to Spell: An Elixir WAMP Client - jtmoulia</title>
+  <meta charset="utf-8" />
+  <meta name="author" content="Thomas Moulia" />
     <meta name="description" content="ob-elixir: interactive development in elixir using org-mode" />
     <meta name="keywords" content="elixir, wamp, networking" />
-    <!-- TODO Concatenate CSS -->
-    <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
-    <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,700,300italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
-  </head>
+  <!-- TODO Concatenate CSS -->
+  <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,700,300italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+</head>
 
   <body class="container">
 <div class="masthead">
@@ -54,11 +55,11 @@
     <!--   </header> -->
     <!-- </div> -->
 
-  <hr>
+  <hr />
 <div class="content">
-<div class="post">
-<h3>Intro to Spell: An Elixir WAMP Client</h3>
-<p>
+  <div class="post">
+      <h3>Intro to Spell: An Elixir WAMP Client</h3>
+    <p>
 I contracted with <a href="https://www.mymedsandme.com/">MyMeds&amp;Me</a>, a London based company focusing on pharmaceutical
 adverse event reporting and event capture, to build <a href="https://github.com/MyMedsAndMe/spell">Spell</a>.
 </p>
@@ -99,8 +100,52 @@ project took less than two months.
 </div>
 
 <div id="outline-container-orgheadline3" class="outline-4">
-<h4 id="orgheadline3">Comments</h4>
+<h4 id="orgheadline3">Example</h4>
 <div class="outline-text-4" id="text-orgheadline3">
+<p>
+An involved PubSub example should make things more concrete. To make it more
+impressive, imagine that the publisher or subscriber are clients in other
+languages, running on different machines.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-elixir"><span style="color: #999999; font-style: italic;"># </span><span style="color: #999999; font-style: italic;">Events must be published to a topic.</span>
+<span style="color: #ffcc66;">topic</span> = <span style="color: #66cccc;">"com.spell.example.pubsub.topic"</span>
+
+<span style="color: #999999; font-style: italic;"># </span><span style="color: #999999; font-style: italic;">Create a peer with the subscriber role.</span>
+<span style="color: #ffcc66;">subscriber</span> = <span style="color: #6699cc;">Spell</span>.connect<span style="color: #cccccc;">(</span><span style="color: #6699cc;">Crossbar</span>.uri,
+                           <span style="color: #87cefa;">realm:</span> <span style="color: #6699cc;">Crossbar</span>.get_realm<span style="color: #66cccc;">()</span>,
+                           <span style="color: #87cefa;">roles:</span> <span style="color: #66cccc;">[</span><span style="color: #6699cc;">Spell.Role.Subscriber</span><span style="color: #66cccc;">]</span><span style="color: #cccccc;">)</span>
+
+<span style="color: #999999; font-style: italic;"># </span><span style="color: #999999; font-style: italic;">`call_subscribe/2,3` synchronously subscribes to the topic.</span>
+<span style="color: #cccccc;">{</span><span style="color: #87cefa;">:ok</span>, subscription<span style="color: #cccccc;">}</span> = <span style="color: #6699cc;">Spell</span>.call_subscribe<span style="color: #cccccc;">(</span>subscriber, topic<span style="color: #cccccc;">)</span>
+
+<span style="color: #999999; font-style: italic;"># </span><span style="color: #999999; font-style: italic;">Create a peer with the publisher role.</span>
+<span style="color: #ffcc66;">publisher</span> = <span style="color: #6699cc;">Spell</span>.connect<span style="color: #cccccc;">(</span><span style="color: #6699cc;">Crossbar</span>.uri,
+                          <span style="color: #87cefa;">realm:</span> <span style="color: #6699cc;">Crossbar</span>.get_realm<span style="color: #66cccc;">()</span>,
+                          <span style="color: #87cefa;">roles:</span> <span style="color: #66cccc;">[</span><span style="color: #6699cc;">Spell.Role.Publisher</span><span style="color: #66cccc;">]</span><span style="color: #cccccc;">)</span>
+
+<span style="color: #999999; font-style: italic;"># </span><span style="color: #999999; font-style: italic;">`call_publish/2,3` synchronously publishes a message to the topic.</span>
+<span style="color: #cccccc;">{</span><span style="color: #87cefa;">:ok</span>, publication<span style="color: #cccccc;">}</span> = <span style="color: #6699cc;">Spell</span>.call_publish<span style="color: #cccccc;">(</span>publisher, topic<span style="color: #cccccc;">)</span>
+
+<span style="color: #999999; font-style: italic;"># </span><span style="color: #999999; font-style: italic;">`receive_event/2,3` blocks to receive the event.</span>
+<span style="color: #99cc99;">case</span> <span style="color: #6699cc;">Spell</span>.receive_event<span style="color: #cccccc;">(</span>publisher, subscription<span style="color: #cccccc;">)</span> <span style="color: #99cc99;">do</span>
+  <span style="color: #cccccc;">{</span><span style="color: #87cefa;">:ok</span>, event<span style="color: #cccccc;">}</span>     -&gt; handle_event<span style="color: #cccccc;">(</span>event<span style="color: #cccccc;">)</span>
+  <span style="color: #cccccc;">{</span><span style="color: #87cefa;">:error</span>, reason<span style="color: #cccccc;">}</span> -&gt; <span style="color: #cccccc;">{</span><span style="color: #87cefa;">:error</span>, reason<span style="color: #cccccc;">}</span>
+<span style="color: #99cc99;">end</span>
+
+<span style="color: #999999; font-style: italic;"># </span><span style="color: #999999; font-style: italic;">Cleanup.</span>
+<span style="color: #99cc99;">for</span> peer &lt;- <span style="color: #cccccc;">[</span>subscriber, publisher<span style="color: #cccccc;">]</span>, <span style="color: #87cefa;">do:</span> <span style="color: #6699cc;">Spell</span>.close<span style="color: #cccccc;">(</span>peer<span style="color: #cccccc;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline4" class="outline-4">
+<h4 id="orgheadline4">Comments</h4>
+<div class="outline-text-4" id="text-orgheadline4">
 <p>
 There was another WAMP client written in Erlang, <a href="https://github.com/bwegh/awre">awre</a>. While awre is a fine
 solution, we decided to implement a new client to take advantage of Elixir's
@@ -119,41 +164,67 @@ read more about it in the <a href="https://github.com/MyMedsAndMe/spell/blob/mas
 </div>
 </div>
 
-</div>
+  </div>
 </div>
 
-    <hr />
-    <div>
-      <div class="post-meta">
-        <span title="post date" class="post-info">2015-04-01</span>
-        <span title="last modification date" class="post-info">2016-01-18</span>
-        <span title="tags" class="post-info"><a href="/tags/elixir/">elixir</a>, <a href="/tags/erlang/">erlang</a>, <a href="/tags/contracting/">contracting</a>, <a href="/tags/networking/">networking</a></span>
-        <span title="author" class="post-info">Thomas Moulia</span>
-      </div>
-      <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
-      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-      <script src="/media/js/main.js"></script>
-      <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-60774978-1']);
-        _gaq.push(['_trackPageview']);
-        (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-      </script>
-      <div class="footer">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.x (<a href="http://orgmode.org">Org mode</a> 8.x)</p>
+<div>
+    <div class="post-meta row">
+      <div class="six columns">
         <p>
-          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:jtmoulia &lt;at&gt; pocketknife &lt;dot&gt; io">Thomas Moulia</a>
-          &nbsp;&nbsp;-&nbsp;&nbsp;
-          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
-          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+          Written by <span title="author" class="post-info">Thomas Moulia</span>
+        </p>
+        <p>
+          Tags: <span title="tags" class="post-info"><a href="/tags/elixir/">elixir</a>, <a href="/tags/erlang/">erlang</a>, <a href="/tags/contracting/">contracting</a>, <a href="/tags/networking/">networking</a></span>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>
+          Published:
+          <span title="post date" class="post-info">2015-04-01</span>
+        </p>
+        <p>
+          Modified:
+          <span title="last modification date" class="post-info">2016-02-06</span>
         </p>
       </div>
     </div>
+  <hr />
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript">
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-60774978-1']);
+     _gaq.push(['_trackPageview']);
+     (function() {
+         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+    </script>
+  <div class="footer container">
+    <div class="row">
+      <div class="six columns">
+        <p>
+          Copyright &copy; 2015 -
+          <span id="footerYear"></span>
+        </p>
+        <p>
+          by <a href="mailto:jtmoulia &lt;at&gt; pocketknife &lt;dot&gt; io">Thomas Moulia</a>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.x (<a href="http://orgmode.org">Org mode</a> 8.x)</p>
+        <p>
+          Powered by
+          <a href="https://github.com/kelvinh/org-page">org-page</a> and
+          <a href="http://getskeleton.com/">skeleton</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
 
   </body>
 </html>

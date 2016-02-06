@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <title>Elixir 0-Arity Functions: Drop the Parens? - jtmoulia</title>
-    <meta charset="utf-8" />
-    <meta name="author" content="Thomas Moulia" />
+<head>
+  <title>Elixir 0-Arity Functions: Drop the Parens? - jtmoulia</title>
+  <meta charset="utf-8" />
+  <meta name="author" content="Thomas Moulia" />
     <meta name="description" content="Include the parens when calling 0 arity functions?" />
     <meta name="keywords" content="elixir, style, erlang, parentheses, parens, function, variable" />
-    <!-- TODO Concatenate CSS -->
-    <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
-    <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,700,300italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
-  </head>
+  <!-- TODO Concatenate CSS -->
+  <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,700,300italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+</head>
 
   <body class="container">
 <div class="masthead">
@@ -54,11 +55,11 @@
     <!--   </header> -->
     <!-- </div> -->
 
-  <hr>
+  <hr />
 <div class="content">
-<div class="post">
-<h3>Elixir 0-Arity Functions: Drop the Parens?</h3>
-<p>
+  <div class="post">
+      <h3>Elixir 0-Arity Functions: Drop the Parens?</h3>
+    <p>
 A question <a href="https://github.com/niftyn8/elixir_style_guide">from github</a>: <code>func</code> or <code>func()</code> ? And, my opinion...
 </p>
 
@@ -100,10 +101,10 @@ handling: a <code>RuntimeError</code> is raised if the function is undefined:
 <div class="org-src-container">
 
 <pre class="src src-elixir">iex&gt; a
-** (RuntimeError) undefined function: a/0
+** <span style="color: #cccccc;">(</span><span style="color: #6699cc;">RuntimeError</span><span style="color: #cccccc;">)</span> undefined <span style="color: #87cefa;">function:</span> a/0
 
-iex&gt; a()
-** (RuntimeError) undefined function: a/0
+iex&gt; a<span style="color: #cccccc;">()</span>
+** <span style="color: #cccccc;">(</span><span style="color: #6699cc;">RuntimeError</span><span style="color: #cccccc;">)</span> undefined <span style="color: #87cefa;">function:</span> a/0
 </pre>
 </div>
 
@@ -114,28 +115,28 @@ variables in the context, then called as a function:
 
 <div class="org-src-container">
 
-<pre class="src src-elixir">defmodule Example do
+<pre class="src src-elixir"><span style="color: #99cc99;">defmodule</span> <span style="color: #6699cc;">Example</span> <span style="color: #99cc99;">do</span>
 
-  def five, do: 5
+  <span style="color: #99cc99;">def</span> <span style="color: #f99157;">five</span>, <span style="color: #87cefa;">do:</span> <span style="color: #6699cc;">5</span>
 
-  @doc """
-  Returns the function `five`, 5 in this case, plus `x`.
-  """
-  def five_plus_fn(x) do
+  <span style="color: #d8bfd8;">@doc</span> <span style="color: #66cccc;">"""</span>
+<span style="color: #66cccc;">  Returns the function `five`, 5 in this case, plus `x`.</span>
+<span style="color: #66cccc;">  """</span>
+  <span style="color: #99cc99;">def</span> <span style="color: #f99157;">five_plus_fn</span><span style="color: #cccccc;">(</span>x<span style="color: #cccccc;">)</span> <span style="color: #99cc99;">do</span>
     five + x
-  end
+  <span style="color: #99cc99;">end</span>
 
-  @doc """
-  Returns the variable `five`, 4 in this case, plus `x`.
-  """
-  def five_plus_var(x) do
-    five = 4
+  <span style="color: #d8bfd8;">@doc</span> <span style="color: #66cccc;">"""</span>
+<span style="color: #66cccc;">  Returns the variable `five`, 4 in this case, plus `x`.</span>
+<span style="color: #66cccc;">  """</span>
+  <span style="color: #99cc99;">def</span> <span style="color: #f99157;">five_plus_var</span><span style="color: #cccccc;">(</span>x<span style="color: #cccccc;">)</span> <span style="color: #99cc99;">do</span>
+    <span style="color: #ffcc66;">five</span> = <span style="color: #6699cc;">4</span>
     five + x
-  end
-end
+  <span style="color: #99cc99;">end</span>
+<span style="color: #99cc99;">end</span>
 
-IO.inspect [[:five_plus_fn,  Example.five_plus_fn(5)],
-            [:five_plus_var, Example.five_plus_var(5)]]
+<span style="color: #6699cc;">IO</span>.inspect <span style="color: #cccccc;">[</span><span style="color: #66cccc;">[</span><span style="color: #87cefa;">:five_plus_fn</span>,  <span style="color: #6699cc;">Example</span>.five_plus_fn<span style="color: #ffcc66;">(</span><span style="color: #6699cc;">5</span><span style="color: #ffcc66;">)</span><span style="color: #66cccc;">]</span>,
+            <span style="color: #66cccc;">[</span><span style="color: #87cefa;">:five_plus_var</span>, <span style="color: #6699cc;">Example</span>.five_plus_var<span style="color: #ffcc66;">(</span><span style="color: #6699cc;">5</span><span style="color: #ffcc66;">)</span><span style="color: #66cccc;">]</span><span style="color: #cccccc;">]</span>
 </pre>
 </div>
 
@@ -207,17 +208,17 @@ Here's the macro in question, trimmed down for easy digestion:
 
 <div class="org-src-container">
 
-<pre class="src src-elixir">defmacro test(message, var \\ quote(do: _), contents) do
-  contents = ...
-  var      = Macro.escape(var)
-  contents = Macro.escape(contents, unquote: true)
+<pre class="src src-elixir"><span style="color: #99cc99;">defmacro</span> test<span style="color: #cccccc;">(</span>message, var \\ <span style="color: #99cc99;">quote</span><span style="color: #66cccc;">(</span><span style="color: #87cefa;">do:</span> <span style="color: #6699cc;">_</span><span style="color: #66cccc;">)</span>, contents<span style="color: #cccccc;">)</span> <span style="color: #99cc99;">do</span>
+  <span style="color: #ffcc66;">contents</span> = ...
+  <span style="color: #ffcc66;">var</span>      = <span style="color: #6699cc;">Macro</span>.escape<span style="color: #cccccc;">(</span>var<span style="color: #cccccc;">)</span>
+  <span style="color: #ffcc66;">contents</span> = <span style="color: #6699cc;">Macro</span>.escape<span style="color: #cccccc;">(</span>contents, <span style="color: #87cefa;">unquote:</span> <span style="color: #87cefa;">true</span><span style="color: #cccccc;">)</span>
 
-  quote bind_quoted: binding do
-    test = :"test #{message}"
-    ExUnit.Case.__on_definition__(__ENV__, test)
-    def unquote(test)(unquote(var)), do: unquote(contents)
-  end
-end
+  <span style="color: #99cc99;">quote</span> <span style="color: #87cefa;">bind_quoted:</span> binding <span style="color: #99cc99;">do</span>
+    <span style="color: #ffcc66;">test</span> = :<span style="color: #66cccc;">"test </span><span style="color: #ffcc66;">#{message}</span><span style="color: #66cccc;">"</span>
+    <span style="color: #6699cc;">ExUnit.Case.__on_definition__</span><span style="color: #cccccc;">(</span><span style="color: #6699cc;">__ENV__</span>, test<span style="color: #cccccc;">)</span>
+    <span style="color: #99cc99;">def</span> <span style="color: #99cc99;">unquote</span><span style="color: #cccccc;">(</span>test<span style="color: #cccccc;">)(</span><span style="color: #99cc99;">unquote</span><span style="color: #66cccc;">(</span>var<span style="color: #66cccc;">)</span><span style="color: #cccccc;">)</span>, <span style="color: #87cefa;">do:</span> <span style="color: #99cc99;">unquote</span><span style="color: #cccccc;">(</span>contents<span style="color: #cccccc;">)</span>
+  <span style="color: #99cc99;">end</span>
+<span style="color: #99cc99;">end</span>
 </pre>
 </div>
 
@@ -294,13 +295,13 @@ advantage of this:
 
 <div class="org-src-container">
 
-<pre class="src src-elixir">defmodule MyApp.Mixfile do
-  def project do
-    deps = [{:ecto, "~&gt; 0.8.0"}]
-    [app: :my_app,
-     deps: deps]
-  end
-end
+<pre class="src src-elixir"><span style="color: #99cc99;">defmodule</span> <span style="color: #6699cc;">MyApp.Mixfile</span> <span style="color: #99cc99;">do</span>
+  <span style="color: #99cc99;">def</span> <span style="color: #f99157;">project</span> <span style="color: #99cc99;">do</span>
+    <span style="color: #ffcc66;">deps</span> = <span style="color: #cccccc;">[</span><span style="color: #66cccc;">{</span><span style="color: #87cefa;">:ecto</span>, <span style="color: #66cccc;">"~&gt; 0.8.0"</span><span style="color: #66cccc;">}</span><span style="color: #cccccc;">]</span>
+    <span style="color: #cccccc;">[</span><span style="color: #87cefa;">app:</span> <span style="color: #87cefa;">:my_app</span>,
+     <span style="color: #87cefa;">deps:</span> deps<span style="color: #cccccc;">]</span>
+  <span style="color: #99cc99;">end</span>
+<span style="color: #99cc99;">end</span>
 </pre>
 </div>
 
@@ -311,16 +312,16 @@ function without changing the reference to it:
 
 <div class="org-src-container">
 
-<pre class="src src-elixir">defmodule MyApp.Mixfile do
-  def project do
-    [app: :my_app,
-     deps: deps]
-  end
+<pre class="src src-elixir"><span style="color: #99cc99;">defmodule</span> <span style="color: #6699cc;">MyApp.Mixfile</span> <span style="color: #99cc99;">do</span>
+  <span style="color: #99cc99;">def</span> <span style="color: #f99157;">project</span> <span style="color: #99cc99;">do</span>
+    <span style="color: #cccccc;">[</span><span style="color: #87cefa;">app:</span> <span style="color: #87cefa;">:my_app</span>,
+     <span style="color: #87cefa;">deps:</span> deps<span style="color: #cccccc;">]</span>
+  <span style="color: #99cc99;">end</span>
 
-  defp deps do
-    [{:ecto, "~&gt; 0.8.0"}]
-  end
-end
+  <span style="color: #99cc99;">defp</span> <span style="color: #f99157;">deps</span> <span style="color: #99cc99;">do</span>
+    <span style="color: #cccccc;">[</span><span style="color: #66cccc;">{</span><span style="color: #87cefa;">:ecto</span>, <span style="color: #66cccc;">"~&gt; 0.8.0"</span><span style="color: #66cccc;">}</span><span style="color: #cccccc;">]</span>
+  <span style="color: #99cc99;">end</span>
+<span style="color: #99cc99;">end</span>
 </pre>
 </div>
 
@@ -352,9 +353,9 @@ A simple, contrived example:
 
 <div class="org-src-container">
 
-<pre class="src src-elixir">1..10
-  |&gt; Enum.count
-  |&gt; IO.inspect
+<pre class="src src-elixir"><span style="color: #6699cc;">1</span>..<span style="color: #6699cc;">10</span>
+  |&gt; <span style="color: #6699cc;">Enum</span>.count
+  |&gt; <span style="color: #6699cc;">IO</span>.inspect
 </pre>
 </div>
 
@@ -376,10 +377,10 @@ parens aesthetic situation a bit:
 
 <div class="org-src-container">
 
-<pre class="src src-elixir">1..10
-  |&gt; Enum.filter(&amp;(rem(&amp;1, 2) == 0))
-  |&gt; Enum.count
-  |&gt; IO.inspect
+<pre class="src src-elixir"><span style="color: #6699cc;">1</span>..<span style="color: #6699cc;">10</span>
+  |&gt; <span style="color: #6699cc;">Enum</span>.filter<span style="color: #cccccc;">(</span>&amp;<span style="color: #66cccc;">(</span>rem<span style="color: #ffcc66;">(</span>&amp;1, <span style="color: #6699cc;">2</span><span style="color: #ffcc66;">)</span> == <span style="color: #6699cc;">0</span><span style="color: #66cccc;">)</span><span style="color: #cccccc;">)</span>
+  |&gt; <span style="color: #6699cc;">Enum</span>.count
+  |&gt; <span style="color: #6699cc;">IO</span>.inspect
 </pre>
 </div>
 
@@ -424,41 +425,67 @@ in <a href="https://github.com/niftyn8/elixir_style_guide/pull/3">the elixir sty
 </div>
 </div>
 
-</div>
+  </div>
 </div>
 
-    <hr />
-    <div>
-      <div class="post-meta">
-        <span title="post date" class="post-info">2015-03-12</span>
-        <span title="last modification date" class="post-info">2015-03-15</span>
-        <span title="tags" class="post-info"><a href="/tags/elixir/">elixir</a>, <a href="/tags/style/">style</a></span>
-        <span title="author" class="post-info">Thomas Moulia</span>
-      </div>
-      <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
-      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-      <script src="/media/js/main.js"></script>
-      <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-60774978-1']);
-        _gaq.push(['_trackPageview']);
-        (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-      </script>
-      <div class="footer">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.x (<a href="http://orgmode.org">Org mode</a> 8.x)</p>
+<div>
+    <div class="post-meta row">
+      <div class="six columns">
         <p>
-          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:jtmoulia &lt;at&gt; gmail &lt;dot&gt; com">Thomas Moulia</a>
-          &nbsp;&nbsp;-&nbsp;&nbsp;
-          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
-          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+          Written by <span title="author" class="post-info">Thomas Moulia</span>
+        </p>
+        <p>
+          Tags: <span title="tags" class="post-info"><a href="/tags/elixir/">elixir</a>, <a href="/tags/style/">style</a></span>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>
+          Published:
+          <span title="post date" class="post-info">2015-03-12</span>
+        </p>
+        <p>
+          Modified:
+          <span title="last modification date" class="post-info">2015-03-15</span>
         </p>
       </div>
     </div>
+  <hr />
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript">
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-60774978-1']);
+     _gaq.push(['_trackPageview']);
+     (function() {
+         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+    </script>
+  <div class="footer container">
+    <div class="row">
+      <div class="six columns">
+        <p>
+          Copyright &copy; 2015 -
+          <span id="footerYear"></span>
+        </p>
+        <p>
+          by <a href="mailto:jtmoulia &lt;at&gt; gmail &lt;dot&gt; com">Thomas Moulia</a>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.x (<a href="http://orgmode.org">Org mode</a> 8.x)</p>
+        <p>
+          Powered by
+          <a href="https://github.com/kelvinh/org-page">org-page</a> and
+          <a href="http://getskeleton.com/">skeleton</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
 
   </body>
 </html>

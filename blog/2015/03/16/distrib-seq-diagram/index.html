@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <title>Distributed Sequence Diagram Syntax - jtmoulia</title>
-    <meta charset="utf-8" />
-    <meta name="author" content="Thomas Moulia" />
+<head>
+  <title>Distributed Sequence Diagram Syntax - jtmoulia</title>
+  <meta charset="utf-8" />
+  <meta name="author" content="Thomas Moulia" />
     <meta name="description" content="Distributed systems in message sequence charts." />
     <meta name="keywords" content="distributed, viz, diagram, sequence, uml" />
-    <!-- TODO Concatenate CSS -->
-    <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
-    <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,700,300italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
-  </head>
+  <!-- TODO Concatenate CSS -->
+  <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,700,300italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+</head>
 
   <body class="container">
 <div class="masthead">
@@ -54,11 +55,11 @@
     <!--   </header> -->
     <!-- </div> -->
 
-  <hr>
+  <hr />
 <div class="content">
-<div class="post">
-<h3>Distributed Sequence Diagram Syntax</h3>
-<p>
+  <div class="post">
+      <h3>Distributed Sequence Diagram Syntax</h3>
+    <p>
 At <a href="http://spatch.co/">Spatch</a> we're planning towards a federated system which uses
 <a href="http://en.wikipedia.org/wiki/Operational_transformation">operational transform</a> (OT) for conflict resolution. Part of that
 process is brainstorming edge or corner cases for challenging our
@@ -193,32 +194,32 @@ it's the only option so far which can draw the reference diagram:
 
 <div class="org-src-container">
 
-<pre class="src src-latex">\begin{msc}{Classic Example}
+<pre class="src src-latex"><span style="color: #99cc99;">\begin</span>{<span style="color: #f99157;">msc</span>}{Classic Example}
 
-\declinst{s1}{Site 1}{abc}
-\declinst{s2}{Site 2}{abc}
+<span style="color: #99cc99;">\declinst</span>{s1}{Site 1}{abc}
+<span style="color: #99cc99;">\declinst</span>{s2}{Site 2}{abc}
 
-\msccomment[l]{A = Ins(0, x)}{s1}
-\mess{A}{s1}[0.1]{s2}[3]
+<span style="color: #99cc99;">\msccomment</span>[l]{A = Ins(0, x)}{s1}
+<span style="color: #99cc99;">\mess</span>{A}{s1}[0.1]{s2}[3]
 
-\msccomment[r]{B = Del(2)}{s2}
-\mess{B}{s2}[0.1]{s1}[3]
+<span style="color: #99cc99;">\msccomment</span>[r]{B = Del(2)}{s2}
+<span style="color: #99cc99;">\mess</span>{B}{s2}[0.1]{s1}[3]
 
-\nextlevel
-\action{xabc}{s1}
-\action{ab}{s2}
+<span style="color: #99cc99;">\nextlevel</span>
+<span style="color: #99cc99;">\action</span>{xabc}{s1}
+<span style="color: #99cc99;">\action</span>{ab}{s2}
 
-\nextlevel
+<span style="color: #99cc99;">\nextlevel</span>
 
-\nextlevel
-\msccomment[l]{IT(B, A)}{s1}
-\msccomment[r]{IT(A, B)}{s2}
+<span style="color: #99cc99;">\nextlevel</span>
+<span style="color: #99cc99;">\msccomment</span>[l]{IT(B, A)}{s1}
+<span style="color: #99cc99;">\msccomment</span>[r]{IT(A, B)}{s2}
 
-\nextlevel
-\action{xab}{s1}
-\action{xab}{s2}
+<span style="color: #99cc99;">\nextlevel</span>
+<span style="color: #99cc99;">\action</span>{xab}{s1}
+<span style="color: #99cc99;">\action</span>{xab}{s2}
 
-\end{msc}
+<span style="color: #99cc99;">\end</span>{<span style="color: #f99157;">msc</span>}
 </pre>
 </div>
 
@@ -244,41 +245,67 @@ thought.
 </div>
 </div>
 
-</div>
+  </div>
 </div>
 
-    <hr />
-    <div>
-      <div class="post-meta">
-        <span title="post date" class="post-info">2015-03-16</span>
-        <span title="last modification date" class="post-info">2015-03-18</span>
-        <span title="tags" class="post-info"><a href="/tags/distrib/">distrib</a>, <a href="/tags/viz/">viz</a></span>
-        <span title="author" class="post-info">Thomas Moulia</span>
-      </div>
-      <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
-      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-      <script src="/media/js/main.js"></script>
-      <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-60774978-1']);
-        _gaq.push(['_trackPageview']);
-        (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-      </script>
-      <div class="footer">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.x (<a href="http://orgmode.org">Org mode</a> 8.x)</p>
+<div>
+    <div class="post-meta row">
+      <div class="six columns">
         <p>
-          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:jtmoulia &lt;at&gt; gmail &lt;dot&gt; com">Thomas Moulia</a>
-          &nbsp;&nbsp;-&nbsp;&nbsp;
-          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
-          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+          Written by <span title="author" class="post-info">Thomas Moulia</span>
+        </p>
+        <p>
+          Tags: <span title="tags" class="post-info"><a href="/tags/distrib/">distrib</a>, <a href="/tags/viz/">viz</a></span>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>
+          Published:
+          <span title="post date" class="post-info">2015-03-16</span>
+        </p>
+        <p>
+          Modified:
+          <span title="last modification date" class="post-info">2015-03-18</span>
         </p>
       </div>
     </div>
+  <hr />
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript">
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-60774978-1']);
+     _gaq.push(['_trackPageview']);
+     (function() {
+         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+    </script>
+  <div class="footer container">
+    <div class="row">
+      <div class="six columns">
+        <p>
+          Copyright &copy; 2015 -
+          <span id="footerYear"></span>
+        </p>
+        <p>
+          by <a href="mailto:jtmoulia &lt;at&gt; gmail &lt;dot&gt; com">Thomas Moulia</a>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.x (<a href="http://orgmode.org">Org mode</a> 8.x)</p>
+        <p>
+          Powered by
+          <a href="https://github.com/kelvinh/org-page">org-page</a> and
+          <a href="http://getskeleton.com/">skeleton</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
 
   </body>
 </html>
