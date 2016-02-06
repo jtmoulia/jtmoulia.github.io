@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <title>my-op for org-page - jtmoulia</title>
+  <meta charset="utf-8" />
+  <meta name="author" content="Thomas Moulia" />
+    <meta name="description" content="my-op, an organizer for org-page sites" />
+    <meta name="keywords" content="org, org-page, emacs, blog, elisp" />
+  <!-- TODO Concatenate CSS -->
+  <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,700,300italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+</head>
+
+  <body class="container">
+<div class="masthead">
+  <div class="masthead-title-div u-pull-left">
+    <h1 class="masthead-title"><a href="/">
+      jtmoulia
+    </a></h1>
+    <!-- TODO Who needs a sub-title?? -->
+    <!-- <p class="masthead-sub-title"> -->
+    <!-- public notebook 📓 -->
+    <!-- </p> -->
+  </div>
+  <nav class="navbar u-pull-right">
+    <ul class="navbar-list">
+      <li><a href="/blog/">Posts</a></li>
+      <li><a href="/about/">Who</a></li>
+    </ul>
+  </nav>
+</div>
+<div class="u-cf"></div>
+
+    <!-- <div> -->
+    <!--   <header class="masthead"> -->
+    <!--     <h1 class="masthead-title"><a href="/">jtmoulia</a></h1> -->
+    <!--     <p>public notebook 📓</p> -->
+    <!--     <ul> -->
+    <!--        -->
+    <!--       <li><a href="/blog/">Blog</a></li> -->
+    <!--        -->
+    <!--       <li><a href="/tags/">Tags</a></li> -->
+    <!--       <li><a href="/about/">About</a></li> -->
+    <!--       <li><a href="http://github.com/jtmoulia">GitHub</a></li> -->
+    <!--       <li><a href="/rss.xml">RSS</a></li> -->
+    <!--     </ul> -->
+    <!--     <form method="get" id="searchform" action="http://www.google.com/search"> -->
+    <!--       <input type="text" class="field" name="q" id="s" placeholder="Search"> -->
+    <!--       <input type="hidden" name="as_sitesearch" value="jtmoulia.pocketknife.io"> -->
+    <!--     </form> -->
+    <!--      -->
+    <!--   </header> -->
+    <!-- </div> -->
+
+  <hr />
+<div class="content">
+  <div class="post">
+      <h3>my-op for org-page</h3>
+    <p>
+<a href="https://github.com/jtmoulia/dotfiles/blob/master/layers/common/HOME/.emacs.d/private/org-page/packages.el#L24">my-op</a> is a brief library for managing org-page sites.
+</p>
+
+<p>
+Some meta on this blog: it's built using <a href="https://kelvinh/org-page">org-page</a>, a static site generator
+tightly integrated with Emacs <a href="http://orgmode.org/">org-mode</a>. Using an editor to build a site is
+loopy, but it's the best way to take advantage of org and it's literate
+programming <a href="http://orgmode.org/worg/org-contrib/babel/">tricks</a>.
+</p>
+
+<p>
+Since ths is Emacs, org-page is controlled by global variables. These global
+variables are explicitly relevant, like <code>op/repository-directory</code> or implicit,
+like <code>org-confirm-babel-evaluate</code>. A site is built by a particular configuration
+of these global variables: a profile.
+</p>
+
+<p>
+my-op provides tools for switching between and publishing profiles.
+</p>
+
+<div id="outline-container-orgheadline1" class="outline-4">
+<h4 id="orgheadline1">Configuration</h4>
+<div class="outline-text-4" id="text-orgheadline1">
+<p>
+Sites profiles are kept in an assocation list, <code>my-op-sites</code>. Each site is a
+pair: <code>(name . vars)</code>, where vars is <code>((name . value) ...)</code>. Here is this site's
+configuration:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #cccccc;">(</span><span style="color: #99cc99;">let*</span> <span style="color: #66cccc;">(</span><span style="color: #ffcc66;">(</span>root <span style="color: #99cc99;">(</span>file-name-directory <span style="color: #6699cc;">(</span>file-truename buffer-file-name<span style="color: #6699cc;">)</span><span style="color: #99cc99;">)</span><span style="color: #ffcc66;">)</span>
+       <span style="color: #ffcc66;">(</span>theme-root-directory <span style="color: #99cc99;">(</span>file-name-as-directory <span style="color: #6699cc;">(</span>concat root <span style="color: #66cccc;">"themes"</span><span style="color: #6699cc;">)</span><span style="color: #99cc99;">)</span><span style="color: #ffcc66;">)</span><span style="color: #66cccc;">)</span>
+  <span style="color: #66cccc;">(</span>add-to-list 'my-op-sites
+               `<span style="color: #ffcc66;">(</span>jtblog .
+                        <span style="color: #99cc99;">(</span><span style="color: #6699cc;">(</span>org-html-toplevel-hlevel . <span style="color: #6699cc;">4</span><span style="color: #6699cc;">)</span>
+                         <span style="color: #6699cc;">(</span>org-confirm-babel-evaluate . nil<span style="color: #6699cc;">)</span>
+                         <span style="color: #6699cc;">(</span>op/highlight-render . 'htmlize<span style="color: #6699cc;">)</span>
+                         <span style="color: #6699cc;">(</span>op/repository-directory . ,root<span style="color: #6699cc;">)</span>
+                         <span style="color: #6699cc;">(</span>op/site-domain . <span style="color: #66cccc;">"http://jtmoulia.pocketknife.io"</span><span style="color: #6699cc;">)</span>
+                         <span style="color: #6699cc;">(</span>op/repository-org-branch . <span style="color: #66cccc;">"source"</span><span style="color: #6699cc;">)</span>
+                         <span style="color: #6699cc;">(</span>op/repository-html-branch . <span style="color: #66cccc;">"master"</span><span style="color: #6699cc;">)</span>
+                         <span style="color: #6699cc;">(</span>op/site-main-title . <span style="color: #66cccc;">"jtmoulia"</span><span style="color: #6699cc;">)</span>
+                         <span style="color: #6699cc;">(</span>op/site-sub-title . <span style="color: #66cccc;">"public notebook &#128211;"</span><span style="color: #6699cc;">)</span>
+                         <span style="color: #6699cc;">(</span>op/personal-github-link . <span style="color: #66cccc;">"http://github.com/jtmoulia"</span><span style="color: #6699cc;">)</span>
+                         <span style="color: #6699cc;">(</span>op/theme-root-directory . ,theme-root-directory<span style="color: #6699cc;">)</span>
+                         <span style="color: #6699cc;">(</span>op/theme . custom<span style="color: #6699cc;">)</span>
+                         <span style="color: #6699cc;">(</span>op/personal-google-analytics-id . <span style="color: #66cccc;">"UA-60774978-1"</span><span style="color: #6699cc;">)</span>
+                         <span style="color: #6699cc;">(</span>op/category-ignore-list . <span style="color: #cccccc;">(</span><span style="color: #66cccc;">"themes"</span> <span style="color: #66cccc;">"assets"</span> <span style="color: #66cccc;">"_build"</span><span style="color: #cccccc;">)</span><span style="color: #6699cc;">)</span>
+                         <span style="color: #6699cc;">(</span>op/category-config-alist
+                          . <span style="color: #cccccc;">(</span><span style="color: #66cccc;">(</span><span style="color: #66cccc;">"blog"</span> <span style="color: #999999; font-style: italic;">;; </span><span style="color: #999999; font-style: italic;">this is the default configuration</span>
+                              <span style="color: #cc99cc;">:show-meta</span> t
+                              <span style="color: #cc99cc;">:show-comment</span> nil
+                              <span style="color: #cc99cc;">:uri-generator</span> op/generate-uri
+                              <span style="color: #cc99cc;">:uri-template</span> <span style="color: #66cccc;">"/blog/%y/%m/%d/%t/"</span>
+                              <span style="color: #cc99cc;">:sort-by</span> <span style="color: #cc99cc;">:date</span>     <span style="color: #999999; font-style: italic;">;; </span><span style="color: #999999; font-style: italic;">how to sort the posts</span>
+                              <span style="color: #cc99cc;">:category-index</span> t<span style="color: #66cccc;">)</span> <span style="color: #999999; font-style: italic;">;; </span><span style="color: #999999; font-style: italic;">generate category index or not</span>
+                             <span style="color: #66cccc;">(</span><span style="color: #66cccc;">"index"</span>
+                              <span style="color: #cc99cc;">:show-meta</span> nil
+                              <span style="color: #cc99cc;">:show-comment</span> nil
+                              <span style="color: #cc99cc;">:uri-generator</span> op/generate-uri
+                              <span style="color: #cc99cc;">:uri-template</span> <span style="color: #66cccc;">"/"</span>
+                              <span style="color: #cc99cc;">:sort-by</span> <span style="color: #cc99cc;">:date</span>
+                              <span style="color: #cc99cc;">:category-index</span> nil<span style="color: #66cccc;">)</span>
+                             <span style="color: #66cccc;">(</span><span style="color: #66cccc;">"about"</span>
+                              <span style="color: #cc99cc;">:show-meta</span> nil
+                              <span style="color: #cc99cc;">:show-comment</span> nil
+                              <span style="color: #cc99cc;">:uri-generator</span> op/generate-uri
+                              <span style="color: #cc99cc;">:uri-template</span> <span style="color: #66cccc;">"/about/"</span>
+                              <span style="color: #cc99cc;">:sort-by</span> <span style="color: #cc99cc;">:date</span>
+                              <span style="color: #cc99cc;">:category-index</span> nil<span style="color: #66cccc;">)</span><span style="color: #cccccc;">)</span><span style="color: #6699cc;">)</span><span style="color: #99cc99;">)</span><span style="color: #ffcc66;">)</span><span style="color: #66cccc;">)</span><span style="color: #cccccc;">)</span>
+</pre>
+</div>
+
+<p>
+The variable <code>my-op-project</code> references the currently selected project, and
+<code>my-op-project-policy</code> a 0-arity function which can choose which project to
+select. The default policy is to ask the user if <code>my-op-project</code> is falsy.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-4">
+<h4 id="orgheadline2">Usage</h4>
+<div class="outline-text-4" id="text-orgheadline2">
+<p>
+my-op provides a few interactive commands for publishing and selecting site
+profiles.
+</p>
+
+<dl class="org-dl">
+<dt><code>my-op/publish-to-build</code></dt><dd>publish a site to <code>_build/</code></dd>
+<dt><code>my-op/publish-to-master</code></dt><dd>publish a site to the html branch</dd>
+<dt><code>my-op/select</code></dt><dd>set a site profile's variables explicitly</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-4">
+<h4 id="orgheadline3">Future</h4>
+<div class="outline-text-4" id="text-orgheadline3">
+<p>
+There's no fixed plan, but I'll continue to tweak the behavior to fit my needs.
+org-page is happily hackable.
+</p>
+</div>
+</div>
+
+  </div>
+</div>
+
+<div>
+    <div class="post-meta row">
+      <div class="six columns">
+        <p>
+          Written by <span title="author" class="post-info">Thomas Moulia</span>
+        </p>
+        <p>
+          Tags: <span title="tags" class="post-info"><a href="/tags/emacs/">emacs</a>, <a href="/tags/org/">org</a>, <a href="/tags/elisp/">elisp</a></span>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>
+          Published:
+          <span title="post date" class="post-info">2016-02-06</span>
+        </p>
+        <p>
+          Modified:
+          <span title="last modification date" class="post-info">2016-02-06</span>
+        </p>
+      </div>
+    </div>
+  <hr />
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript">
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-60774978-1']);
+     _gaq.push(['_trackPageview']);
+     (function() {
+         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+    </script>
+  <div class="footer container">
+    <div class="row">
+      <div class="six columns">
+        <p>
+          Copyright &copy; 2015 -
+          <span id="footerYear"></span>
+        </p>
+        <p>
+          by <a href="mailto:jtmoulia &lt;at&gt; gmail &lt;dot&gt; com">Thomas Moulia</a>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.x (<a href="http://orgmode.org">Org mode</a> 8.x)</p>
+        <p>
+          Powered by
+          <a href="https://github.com/kelvinh/org-page">org-page</a> and
+          <a href="http://getskeleton.com/">skeleton</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+
+  </body>
+</html>
