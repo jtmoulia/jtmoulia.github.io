@@ -13,8 +13,8 @@
 
 (let* ((root (file-name-directory (file-truename buffer-file-name)))
        (theme-root-directory (file-name-as-directory (concat root "themes"))))
-  (add-to-list 'my-op-projects-alist
-               '(jtblog .
+  (add-to-list 'my-op-projects
+               `(jtblog .
                         ((org-html-toplevel-hlevel . 4)
                          (op/repository-directory . ,root)
                          (op/site-domain . "http://jtmoulia.pocketknife.io")
