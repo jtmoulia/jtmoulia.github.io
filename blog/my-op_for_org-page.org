@@ -72,9 +72,9 @@ configuration:
                                 :category-index nil)))))))
 #+end_src
 
-The variable =my-op-project= references the currently selected project, and
-=my-op-project-policy= a 0-arity function which can choose which project to
-select. The default policy is to ask the user if =my-op-project= is falsy.
+The variable =my-op-site= references the currently selected site, and
+=my-op-site-policy= a 0-arity function which can choose which site to
+select. The default policy is to ask the user if =my-op-site= is falsy.
 
 * Usage
 
