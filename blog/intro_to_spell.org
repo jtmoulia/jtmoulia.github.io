@@ -37,6 +37,43 @@ secondly, particular advanced features (e.g. challenge response authentication
 [CRA]) critical to their application. From initial design to completion, the
 project took less than two months.
 
+* Example
+
+An involved PubSub example should make things more concrete. To make it more
+impressive, imagine that the publisher or subscriber are clients in other
+languages, running on different machines.
+
+#+begin_src elixir :exports code
+  # Events must be published to a topic.
+  topic = "com.spell.example.pubsub.topic"
+
+  # Create a peer with the subscriber role.
+  subscriber = Spell.connect(Crossbar.uri,
+                             realm: Crossbar.get_realm(),
+                             roles: [Spell.Role.Subscriber])
+
+  # `call_subscribe/2,3` synchronously subscribes to the topic.
+  {:ok, subscription} = Spell.call_subscribe(subscriber, topic)
+
+  # Create a peer with the publisher role.
+  publisher = Spell.connect(Crossbar.uri,
+                            realm: Crossbar.get_realm(),
+                            roles: [Spell.Role.Publisher])
+
+  # `call_publish/2,3` synchronously publishes a message to the topic.
+  {:ok, publication} = Spell.call_publish(publisher, topic)
+
+  # `receive_event/2,3` blocks to receive the event.
+  case Spell.receive_event(publisher, subscription) do
+    {:ok, event}     -> handle_event(event)
+    {:error, reason} -> {:error, reason}
+  end
+
+  # Cleanup.
+  for peer <- [subscriber, publisher], do: Spell.close(peer)
+#+end_src
+
+
 * Comments
 
 There was another WAMP client written in Erlang, [[https://github.com/bwegh/awre][awre]]. While awre is a fine

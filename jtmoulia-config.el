@@ -16,6 +16,8 @@
   (add-to-list 'my-op-projects
                `(jtblog .
                         ((org-html-toplevel-hlevel . 4)
+                         (org-confirm-babel-evaluate . nil)
+                         (op/highlight-render . 'htmlize)
                          (op/repository-directory . ,root)
                          (op/site-domain . "http://jtmoulia.pocketknife.io")
                          (op/repository-org-branch . "source")
