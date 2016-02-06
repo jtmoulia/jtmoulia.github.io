@@ -27,27 +27,28 @@
                          (op/theme . custom)
                          (op/personal-google-analytics-id . "UA-60774978-1")
                          (op/category-ignore-list . ("themes" "assets" "_build"))
-                         (op/category-config-alist . (("blog" ;; this is the default configuration
-                                                       :show-meta t
-                                                       :show-comment nil
-                                                       :uri-generator op/generate-uri
-                                                       :uri-template "/blog/%y/%m/%d/%t/"
-                                                       :sort-by :date     ;; how to sort the posts
-                                                       :category-index t) ;; generate category index or not
-                                                      ("index"
-                                                       :show-meta nil
-                                                       :show-comment nil
-                                                       :uri-generator op/generate-uri
-                                                       :uri-template "/"
-                                                       :sort-by :date
-                                                       :category-index nil)
-                                                      ("about"
-                                                       :show-meta nil
-                                                       :show-comment nil
-                                                       :uri-generator op/generate-uri
-                                                       :uri-template "/about/"
-                                                       :sort-by :date
-                                                       :category-index nil)))))))
+                         (op/category-config-alist
+                          . (("blog" ;; this is the default configuration
+                              :show-meta t
+                              :show-comment nil
+                              :uri-generator op/generate-uri
+                              :uri-template "/blog/%y/%m/%d/%t/"
+                              :sort-by :date     ;; how to sort the posts
+                              :category-index t) ;; generate category index or not
+                             ("index"
+                              :show-meta nil
+                              :show-comment nil
+                              :uri-generator op/generate-uri
+                              :uri-template "/"
+                              :sort-by :date
+                              :category-index nil)
+                             ("about"
+                              :show-meta nil
+                              :show-comment nil
+                              :uri-generator op/generate-uri
+                              :uri-template "/about/"
+                              :sort-by :date
+                              :category-index nil)))))))
 
 (provide 'jtmoulia-config)
 ;;; jtmoulia-config.el ends here
