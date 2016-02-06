@@ -26,6 +26,13 @@ img {
     margin: 0.5rem;
 }
 
+.org-src-container {
+    padding: 1em;
+    background-color: #303030;
+    color: #E0E0E0;
+    border-radius: 0.5em;
+}
+
 /**
  * masthead
  */
