@@ -8,8 +8,15 @@
 [[file:./assets/img/dogneill.jpg]]
 
 I live with my +fiancée+ wife and partner in all things, Caitria, and our small
-dog, Curie. We work together and with our clients on product design,
-architecture, engineering, and iteration; we strive to build what users want.
+dog, Curie. In 2014 we started [[http://pocketknife.io][Pocketknife Design and Engineering]], a software
+contracting company. 
+
+** Links
+
+- [[https://github.com/jtmoulia][Github]]
+- [[https://facebook.com/jtmoulia][Facebook]]
+- [[https://twitter.com/jtmoulia][@jtmoulia]]
+- [[https://www.linkedin.com/in/jtmoulia][LinkedIn]]
 
 ** Where
 
