@@ -6,31 +6,58 @@
     <meta name="author" content="Thomas Moulia" />
     <meta name="description" content="Neotomex: An Elixir PEG Interface" />
     <meta name="keywords" content="elixir, erlang, neotoma, peg, parser, neotomex" />
+    <!-- TODO Concatenate CSS -->
+    <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,700,300italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/media/css/main.css" type="text/css">
-    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
   </head>
-  <body class="container">
-    <div>
-      <header class="masthead">
-        <h1 class="masthead-title"><a href="/">jtmoulia</a></h1>
-        <p>public notebook 📓</p>
-        <ul>
-          <li><a href="/blog/">Blog</a></li>
-          <li><a href="/tags/">Tags</a></li>
-          <li><a href="/about/">About</a></li>
-          <li><a href="http://github.com/jtmoulia">GitHub</a></li>
-          <li><a href="/rss.xml">RSS</a></li>
-        </ul>
-        <form method="get" id="searchform" action="http://www.google.com/search">
-          <input type="text" class="field" name="q" id="s" placeholder="Search">
-          <input type="hidden" name="as_sitesearch" value="jtmoulia.pocketknife.io">
-        </form>
-      </header>
-    </div>
 
-<div>
+  <body class="container">
+<div class="masthead">
+  <div class="masthead-title-div u-pull-left">
+    <h1 class="masthead-title"><a href="/">
+      jtmoulia
+    </a></h1>
+    <!-- TODO Who needs a sub-title?? -->
+    <!-- <p class="masthead-sub-title"> -->
+    <!-- public notebook 📓 -->
+    <!-- </p> -->
+  </div>
+  <nav class="navbar u-pull-right">
+    <ul class="navbar-list">
+      <li><a href="/blog/">Posts</a></li>
+      <li><a href="/about/">Who</a></li>
+    </ul>
+  </nav>
+</div>
+<div class="u-cf"></div>
+
+    <!-- <div> -->
+    <!--   <header class="masthead"> -->
+    <!--     <h1 class="masthead-title"><a href="/">jtmoulia</a></h1> -->
+    <!--     <p>public notebook 📓</p> -->
+    <!--     <ul> -->
+    <!--        -->
+    <!--       <li><a href="/blog/">Blog</a></li> -->
+    <!--        -->
+    <!--       <li><a href="/tags/">Tags</a></li> -->
+    <!--       <li><a href="/about/">About</a></li> -->
+    <!--       <li><a href="http://github.com/jtmoulia">GitHub</a></li> -->
+    <!--       <li><a href="/rss.xml">RSS</a></li> -->
+    <!--     </ul> -->
+    <!--     <form method="get" id="searchform" action="http://www.google.com/search"> -->
+    <!--       <input type="text" class="field" name="q" id="s" placeholder="Search"> -->
+    <!--       <input type="hidden" name="as_sitesearch" value="jtmoulia.pocketknife.io"> -->
+    <!--     </form> -->
+    <!--      -->
+    <!--   </header> -->
+    <!-- </div> -->
+
+  <hr>
+<div class="content">
 <div class="post">
-<h1>Neotomex: An Elixir PEG Interface</h1>
+<h3>Neotomex: An Elixir PEG Interface</h3>
 <p>
 <a href="https://github.com/jtmoulia/neotomex">Neotomex</a> is an Elixir PEG interface. It is loosely based on Sean
 Cribb's <a href="https://github.com/seancribbs/neotoma">neotoma</a>, though it doesn't yet support packrat parsing. Soon!
@@ -46,18 +73,18 @@ More to come!
 
 </div>
 </div>
+
+    <hr />
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2014-09-09</span>
         <span title="last modification date" class="post-info">2015-03-12</span>
-        <span title="tags" class="post-info"><a href="/tags/elixir/">elixir</a> <a href="/tags/erlang/">erlang</a></span>
+        <span title="tags" class="post-info"><a href="/tags/elixir/">elixir</a>, <a href="/tags/erlang/">erlang</a></span>
         <span title="author" class="post-info">Thomas Moulia</span>
       </div>
-      <section>
-        <h1>Comments</h1>
-      </section>
       <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-      <script src="https://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       <script src="/media/js/main.js"></script>
       <script type="text/javascript">
         var _gaq = _gaq || [];
