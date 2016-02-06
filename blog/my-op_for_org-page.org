@@ -1,0 +1,91 @@
+#+TITLE:       my-op for org-page
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       jtmoulia@gmail.com
+#+DATE:        2016-02-06 Sat
+#+URI:         /blog/%y/%m/%d/my-op-for-org-page
+#+KEYWORDS:    org, org-page, emacs, blog, elisp
+#+TAGS:        emacs, org, elisp
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: my-op, an organizer for org-page sites
+
+[[https://github.com/jtmoulia/dotfiles/blob/master/layers/common/HOME/.emacs.d/private/org-page/packages.el#L24][my-op]] is a brief library for managing org-page sites.
+
+Some meta on this blog: it's built using [[https://kelvinh/org-page][org-page]], a static site generator
+tightly integrated with Emacs [[http://orgmode.org][org-mode]]. Using an editor to build a site is
+loopy, but it's the best way to take advantage of org and it's literate
+programming [[http://orgmode.org/worg/org-contrib/babel/][tricks]].
+
+Since ths is Emacs, org-page is controlled by global variables. These global
+variables are explicitly relevant, like =op/repository-directory= or implicit,
+like =org-confirm-babel-evaluate=. A site is built by a particular configuration
+of these global variables: a profile.
+
+my-op provides tools for switching between and publishing profiles.
+
+* Configuration
+
+Sites profiles are kept in an assocation list, =my-op-sites=. Each site is a
+pair: =(name . vars)=, where vars is =((name . value) ...)=. Here is this site's
+configuration:
+
+#+begin_src emacs-lisp :exports code
+  (let* ((root (file-name-directory (file-truename buffer-file-name)))
+         (theme-root-directory (file-name-as-directory (concat root "themes"))))
+    (add-to-list 'my-op-sites
+                 `(jtblog .
+                          ((org-html-toplevel-hlevel . 4)
+                           (org-confirm-babel-evaluate . nil)
+                           (op/highlight-render . 'htmlize)
+                           (op/repository-directory . ,root)
+                           (op/site-domain . "http://jtmoulia.pocketknife.io")
+                           (op/repository-org-branch . "source")
+                           (op/repository-html-branch . "master")
+                           (op/site-main-title . "jtmoulia")
+                           (op/site-sub-title . "public notebook 📓")
+                           (op/personal-github-link . "http://github.com/jtmoulia")
+                           (op/theme-root-directory . ,theme-root-directory)
+                           (op/theme . custom)
+                           (op/personal-google-analytics-id . "UA-60774978-1")
+                           (op/category-ignore-list . ("themes" "assets" "_build"))
+                           (op/category-config-alist
+                            . (("blog" ;; this is the default configuration
+                                :show-meta t
+                                :show-comment nil
+                                :uri-generator op/generate-uri
+                                :uri-template "/blog/%y/%m/%d/%t/"
+                                :sort-by :date     ;; how to sort the posts
+                                :category-index t) ;; generate category index or not
+                               ("index"
+                                :show-meta nil
+                                :show-comment nil
+                                :uri-generator op/generate-uri
+                                :uri-template "/"
+                                :sort-by :date
+                                :category-index nil)
+                               ("about"
+                                :show-meta nil
+                                :show-comment nil
+                                :uri-generator op/generate-uri
+                                :uri-template "/about/"
+                                :sort-by :date
+                                :category-index nil)))))))
+#+end_src
+
+The variable =my-op-project= references the currently selected project, and
+=my-op-project-policy= a 0-arity function which can choose which project to
+select. The default policy is to ask the user if =my-op-project= is falsy.
+
+* Usage
+
+my-op provides a few interactive commands for publishing and selecting site
+profiles.
+
+- =my-op/publish-to-build= :: publish a site to =_build/=
+- =my-op/publish-to-master= :: publish a site to the html branch
+- =my-op/select= :: set a site profile's variables explicitly
+
+* Future
+
+There's no fixed plan, but I'll continue to tweak the behavior to fit my needs.
+org-page is happily hackable.
