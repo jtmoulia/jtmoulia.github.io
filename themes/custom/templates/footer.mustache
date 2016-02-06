@@ -1,13 +1,27 @@
-<hr />
 <div>{{! footer}}
   {{#show-meta}}
-    <div class="post-meta">
-      <span title="post date" class="post-info">{{{date}}}</span>
-      <span title="last modification date" class="post-info">{{mod-date}}</span>
-      <span title="tags" class="post-info">{{{tag-links}}}</span>
-      <span title="author" class="post-info">{{author}}</span>
+    <div class="post-meta row">
+      <div class="six columns">
+        <p>
+          Written by <span title="author" class="post-info">{{author}}</span>
+        </p>
+        <p>
+          Tags: <span title="tags" class="post-info">{{{tag-links}}}</span>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>
+          Published:
+          <span title="post date" class="post-info">{{{date}}}</span>
+        </p>
+        <p>
+          Modified:
+          <span title="last modification date" class="post-info">{{mod-date}}</span>
+        </p>
+      </div>
     </div>
   {{/show-meta}}
+  <hr />
   {{#show-comment}}
     <section>
       <h3>Comments</h3>
