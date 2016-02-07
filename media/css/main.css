@@ -71,14 +71,14 @@ img {
  * category index
  */
 
-.post-item {
+.list-item {
     margin-bottom: 1em;
 }
 
-.post-item > a {
+.list-item > a {
     font-size: 1.28em;
 }
 
-.post-item > .post-date {
+.list-item > .list-date {
     color: grey;
 }
