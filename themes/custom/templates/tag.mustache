@@ -1,10 +1,11 @@
 <div>
   <div class="post">
     <h1>Tag: {{tag-name}}</h1>
-    <ul class="org-ul">
-      {{#posts}}
-        <li><a href="{{post-uri}}">{{post-title}}</a></li>
-      {{/posts}}
-    </ul>
+    {{#posts}}
+      <div class="list-item">
+        <span class="list-date u-pull-right">{{date}}</span>
+        <a href="{{post-uri}}">{{post-title}}</a>
+      </div>
+    {{/posts}}
   </div>
 </div>
