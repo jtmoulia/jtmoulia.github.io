@@ -11,8 +11,3 @@ I'm a software engineer curious about how we might communicate. I do
 [[./about][other things]].
 
 Notes on [[./tags/emacs][Emacs]], [[./tags/elixir][Elixir]] + [[./tags/erlang][Erlang]]. Some [[./tags/contracting][past work]].
-
-#+begin_html
-<!-- this should be upstream -->
-<div style="clear: both;">
-#+end_html

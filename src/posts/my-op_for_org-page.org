@@ -2,7 +2,7 @@
 #+AUTHOR:      Thomas Moulia
 #+EMAIL:       jtmoulia@gmail.com
 #+DATE:        2016-02-06 Sat
-#+URI:         /blog/%y/%m/%d/my-op-for-org-page
+#+URI:         /blog/%y/%m/%d/%t
 #+KEYWORDS:    org, org-page, emacs, blog, elisp
 #+TAGS:        emacs, org, elisp
 #+LANGUAGE:    en

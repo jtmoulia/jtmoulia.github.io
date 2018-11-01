@@ -2,13 +2,13 @@
 
 
 #+begin_archive
+@@html:<li>@@ @@html:<span class="archive-item"><span class="archive-date">@@ Oct 31, 2018 @@html:</span>@@ [[file:posts/my-op_for_org-page.org][my-op for org-page]] @@html:</span>@@ @@html:</li>@@
 @@html:<li>@@ @@html:<span class="archive-item"><span class="archive-date">@@ Oct 15, 2018 @@html:</span>@@ [[file:posts/distrib-seq-diagram.org][Distributed Sequence Diagram Syntax]] @@html:</span>@@ @@html:</li>@@
 @@html:<li>@@ @@html:<span class="archive-item"><span class="archive-date">@@ Oct 15, 2018 @@html:</span>@@ [[file:posts/intro_to_spell.org][Intro to Spell: An Elixir WAMP Client]] @@html:</span>@@ @@html:</li>@@
 @@html:<li>@@ @@html:<span class="archive-item"><span class="archive-date">@@ Oct 15, 2018 @@html:</span>@@ [[file:posts/switchboard.org][Switchboard]] @@html:</span>@@ @@html:</li>@@
 @@html:<li>@@ @@html:<span class="archive-item"><span class="archive-date">@@ Oct 15, 2018 @@html:</span>@@ [[file:posts/about-ob-elixir.org][Intro to ob-elixir, Written with ob-elixir]] @@html:</span>@@ @@html:</li>@@
 @@html:<li>@@ @@html:<span class="archive-item"><span class="archive-date">@@ Oct 15, 2018 @@html:</span>@@ [[file:posts/neotomex-intro.org][Neotomex: An Elixir PEG Interface]] @@html:</span>@@ @@html:</li>@@
 @@html:<li>@@ @@html:<span class="archive-item"><span class="archive-date">@@ Oct 15, 2018 @@html:</span>@@ [[file:posts/elixir_distel_basics.org][Elixir and Distel]] @@html:</span>@@ @@html:</li>@@
-@@html:<li>@@ @@html:<span class="archive-item"><span class="archive-date">@@ Oct 15, 2018 @@html:</span>@@ [[file:posts/my-op_for_org-page.org][my-op for org-page]] @@html:</span>@@ @@html:</li>@@
 @@html:<li>@@ @@html:<span class="archive-item"><span class="archive-date">@@ Oct 15, 2018 @@html:</span>@@ [[file:posts/norse_ipviking_map.org][Norse Live Attack Map Visualization]] @@html:</span>@@ @@html:</li>@@
 @@html:<li>@@ @@html:<span class="archive-item"><span class="archive-date">@@ Oct 15, 2018 @@html:</span>@@ [[file:posts/elixir_call_with_parens.org][Elixir 0-Arity Functions: Drop the Parens?]] @@html:</span>@@ @@html:</li>@@
 #+end_archive
