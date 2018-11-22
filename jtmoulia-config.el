@@ -9,7 +9,10 @@
 ;;; Code:
 
 (require 'org-page)
-(require 'dash)  ;; req'd by org-page anyways!
+(require 'ox-publish)
+(require 'ox-html)
+(require 'org-element)
+(require 'dash)  ;; req'd by org-page anyways
 
 (let* ((root (file-name-directory (file-truename buffer-file-name)))
        (theme-root-directory (file-name-as-directory (concat root "themes"))))
@@ -51,6 +54,16 @@
                               :uri-template "/about/"
                               :sort-by :date
                               :category-index nil)))))))
+
+(with-eval-after-load 'prodigy
+  (prodigy-define-service
+    :name "hlog@localhost:8020"
+    :command "python"
+    :args '("-m" "http.server" "8020")
+    :cwd "./_build"
+    :tags '(file-server)
+    :stop-signal 'sigkill
+    :kill-process-buffer-on-stop t))
 
 (provide 'jtmoulia-config)
 ;;; jtmoulia-config.el ends here
