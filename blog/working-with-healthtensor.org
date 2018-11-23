@@ -1,0 +1,31 @@
+#+TITLE:       Working at HealthTensor
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       jtmoulia@gmail.com
+#+DATE:        2018-11-23 Fri
+#+URI:         /blog/%y/%m/%d/working-at-healthtensor
+#+KEYWORDS:    healthtensor
+#+TAGS:        contracting, healthtensor
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: working with HealthTensor to automate documentation for physicians
+
+For the last two-ish years I've been working with [[https://www.healthtensor.com/][HealthTensor]], where we're
+helping physicians focus on their patients by automating the clincial note.
+
+The clinical note is a key component of many clinical workflows, e.g. diagnosis,
+billing, and order entry. However, coupled with digital EHRs it's become a major
+source of physician burnout. HealthTensor helps with this problem by using data
+in the EHR to take an initial cut at the clinical note. This frees the physician
+up to focus on patient care, and improves revenue cycle management for the
+provider.
+
+I started working with HealthTensor over the second half of 2016. At that time,
+it was Eli and Nate hacking out of friends' living rooms with the goal of
+/bringing AI into healthcare/. In early 2017 HealthTensor was accepted into the
+second batch of the Cedars-Sinai Techstars accelerator in Los Angeles. Working
+with experts across the provider spectrum we came to realize the frustration
+caused by the clinical note and by the end of the program we'd proven the
+potential against Cedars-Sinai's clinical data. Since then HealthTensor has come
+a long way.
+
+HealthTensor is hiring! Take a look at the [[https://www.healthtensor.com/careers/][careers page]] for open positions.
