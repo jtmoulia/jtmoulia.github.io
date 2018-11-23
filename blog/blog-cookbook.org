@@ -1,0 +1,73 @@
+#+TITLE:       Cookbook for this Blog
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       jtmoulia@gmail.com
+#+DATE:        2018-11-24 Fri
+#+URI:         /blog/%y/%m/%d/cookbook-for-this-blog
+#+KEYWORDS:    blog, elisp, emacs
+#+TAGS:        emacs, org, elisp
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: A cookbook for working with this blog.
+
+One of the reasons that there is a massive three year gap in this blog is
+that 1) there was a bug in my config, and 2) I forgot how to build the blog.
+I've pushed a fix for the first issue. and to address the second issue I'm
+posting this cookbook of common tasks.
+
+* Git Structure and Deploying
+
+To play well with GitHub Pages the raw source files are in the =source= branch
+and built output is in the =master= branch. When the =master= branch is pushed
+to the GitHub remote hooks update the site.
+
+* Workflow
+
+The typical workflow is:
+
+  1. make changes in the =source= branch
+  2. build the blog in the =_build= directory via =my-op/publish-to-build=
+  3. push changes to the GitHub remote's =source= branch
+  4. build the blog in the =master= branch via =my-op/publish-to-master=
+  5. push changes to the GitHub remote's =master= branch
+  6. check out [[http://jtmoulia.pocketknife.io][jtmoulia.pocketknife.io]]
+    
+* Building to the =_build= directory
+
+From the =source= branch run the =my-op/publish-to-build= interactive function.
+The site will be built in the =_build= directory. Serve up its contents with:
+
+#+BEGIN_SRC sh
+  cd _build
+  python -m http.server 8282
+#+END_SRC
+
+... and navigate to [[http://localhost:8282][http://localhost:8282]]. When you're satisfied push the
+changes made to the source files GitHub's =source= branch.
+
+* Building to the =master= branch
+
+From the =source= branch run the =my-op/publish-to-master= interactive function.
+The function checks out the =master= branch and builds the site into its root
+directory. Ensure its working by serving up the site:
+
+#+BEGIN_SRC sh
+  python -m http.server 8282
+#+END_SRC
+
+... and navigate to [[http://localhost:8282][http://localhost:8282]]. When you're satisfied commit and push
+the changes to GitHub's =master= branch. The updated build will be automatically
+served at http://jtmoulia.github.io, and http://jtmoulia.pocketknife.io by extension.
+
+
+* Adding a Post
+
+From the =source= branch run the =op/new-post= interactive function to
+create a new post. You'll have to specify the =CATEGORY=, probably =blog=, and
+the =FILENAME=. Here's an example of calling the function via elisp:
+
+#+BEGIN_SRC elisp
+  (op/new-post "blog" "blog-cookbook.org")
+#+END_SRC
+
+Note that the post won't be built until the file has been committed to the
+=source= git branch.
