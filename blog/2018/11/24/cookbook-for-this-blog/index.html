@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <title>Cookbook for this Blog - jtmoulia</title>
+  <meta charset="utf-8" />
+  <meta name="author" content="Thomas Moulia" />
+    <meta name="description" content="A cookbook for working with this blog." />
+    <meta name="keywords" content="blog, elisp, emacs" />
+  <!-- TODO Concatenate CSS -->
+  <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,700,300italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+</head>
+
+  <body class="container">
+<div class="masthead">
+  <div class="masthead-title-div u-pull-left">
+    <h1 class="masthead-title"><a href="/">
+      jtmoulia
+    </a></h1>
+    <!-- TODO Who needs a sub-title?? -->
+    <!-- <p class="masthead-sub-title"> -->
+    <!-- public notebook 📓 -->
+    <!-- </p> -->
+  </div>
+  <nav class="navbar u-pull-right">
+    <ul class="navbar-list">
+      <li><a href="/blog/">Posts</a></li>
+      <li><a href="/about/">Who</a></li>
+    </ul>
+  </nav>
+</div>
+<div class="u-cf"></div>
+
+    <!-- <div> -->
+    <!--   <header class="masthead"> -->
+    <!--     <h1 class="masthead-title"><a href="/">jtmoulia</a></h1> -->
+    <!--     <p>public notebook 📓</p> -->
+    <!--     <ul> -->
+    <!--        -->
+    <!--       <li><a href="/blog/">Blog</a></li> -->
+    <!--        -->
+    <!--       <li><a href="/tags/">Tags</a></li> -->
+    <!--       <li><a href="/about/">About</a></li> -->
+    <!--       <li><a href="http://github.com/jtmoulia">GitHub</a></li> -->
+    <!--       <li><a href="/rss.xml">RSS</a></li> -->
+    <!--     </ul> -->
+    <!--     <form method="get" id="searchform" action="http://www.google.com/search"> -->
+    <!--       <input type="text" class="field" name="q" id="s" placeholder="Search"> -->
+    <!--       <input type="hidden" name="as_sitesearch" value="jtmoulia.pocketknife.io"> -->
+    <!--     </form> -->
+    <!--      -->
+    <!--   </header> -->
+    <!-- </div> -->
+
+  <hr />
+<div class="content">
+  <div class="post">
+      <h3>Cookbook for this Blog</h3>
+    <p>
+One of the reasons that there is a massive three year gap in this blog is
+that 1) there was a bug in my config, and 2) I forgot how to build the blog.
+I've pushed a fix for the first issue. and to address the second issue I'm
+posting this cookbook of common tasks.
+</p>
+
+<div id="outline-container-orgf145b0c" class="outline-4">
+<h4 id="orgf145b0c">Git Structure and Deploying</h4>
+<div class="outline-text-4" id="text-orgf145b0c">
+<p>
+To play well with GitHub Pages the raw source files are in the <code>source</code> branch
+and built output is in the <code>master</code> branch. When the <code>master</code> branch is pushed
+to the GitHub remote hooks update the site.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd98fa8f" class="outline-4">
+<h4 id="orgd98fa8f">Workflow</h4>
+<div class="outline-text-4" id="text-orgd98fa8f">
+<p>
+The typical workflow is:
+</p>
+
+<ol class="org-ol">
+<li>make changes in the <code>source</code> branch</li>
+<li>build the blog in the <code>_build</code> directory via <code>my-op/publish-to-build</code></li>
+<li>push changes to the GitHub remote's <code>source</code> branch</li>
+<li>build the blog in the <code>master</code> branch via <code>my-op/publish-to-master</code></li>
+<li>push changes to the GitHub remote's <code>master</code> branch</li>
+<li>check out <a href="http://jtmoulia.pocketknife.io">jtmoulia.pocketknife.io</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgb83a861" class="outline-4">
+<h4 id="orgb83a861">Building to the <code>_build</code> directory</h4>
+<div class="outline-text-4" id="text-orgb83a861">
+<p>
+From the <code>source</code> branch run the <code>my-op/publish-to-build</code> interactive function.
+The site will be built in the <code>_build</code> directory. Serve up its contents with:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #4f97d7;">cd</span> _build
+python -m http.server <span style="color: #a45bad;">8282</span>
+</pre>
+</div>
+
+<p>
+... and navigate to <a href="http://localhost:8282">http://localhost:8282</a>. When you're satisfied push the
+changes made to the source files GitHub's <code>source</code> branch.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc09b11d" class="outline-4">
+<h4 id="orgc09b11d">Building to the <code>master</code> branch</h4>
+<div class="outline-text-4" id="text-orgc09b11d">
+<p>
+From the <code>source</code> branch run the <code>my-op/publish-to-master</code> interactive function.
+The function checks out the <code>master</code> branch and builds the site into its root
+directory. Ensure its working by serving up the site:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">python -m http.server <span style="color: #a45bad;">8282</span>
+</pre>
+</div>
+
+<p>
+... and navigate to <a href="http://localhost:8282">http://localhost:8282</a>. When you're satisfied commit and push
+the changes to GitHub's <code>master</code> branch. The updated build will be automatically
+served at <a href="http://jtmoulia.github.io">http://jtmoulia.github.io</a>, and <a href="http://jtmoulia.pocketknife.io">http://jtmoulia.pocketknife.io</a> by extension.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgc5618f5" class="outline-4">
+<h4 id="orgc5618f5">Adding a Post</h4>
+<div class="outline-text-4" id="text-orgc5618f5">
+<p>
+From the <code>source</code> branch run the <code>op/new-post</code> interactive function to
+create a new post. You'll have to specify the <code>CATEGORY</code>, probably <code>blog</code>, and
+the <code>FILENAME</code>. Here's an example of calling the function via elisp:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #4f97d7;">(</span>op/new-post <span style="color: #2d9574;">"blog"</span> <span style="color: #2d9574;">"blog-cookbook.org"</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+<p>
+Note that the post won't be built until the file has been committed to the
+<code>source</code> git branch.
+</p>
+</div>
+</div>
+
+  </div>
+</div>
+
+<div>
+    <div class="post-meta row">
+      <div class="six columns">
+        <p>
+          Written by <span title="author" class="post-info">Thomas Moulia</span>
+        </p>
+        <p>
+          Tags: <span title="tags" class="post-info"><a href="/tags/emacs/">emacs</a>, <a href="/tags/org/">org</a>, <a href="/tags/elisp/">elisp</a></span>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>
+          Published:
+          <span title="post date" class="post-info">2018-11-24</span>
+        </p>
+        <p>
+          Modified:
+          <span title="last modification date" class="post-info">2018-11-23</span>
+        </p>
+      </div>
+    </div>
+  <hr />
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript">
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-60774978-1']);
+     _gaq.push(['_trackPageview']);
+     (function() {
+         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+    </script>
+  <div class="footer container">
+    <div class="row">
+      <div class="six columns">
+        <p>
+          Copyright &copy; 2015 -
+          <span id="footerYear"></span>
+        </p>
+        <p>
+          by <a href="mailto:jtmoulia &lt;at&gt; gmail &lt;dot&gt; com">Thomas Moulia</a>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Powered by
+          <a href="https://github.com/kelvinh/org-page">org-page</a> and
+          <a href="http://getskeleton.com/">skeleton</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+
+  </body>
+</html>
