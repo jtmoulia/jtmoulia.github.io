@@ -7,12 +7,11 @@
 #+ATTR_HTML: :alt dogneill :width 320px :class u-pull-right
 [[file:./assets/img/slugbug.jpg]]
 
-I'm a software engineer curious about how we might communicate. I do
-[[./about][other things]].
+I'm a software engineer working at [[https://www.healthtensor.com/][HealthTensor]].
 
 Notes on [[./tags/emacs][Emacs]], [[./tags/elixir][Elixir]] + [[./tags/erlang][Erlang]]. Some [[./tags/contracting][past work]].
 
-#+begin_html
+#+begin_export html
 <!-- this should be upstream -->
 <div style="clear: both;">
-#+end_html
+#+end_export

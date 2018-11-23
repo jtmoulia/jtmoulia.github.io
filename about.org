@@ -9,7 +9,7 @@
 
 I live with my +fiancée+ wife and partner in all things, Caitria, and our small
 dog, Curie. In 2014 we started [[http://pocketknife.io][Pocketknife Design and Engineering]], a software
-contracting company. 
+contracting company. In late 2016 I co-founded [[http://localhost:8123/blog/2018/11/23/working-at-healthtensor/][HealthTensor]].
 
 ** Links
 
@@ -22,9 +22,11 @@ contracting company.
 
 We tend to move around. Here's where we are, and where we've been:
 
-- Redwood City, CA :: Dec 2015 to present
+- San Francisco, CA :: Jun 2018 to Now
+- Santa Monica, CA :: Jun 2017 to Jul 2018
+- Redwood City, CA :: Dec 2015 to Jul 2017
 - Monson, MA :: Sept 2015 to Nov 2015
-- Tahoe, CA :: Dec 2014 to May 2015
+- South Lake Tahoe, CA :: Dec 2014 to May 2015
 - Palo Alto, CA :: Dec 2014 to June 2014
 - Pacifica, CA :: The Past
 - Somerville, MA :: The Far Past
@@ -33,7 +35,8 @@ We tend to move around. Here's where we are, and where we've been:
 
 I love sci-fi books. Recent reads include:
 
-- Aurora :: Kim Stanley Robinson
-- The Peripheral :: William Gibson
-- Lexicon: A Novel :: Max Barry
 - The Fractal Prince :: Hannu Rajaniemi
+- The Traitor Baru Cormorant :: Seth Dickinson
+- The Three Body Problem :: Cixin Liu
+- Tales of the Dying Earth :: Jack Vance
+- Stories of your life and Others :: Ted Chiang
