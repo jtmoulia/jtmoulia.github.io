@@ -1,0 +1,13 @@
+* jtmoulia's blog
+
+** Dependencies
+
+- emacs
+- org-mode
+- org-page
+- my-op (see dotfiles)
+
+Dependencies for running code blocks:
+
+- ob-elixir
+
