@@ -60,13 +60,13 @@
   <div class="post">
       <h3>Intro to Spell: An Elixir WAMP Client</h3>
     <p>
-I contracted with <a href="https://www.mymedsandme.com/">MyMeds&amp;Me</a>, a London based company focusing on pharmaceutical
+I contracted with <a href="https://www.mymedsandme.com">MyMeds&amp;Me</a>, a London based company focusing on pharmaceutical
 adverse event reporting and event capture, to build <a href="https://github.com/MyMedsAndMe/spell">Spell</a>.
 </p>
 
-<div id="outline-container-orgheadline1" class="outline-4">
-<h4 id="orgheadline1">A WAMP Client</h4>
-<div class="outline-text-4" id="text-orgheadline1">
+<div id="outline-container-org6ed9363" class="outline-4">
+<h4 id="org6ed9363">A WAMP Client</h4>
+<div class="outline-text-4" id="text-org6ed9363">
 <p>
 The <a href="http://wamp.ws/">Web Application Messaging Protocol</a> [WAMP] is an open messaging protocol
 designed by <a href="http://tavendo.com/">Tavendo GmbH</a>. It specifies Publish Subscribe [PubSub] and Remote
@@ -77,9 +77,9 @@ specification, it supports polyglot, service oriented backends.
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-4">
-<h4 id="orgheadline2">Spell's Purpose and Implementation</h4>
-<div class="outline-text-4" id="text-orgheadline2">
+<div id="outline-container-orgbb6b3bf" class="outline-4">
+<h4 id="orgbb6b3bf">Spell's Purpose and Implementation</h4>
+<div class="outline-text-4" id="text-orgbb6b3bf">
 <p>
 MyMeds&amp;Me was interested in decoupling their backend and transitioning from Ruby
 to Elixir, which led them to WAMP. WAMP supports peers written in any language
@@ -99,9 +99,9 @@ project took less than two months.
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-4">
-<h4 id="orgheadline3">Example</h4>
-<div class="outline-text-4" id="text-orgheadline3">
+<div id="outline-container-orgfd2eac1" class="outline-4">
+<h4 id="orgfd2eac1">Example</h4>
+<div class="outline-text-4" id="text-orgfd2eac1">
 <p>
 An involved PubSub example should make things more concrete. To make it more
 impressive, imagine that the publisher or subscriber are clients in other
@@ -109,43 +109,42 @@ languages, running on different machines.
 </p>
 
 <div class="org-src-container">
+<pre class="src src-elixir"># Events must be published to a topic.
+topic = "com.spell.example.pubsub.topic"
 
-<pre class="src src-elixir"><span style="color: #999999; font-style: italic;"># </span><span style="color: #999999; font-style: italic;">Events must be published to a topic.</span>
-<span style="color: #ffcc66;">topic</span> = <span style="color: #66cccc;">"com.spell.example.pubsub.topic"</span>
+# Create a peer with the subscriber role.
+subscriber = Spell.connect(Crossbar.uri,
+                           realm: Crossbar.get_realm(),
+                           roles: [Spell.Role.Subscriber])
 
-<span style="color: #999999; font-style: italic;"># </span><span style="color: #999999; font-style: italic;">Create a peer with the subscriber role.</span>
-<span style="color: #ffcc66;">subscriber</span> = <span style="color: #6699cc;">Spell</span>.connect<span style="color: #cccccc;">(</span><span style="color: #6699cc;">Crossbar</span>.uri,
-                           <span style="color: #87cefa;">realm:</span> <span style="color: #6699cc;">Crossbar</span>.get_realm<span style="color: #66cccc;">()</span>,
-                           <span style="color: #87cefa;">roles:</span> <span style="color: #66cccc;">[</span><span style="color: #6699cc;">Spell.Role.Subscriber</span><span style="color: #66cccc;">]</span><span style="color: #cccccc;">)</span>
+# `call_subscribe/2,3` synchronously subscribes to the topic.
+{:ok, subscription} = Spell.call_subscribe(subscriber, topic)
 
-<span style="color: #999999; font-style: italic;"># </span><span style="color: #999999; font-style: italic;">`call_subscribe/2,3` synchronously subscribes to the topic.</span>
-<span style="color: #cccccc;">{</span><span style="color: #87cefa;">:ok</span>, subscription<span style="color: #cccccc;">}</span> = <span style="color: #6699cc;">Spell</span>.call_subscribe<span style="color: #cccccc;">(</span>subscriber, topic<span style="color: #cccccc;">)</span>
+# Create a peer with the publisher role.
+publisher = Spell.connect(Crossbar.uri,
+                          realm: Crossbar.get_realm(),
+                          roles: [Spell.Role.Publisher])
 
-<span style="color: #999999; font-style: italic;"># </span><span style="color: #999999; font-style: italic;">Create a peer with the publisher role.</span>
-<span style="color: #ffcc66;">publisher</span> = <span style="color: #6699cc;">Spell</span>.connect<span style="color: #cccccc;">(</span><span style="color: #6699cc;">Crossbar</span>.uri,
-                          <span style="color: #87cefa;">realm:</span> <span style="color: #6699cc;">Crossbar</span>.get_realm<span style="color: #66cccc;">()</span>,
-                          <span style="color: #87cefa;">roles:</span> <span style="color: #66cccc;">[</span><span style="color: #6699cc;">Spell.Role.Publisher</span><span style="color: #66cccc;">]</span><span style="color: #cccccc;">)</span>
+# `call_publish/2,3` synchronously publishes a message to the topic.
+{:ok, publication} = Spell.call_publish(publisher, topic)
 
-<span style="color: #999999; font-style: italic;"># </span><span style="color: #999999; font-style: italic;">`call_publish/2,3` synchronously publishes a message to the topic.</span>
-<span style="color: #cccccc;">{</span><span style="color: #87cefa;">:ok</span>, publication<span style="color: #cccccc;">}</span> = <span style="color: #6699cc;">Spell</span>.call_publish<span style="color: #cccccc;">(</span>publisher, topic<span style="color: #cccccc;">)</span>
+# `receive_event/2,3` blocks to receive the event.
+case Spell.receive_event(publisher, subscription) do
+  {:ok, event}     -&gt; handle_event(event)
+  {:error, reason} -&gt; {:error, reason}
+end
 
-<span style="color: #999999; font-style: italic;"># </span><span style="color: #999999; font-style: italic;">`receive_event/2,3` blocks to receive the event.</span>
-<span style="color: #99cc99;">case</span> <span style="color: #6699cc;">Spell</span>.receive_event<span style="color: #cccccc;">(</span>publisher, subscription<span style="color: #cccccc;">)</span> <span style="color: #99cc99;">do</span>
-  <span style="color: #cccccc;">{</span><span style="color: #87cefa;">:ok</span>, event<span style="color: #cccccc;">}</span>     -&gt; handle_event<span style="color: #cccccc;">(</span>event<span style="color: #cccccc;">)</span>
-  <span style="color: #cccccc;">{</span><span style="color: #87cefa;">:error</span>, reason<span style="color: #cccccc;">}</span> -&gt; <span style="color: #cccccc;">{</span><span style="color: #87cefa;">:error</span>, reason<span style="color: #cccccc;">}</span>
-<span style="color: #99cc99;">end</span>
-
-<span style="color: #999999; font-style: italic;"># </span><span style="color: #999999; font-style: italic;">Cleanup.</span>
-<span style="color: #99cc99;">for</span> peer &lt;- <span style="color: #cccccc;">[</span>subscriber, publisher<span style="color: #cccccc;">]</span>, <span style="color: #87cefa;">do:</span> <span style="color: #6699cc;">Spell</span>.close<span style="color: #cccccc;">(</span>peer<span style="color: #cccccc;">)</span>
+# Cleanup.
+for peer &lt;- [subscriber, publisher], do: Spell.close(peer)
 </pre>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-orgheadline4" class="outline-4">
-<h4 id="orgheadline4">Comments</h4>
-<div class="outline-text-4" id="text-orgheadline4">
+<div id="outline-container-orgdc9c814" class="outline-4">
+<h4 id="orgdc9c814">Comments</h4>
+<div class="outline-text-4" id="text-orgdc9c814">
 <p>
 There was another WAMP client written in Erlang, <a href="https://github.com/bwegh/awre">awre</a>. While awre is a fine
 solution, we decided to implement a new client to take advantage of Elixir's
@@ -214,7 +213,7 @@ read more about it in the <a href="https://github.com/MyMedsAndMe/spell/blob/mas
         </p>
       </div>
       <div class="six columns">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.x (<a href="http://orgmode.org">Org mode</a> 8.x)</p>
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
           Powered by
           <a href="https://github.com/kelvinh/org-page">org-page</a> and

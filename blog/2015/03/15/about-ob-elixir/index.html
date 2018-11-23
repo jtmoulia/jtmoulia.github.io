@@ -73,16 +73,15 @@ currently supports. All of the code snippets were run from within
 Emacs using ob-elixir.
 </p>
 
-<div id="outline-container-orgheadline1" class="outline-4">
-<h4 id="orgheadline1">Org-Babel + Elixir</h4>
-<div class="outline-text-4" id="text-orgheadline1">
+<div id="outline-container-org2219cda" class="outline-4">
+<h4 id="org2219cda">Org-Babel + Elixir</h4>
+<div class="outline-text-4" id="text-org2219cda">
 <p>
 The best place to get started is with the <a href="http://orgmode.org/org.html#Working-With-Source-Code">documentation</a>, but here
 is what an Elixir code block should resemble:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-org">#+begin_src elixir
   IO.inspect :result
 \#+end_src
@@ -91,9 +90,9 @@ is what an Elixir code block should resemble:
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-4">
-<h4 id="orgheadline2">Output</h4>
-<div class="outline-text-4" id="text-orgheadline2">
+<div id="outline-container-org239f6a5" class="outline-4">
+<h4 id="org239f6a5">Output</h4>
+<div class="outline-text-4" id="text-org239f6a5">
 <p>
 ob-elixir writes your code block to a <code>.exs</code> file and then evaluates
 the file using the <code>elixir</code> executable. The first line of standard
@@ -106,10 +105,9 @@ A one dimensional list or tuple is transformed into a table row:
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-elixir"><span style="color: #999999; font-style: italic;"># </span><span style="color: #999999; font-style: italic;">it's as easy as</span>
-<span style="color: #cccccc;">[</span><span style="color: #6699cc;">42</span>, <span style="color: #87cefa;">:foo</span>, <span style="color: #66cccc;">"bar"</span><span style="color: #cccccc;">]</span>
-  |&gt; <span style="color: #6699cc;">IO</span>.inspect
+<pre class="src src-elixir"># it's as easy as
+[42, :foo, "bar"]
+  |&gt; IO.inspect
 </pre>
 </div>
 
@@ -137,10 +135,9 @@ Each row in a two dimensional list becomes a row in a table:
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-elixir"><span style="color: #cccccc;">[</span><span style="color: #6699cc;">1</span>, <span style="color: #6699cc;">2</span>, <span style="color: #6699cc;">3</span><span style="color: #cccccc;">]</span>
-  |&gt; <span style="color: #6699cc;">Enum</span>.map<span style="color: #cccccc;">(</span>&amp;<span style="color: #66cccc;">(</span><span style="color: #ffcc66;">{</span>&amp;1, &amp;1*&amp;1<span style="color: #ffcc66;">}</span><span style="color: #66cccc;">)</span><span style="color: #cccccc;">)</span>
-  |&gt; <span style="color: #6699cc;">IO</span>.inspect
+<pre class="src src-elixir">[1, 2, 3]
+  |&gt; Enum.map(&amp;({&amp;1, &amp;1*&amp;1}))
+  |&gt; IO.inspect
 </pre>
 </div>
 
@@ -177,15 +174,14 @@ of reductions:
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-elixir"><span style="color: #ffcc66;">output_keys</span> = <span style="color: #cccccc;">[</span><span style="color: #87cefa;">:registered_name</span>, <span style="color: #87cefa;">:heap_size</span>, <span style="color: #87cefa;">:total_heap_size</span>, <span style="color: #87cefa;">:reductions</span><span style="color: #cccccc;">]</span>
-<span style="color: #6699cc;">Process</span>.list<span style="color: #cccccc;">()</span>
-  |&gt; <span style="color: #6699cc;">Enum</span>.map<span style="color: #cccccc;">(</span><span style="color: #6699cc;">&amp;Process</span>.info/1<span style="color: #cccccc;">)</span>
-  |&gt; <span style="color: #6699cc;">Enum</span>.filter<span style="color: #cccccc;">(</span><span style="color: #6699cc;">&amp;Dict</span>.has_key?<span style="color: #66cccc;">(</span>&amp;1, <span style="color: #87cefa;">:registered_name</span><span style="color: #66cccc;">)</span><span style="color: #cccccc;">)</span>
-  |&gt; <span style="color: #6699cc;">Enum</span>.sort<span style="color: #cccccc;">(</span>&amp;<span style="color: #66cccc;">(</span>&amp;1<span style="color: #ffcc66;">[</span><span style="color: #87cefa;">:heap_size</span><span style="color: #ffcc66;">]</span> &gt; &amp;2<span style="color: #ffcc66;">[</span><span style="color: #87cefa;">:heap_size</span><span style="color: #ffcc66;">]</span><span style="color: #66cccc;">)</span><span style="color: #cccccc;">)</span>
-  |&gt; <span style="color: #6699cc;">Enum</span>.map<span style="color: #cccccc;">(</span>&amp;<span style="color: #66cccc;">(</span><span style="color: #99cc99;">for</span> key &lt;- output_keys, <span style="color: #87cefa;">do:</span> &amp;1<span style="color: #ffcc66;">[</span>key<span style="color: #ffcc66;">]</span><span style="color: #66cccc;">)</span><span style="color: #cccccc;">)</span>
-  |&gt; <span style="color: #6699cc;">Enum</span>.take<span style="color: #cccccc;">(</span><span style="color: #6699cc;">5</span><span style="color: #cccccc;">)</span>
-  |&gt; <span style="color: #6699cc;">IO</span>.inspect
+<pre class="src src-elixir">output_keys = [:registered_name, :heap_size, :total_heap_size, :reductions]
+Process.list()
+  |&gt; Enum.map(&amp;Process.info/1)
+  |&gt; Enum.filter(&amp;Dict.has_key?(&amp;1, :registered_name))
+  |&gt; Enum.sort(&amp;(&amp;1[:heap_size] &gt; &amp;2[:heap_size]))
+  |&gt; Enum.map(&amp;(for key &lt;- output_keys, do: &amp;1[key]))
+  |&gt; Enum.take(5)
+  |&gt; IO.inspect
 </pre>
 </div>
 
@@ -240,9 +236,9 @@ of reductions:
 </table>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-5">
-<h5 id="orgheadline3">Parsing Issues</h5>
-<div class="outline-text-5" id="text-orgheadline3">
+<div id="outline-container-orgc53b81d" class="outline-5">
+<h5 id="orgc53b81d">Parsing Issues</h5>
+<div class="outline-text-5" id="text-orgc53b81d">
 <p>
 The parser currently uses python style syntax parsing, and doesn't
 support Elixir reader expressions within lists, i.e. values
@@ -250,20 +246,19 @@ prefixed with <code>#</code>, like <code>#PID&lt;0.0.0&gt;</code>:
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-elixir"><span style="color: #999999; font-style: italic;"># </span><span style="color: #999999; font-style: italic;">Works</span>
-<span style="color: #6699cc;">IO</span>.inspect self
+<pre class="src src-elixir"># Works
+IO.inspect self
 </pre>
 </div>
 
 <pre class="example">
 #PID&lt;0.48.0&gt;
+
 </pre>
 
 <div class="org-src-container">
-
-<pre class="src src-elixir"><span style="color: #999999; font-style: italic;"># </span><span style="color: #999999; font-style: italic;">Raises an error -- `Invalid read syntax: "#"`</span>
-<span style="color: #6699cc;">IO</span>.inspect <span style="color: #cccccc;">[</span>self<span style="color: #cccccc;">]</span>
+<pre class="src src-elixir"># Raises an error -- `Invalid read syntax: "#"`
+IO.inspect [self]
 </pre>
 </div>
 
@@ -275,14 +270,14 @@ find them!
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-4">
-<h4 id="orgheadline4">Input</h4>
-<div class="outline-text-4" id="text-orgheadline4">
+<div id="outline-container-orge6bf52a" class="outline-4">
+<h4 id="orge6bf52a">Input</h4>
+<div class="outline-text-4" id="text-orge6bf52a">
 <p>
 You can pass variables into a code block:
 </p>
 
-<table id="orgtable1" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="org7cbaae4" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 <caption class="t-above"><span class="table-number">Table 4:</span> Some mammals</caption>
 
 <colgroup>
@@ -325,10 +320,9 @@ You can pass variables into a code block:
 </table>
 
 <div class="org-src-container">
-
 <pre class="src src-elixir">mammals
-  |&gt; <span style="color: #6699cc;">Enum</span>.filter<span style="color: #cccccc;">(</span><span style="color: #99cc99;">fn</span> <span style="color: #66cccc;">(</span><span style="color: #ffcc66;">[</span><span style="color: #6699cc;">_</span>, <span style="color: #66cccc;">"primate"</span><span style="color: #ffcc66;">]</span><span style="color: #66cccc;">)</span> -&gt; <span style="color: #87cefa;">true</span>; <span style="color: #6699cc;">_</span> -&gt; <span style="color: #87cefa;">false</span> <span style="color: #99cc99;">end</span><span style="color: #cccccc;">)</span>
-  |&gt; <span style="color: #6699cc;">IO</span>.inspect
+  |&gt; Enum.filter(fn ([_, "primate"]) -&gt; true; _ -&gt; false end)
+  |&gt; IO.inspect
 </pre>
 </div>
 
@@ -355,9 +349,9 @@ You can pass variables into a code block:
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-4">
-<h4 id="orgheadline5">Future work?</h4>
-<div class="outline-text-4" id="text-orgheadline5">
+<div id="outline-container-orga0847ac" class="outline-4">
+<h4 id="orga0847ac">Future work?</h4>
+<div class="outline-text-4" id="text-orga0847ac">
 <ul class="org-ul">
 <li>Persistent sessions -- could be backed by emacs comint or distel
 style distributed erlang.</li>
@@ -418,7 +412,7 @@ style distributed erlang.</li>
         </p>
       </div>
       <div class="six columns">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.x (<a href="http://orgmode.org">Org mode</a> 8.x)</p>
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
           Powered by
           <a href="https://github.com/kelvinh/org-page">org-page</a> and

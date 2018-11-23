@@ -70,9 +70,9 @@ call or a variable. Style decisions are case by case, but I'd default
 to keeping the parens when calling a 0 arity function.
 </p>
 
-<div id="outline-container-orgheadline1" class="outline-4">
-<h4 id="orgheadline1">Elixir + Barewords</h4>
-<div class="outline-text-4" id="text-orgheadline1">
+<div id="outline-container-org13b863f" class="outline-4">
+<h4 id="org13b863f">Elixir + Barewords</h4>
+<div class="outline-text-4" id="text-org13b863f">
 <p>
 Elixir's Ruby heritage is apparent in its expressive and flexible
 syntax -- Elixir is unabashed about adding syntactic sugar to make
@@ -99,12 +99,11 @@ handling: a <code>RuntimeError</code> is raised if the function is undefined:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-elixir">iex&gt; a
-** <span style="color: #cccccc;">(</span><span style="color: #6699cc;">RuntimeError</span><span style="color: #cccccc;">)</span> undefined <span style="color: #87cefa;">function:</span> a/0
+** (RuntimeError) undefined function: a/0
 
-iex&gt; a<span style="color: #cccccc;">()</span>
-** <span style="color: #cccccc;">(</span><span style="color: #6699cc;">RuntimeError</span><span style="color: #cccccc;">)</span> undefined <span style="color: #87cefa;">function:</span> a/0
+iex&gt; a()
+** (RuntimeError) undefined function: a/0
 </pre>
 </div>
 
@@ -114,29 +113,28 @@ variables in the context, then called as a function:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-elixir">defmodule Example do
 
-<pre class="src src-elixir"><span style="color: #99cc99;">defmodule</span> <span style="color: #6699cc;">Example</span> <span style="color: #99cc99;">do</span>
+  def five, do: 5
 
-  <span style="color: #99cc99;">def</span> <span style="color: #f99157;">five</span>, <span style="color: #87cefa;">do:</span> <span style="color: #6699cc;">5</span>
-
-  <span style="color: #d8bfd8;">@doc</span> <span style="color: #66cccc;">"""</span>
-<span style="color: #66cccc;">  Returns the function `five`, 5 in this case, plus `x`.</span>
-<span style="color: #66cccc;">  """</span>
-  <span style="color: #99cc99;">def</span> <span style="color: #f99157;">five_plus_fn</span><span style="color: #cccccc;">(</span>x<span style="color: #cccccc;">)</span> <span style="color: #99cc99;">do</span>
+  @doc """
+  Returns the function `five`, 5 in this case, plus `x`.
+  """
+  def five_plus_fn(x) do
     five + x
-  <span style="color: #99cc99;">end</span>
+  end
 
-  <span style="color: #d8bfd8;">@doc</span> <span style="color: #66cccc;">"""</span>
-<span style="color: #66cccc;">  Returns the variable `five`, 4 in this case, plus `x`.</span>
-<span style="color: #66cccc;">  """</span>
-  <span style="color: #99cc99;">def</span> <span style="color: #f99157;">five_plus_var</span><span style="color: #cccccc;">(</span>x<span style="color: #cccccc;">)</span> <span style="color: #99cc99;">do</span>
-    <span style="color: #ffcc66;">five</span> = <span style="color: #6699cc;">4</span>
+  @doc """
+  Returns the variable `five`, 4 in this case, plus `x`.
+  """
+  def five_plus_var(x) do
+    five = 4
     five + x
-  <span style="color: #99cc99;">end</span>
-<span style="color: #99cc99;">end</span>
+  end
+end
 
-<span style="color: #6699cc;">IO</span>.inspect <span style="color: #cccccc;">[</span><span style="color: #66cccc;">[</span><span style="color: #87cefa;">:five_plus_fn</span>,  <span style="color: #6699cc;">Example</span>.five_plus_fn<span style="color: #ffcc66;">(</span><span style="color: #6699cc;">5</span><span style="color: #ffcc66;">)</span><span style="color: #66cccc;">]</span>,
-            <span style="color: #66cccc;">[</span><span style="color: #87cefa;">:five_plus_var</span>, <span style="color: #6699cc;">Example</span>.five_plus_var<span style="color: #ffcc66;">(</span><span style="color: #6699cc;">5</span><span style="color: #ffcc66;">)</span><span style="color: #66cccc;">]</span><span style="color: #cccccc;">]</span>
+IO.inspect [[:five_plus_fn,  Example.five_plus_fn(5)],
+            [:five_plus_var, Example.five_plus_var(5)]]
 </pre>
 </div>
 
@@ -164,9 +162,9 @@ variables in the context, then called as a function:
 </div>
 
 
-<div id="outline-container-orgheadline2" class="outline-4">
-<h4 id="orgheadline2">For Keeping Parens</h4>
-<div class="outline-text-4" id="text-orgheadline2">
+<div id="outline-container-org793136a" class="outline-4">
+<h4 id="org793136a">For Keeping Parens</h4>
+<div class="outline-text-4" id="text-org793136a">
 <p>
 <code>func()</code>
 </p>
@@ -177,9 +175,9 @@ the clarity it adds to the code.
 </p>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-5">
-<h5 id="orgheadline3">Clarity</h5>
-<div class="outline-text-5" id="text-orgheadline3">
+<div id="outline-container-orga2cc855" class="outline-5">
+<h5 id="orga2cc855">Clarity</h5>
+<div class="outline-text-5" id="text-orga2cc855">
 <p>
 Using parens to call 0 arity functions increases code clarity by
 explicitly signaling that the reference is a function.
@@ -207,18 +205,17 @@ Here's the macro in question, trimmed down for easy digestion:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-elixir">defmacro test(message, var \\ quote(do: _), contents) do
+  contents = ...
+  var      = Macro.escape(var)
+  contents = Macro.escape(contents, unquote: true)
 
-<pre class="src src-elixir"><span style="color: #99cc99;">defmacro</span> test<span style="color: #cccccc;">(</span>message, var \\ <span style="color: #99cc99;">quote</span><span style="color: #66cccc;">(</span><span style="color: #87cefa;">do:</span> <span style="color: #6699cc;">_</span><span style="color: #66cccc;">)</span>, contents<span style="color: #cccccc;">)</span> <span style="color: #99cc99;">do</span>
-  <span style="color: #ffcc66;">contents</span> = ...
-  <span style="color: #ffcc66;">var</span>      = <span style="color: #6699cc;">Macro</span>.escape<span style="color: #cccccc;">(</span>var<span style="color: #cccccc;">)</span>
-  <span style="color: #ffcc66;">contents</span> = <span style="color: #6699cc;">Macro</span>.escape<span style="color: #cccccc;">(</span>contents, <span style="color: #87cefa;">unquote:</span> <span style="color: #87cefa;">true</span><span style="color: #cccccc;">)</span>
-
-  <span style="color: #99cc99;">quote</span> <span style="color: #87cefa;">bind_quoted:</span> binding <span style="color: #99cc99;">do</span>
-    <span style="color: #ffcc66;">test</span> = :<span style="color: #66cccc;">"test </span><span style="color: #ffcc66;">#{message}</span><span style="color: #66cccc;">"</span>
-    <span style="color: #6699cc;">ExUnit.Case.__on_definition__</span><span style="color: #cccccc;">(</span><span style="color: #6699cc;">__ENV__</span>, test<span style="color: #cccccc;">)</span>
-    <span style="color: #99cc99;">def</span> <span style="color: #99cc99;">unquote</span><span style="color: #cccccc;">(</span>test<span style="color: #cccccc;">)(</span><span style="color: #99cc99;">unquote</span><span style="color: #66cccc;">(</span>var<span style="color: #66cccc;">)</span><span style="color: #cccccc;">)</span>, <span style="color: #87cefa;">do:</span> <span style="color: #99cc99;">unquote</span><span style="color: #cccccc;">(</span>contents<span style="color: #cccccc;">)</span>
-  <span style="color: #99cc99;">end</span>
-<span style="color: #99cc99;">end</span>
+  quote bind_quoted: binding do
+    test = :"test #{message}"
+    ExUnit.Case.__on_definition__(__ENV__, test)
+    def unquote(test)(unquote(var)), do: unquote(contents)
+  end
+end
 </pre>
 </div>
 
@@ -270,9 +267,9 @@ and unnecessary.
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-4">
-<h4 id="orgheadline4">For Dropping Parens</h4>
-<div class="outline-text-4" id="text-orgheadline4">
+<div id="outline-container-org2ac87a1" class="outline-4">
+<h4 id="org2ac87a1">For Dropping Parens</h4>
+<div class="outline-text-4" id="text-org2ac87a1">
 <p>
 <code>func</code>
 </p>
@@ -283,9 +280,9 @@ where it might make sense to drop the parens:
 </p>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-5">
-<h5 id="orgheadline5">One Name, Multiple Contexts</h5>
-<div class="outline-text-5" id="text-orgheadline5">
+<div id="outline-container-orgd6e9fe4" class="outline-5">
+<h5 id="orgd6e9fe4">One Name, Multiple Contexts</h5>
+<div class="outline-text-5" id="text-orgd6e9fe4">
 <p>
 The bareword duality between variables and function calls allows
 for easy refactoring from a variable to a function call with no
@@ -294,14 +291,13 @@ advantage of this:
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-elixir"><span style="color: #99cc99;">defmodule</span> <span style="color: #6699cc;">MyApp.Mixfile</span> <span style="color: #99cc99;">do</span>
-  <span style="color: #99cc99;">def</span> <span style="color: #f99157;">project</span> <span style="color: #99cc99;">do</span>
-    <span style="color: #ffcc66;">deps</span> = <span style="color: #cccccc;">[</span><span style="color: #66cccc;">{</span><span style="color: #87cefa;">:ecto</span>, <span style="color: #66cccc;">"~&gt; 0.8.0"</span><span style="color: #66cccc;">}</span><span style="color: #cccccc;">]</span>
-    <span style="color: #cccccc;">[</span><span style="color: #87cefa;">app:</span> <span style="color: #87cefa;">:my_app</span>,
-     <span style="color: #87cefa;">deps:</span> deps<span style="color: #cccccc;">]</span>
-  <span style="color: #99cc99;">end</span>
-<span style="color: #99cc99;">end</span>
+<pre class="src src-elixir">defmodule MyApp.Mixfile do
+  def project do
+    deps = [{:ecto, "~&gt; 0.8.0"}]
+    [app: :my_app,
+     deps: deps]
+  end
+end
 </pre>
 </div>
 
@@ -311,17 +307,16 @@ function without changing the reference to it:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-elixir">defmodule MyApp.Mixfile do
+  def project do
+    [app: :my_app,
+     deps: deps]
+  end
 
-<pre class="src src-elixir"><span style="color: #99cc99;">defmodule</span> <span style="color: #6699cc;">MyApp.Mixfile</span> <span style="color: #99cc99;">do</span>
-  <span style="color: #99cc99;">def</span> <span style="color: #f99157;">project</span> <span style="color: #99cc99;">do</span>
-    <span style="color: #cccccc;">[</span><span style="color: #87cefa;">app:</span> <span style="color: #87cefa;">:my_app</span>,
-     <span style="color: #87cefa;">deps:</span> deps<span style="color: #cccccc;">]</span>
-  <span style="color: #99cc99;">end</span>
-
-  <span style="color: #99cc99;">defp</span> <span style="color: #f99157;">deps</span> <span style="color: #99cc99;">do</span>
-    <span style="color: #cccccc;">[</span><span style="color: #66cccc;">{</span><span style="color: #87cefa;">:ecto</span>, <span style="color: #66cccc;">"~&gt; 0.8.0"</span><span style="color: #66cccc;">}</span><span style="color: #cccccc;">]</span>
-  <span style="color: #99cc99;">end</span>
-<span style="color: #99cc99;">end</span>
+  defp deps do
+    [{:ecto, "~&gt; 0.8.0"}]
+  end
+end
 </pre>
 </div>
 
@@ -339,9 +334,9 @@ description of this.
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-5">
-<h5 id="orgheadline6">Piping</h5>
-<div class="outline-text-5" id="text-orgheadline6">
+<div id="outline-container-org50bd2bb" class="outline-5">
+<h5 id="org50bd2bb">Piping</h5>
+<div class="outline-text-5" id="text-org50bd2bb">
 <p>
 Empty trailing parentheses are unnecessary when using the pipe
 macro.
@@ -352,15 +347,15 @@ A simple, contrived example:
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-elixir"><span style="color: #6699cc;">1</span>..<span style="color: #6699cc;">10</span>
-  |&gt; <span style="color: #6699cc;">Enum</span>.count
-  |&gt; <span style="color: #6699cc;">IO</span>.inspect
+<pre class="src src-elixir">1..10
+  |&gt; Enum.count
+  |&gt; IO.inspect
 </pre>
 </div>
 
 <pre class="example">
 10
+
 </pre>
 
 <p>
@@ -376,16 +371,16 @@ parens aesthetic situation a bit:
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-elixir"><span style="color: #6699cc;">1</span>..<span style="color: #6699cc;">10</span>
-  |&gt; <span style="color: #6699cc;">Enum</span>.filter<span style="color: #cccccc;">(</span>&amp;<span style="color: #66cccc;">(</span>rem<span style="color: #ffcc66;">(</span>&amp;1, <span style="color: #6699cc;">2</span><span style="color: #ffcc66;">)</span> == <span style="color: #6699cc;">0</span><span style="color: #66cccc;">)</span><span style="color: #cccccc;">)</span>
-  |&gt; <span style="color: #6699cc;">Enum</span>.count
-  |&gt; <span style="color: #6699cc;">IO</span>.inspect
+<pre class="src src-elixir">1..10
+  |&gt; Enum.filter(&amp;(rem(&amp;1, 2) == 0))
+  |&gt; Enum.count
+  |&gt; IO.inspect
 </pre>
 </div>
 
 <pre class="example">
 5
+
 </pre>
 
 <p>
@@ -395,9 +390,9 @@ the reader. Use what works best for your situation.
 </div>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-5">
-<h5 id="orgheadline7">Readability</h5>
-<div class="outline-text-5" id="text-orgheadline7">
+<div id="outline-container-org472cef6" class="outline-5">
+<h5 id="org472cef6">Readability</h5>
+<div class="outline-text-5" id="text-org472cef6">
 <p>
 The argument goes that parantheses are noise, and getting rid of
 them improves the clarity of your source. But, as argued above,
@@ -415,9 +410,9 @@ ubiquitous, arguments or no.
 </div>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-4">
-<h4 id="orgheadline8">Other</h4>
-<div class="outline-text-4" id="text-orgheadline8">
+<div id="outline-container-org4f023c0" class="outline-4">
+<h4 id="org4f023c0">Other</h4>
+<div class="outline-text-4" id="text-org4f023c0">
 <ul class="org-ul">
 <li>Discussion of parentheses in function definitions and piping
 in <a href="https://github.com/niftyn8/elixir_style_guide/pull/3">the elixir style guide</a>.</li>
@@ -475,7 +470,7 @@ in <a href="https://github.com/niftyn8/elixir_style_guide/pull/3">the elixir sty
         </p>
       </div>
       <div class="six columns">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.x (<a href="http://orgmode.org">Org mode</a> 8.x)</p>
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
           Powered by
           <a href="https://github.com/kelvinh/org-page">org-page</a> and

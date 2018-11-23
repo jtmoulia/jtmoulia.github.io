@@ -60,16 +60,16 @@
   <div class="post">
       <h3>Distributed Sequence Diagram Syntax</h3>
     <p>
-At <a href="http://spatch.co/">Spatch</a> we're planning towards a federated system which uses
+At <a href="http://spatch.co">Spatch</a> we're planning towards a federated system which uses
 <a href="http://en.wikipedia.org/wiki/Operational_transformation">operational transform</a> (OT) for conflict resolution. Part of that
 process is brainstorming edge or corner cases for challenging our
 assumptions. I'd like to be able to record these cases in a
 human-readable format -- suites of tests for our ideas.
 </p>
 
-<div id="outline-container-orgheadline1" class="outline-4">
-<h4 id="orgheadline1">Academic Figures</h4>
-<div class="outline-text-4" id="text-orgheadline1">
+<div id="outline-container-org3ba239f" class="outline-4">
+<h4 id="org3ba239f">Academic Figures</h4>
+<div class="outline-text-4" id="text-org3ba239f">
 <p>
 Academic OT papers often feature figures similar to Fig 1. In these
 diagrams, operations are created at one site, and then shipped to
@@ -80,7 +80,7 @@ other sites.
 <div class="figure">
 <p><img src="/assets/blog/2015/03/16/distrib-seq-diagram/cherif_2011_fig3.png" alt="cherif_2011_fig3.png" />
 </p>
-<p><span class="figure-number">Figure 1:</span> Cherif, 2011</p>
+<p><span class="figure-number">Figure 1: </span>Cherif, 2011</p>
 </div>
 
 <p>
@@ -91,9 +91,9 @@ you draw them?
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-4">
-<h4 id="orgheadline2">UML Sequence Diagrams</h4>
-<div class="outline-text-4" id="text-orgheadline2">
+<div id="outline-container-orgcef1779" class="outline-4">
+<h4 id="orgcef1779">UML Sequence Diagrams</h4>
+<div class="outline-text-4" id="text-orgcef1779">
 <p>
 I first tried to figure out the name of the diagram. Some brief
 googling took me to <a href="http://www.plantuml.com/">plantuml</a> and its fellow <a href="https://en.wikipedia.org/wiki/Unified_Modeling_Language">UML</a> tools.
@@ -118,7 +118,6 @@ You can hack around it, but the hacks are visual and distracting:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-plantuml">activate A
 activate B
 A -&gt; B
@@ -134,16 +133,16 @@ deactivate B
 <div class="figure">
 <p><img src="/assets/blog/2015/03/16/distrib-seq-diagram/plantuml_example.png" alt="plantuml_example.png" />
 </p>
-<p><span class="figure-number">Figure 2:</span> Hacking at concurrent ops with plantuml</p>
+<p><span class="figure-number">Figure 2: </span>Hacking at concurrent ops with plantuml</p>
 </div>
 </div>
 </div>
 
 
 
-<div id="outline-container-orgheadline3" class="outline-4">
-<h4 id="orgheadline3">mscgen</h4>
-<div class="outline-text-4" id="text-orgheadline3">
+<div id="outline-container-orga20537a" class="outline-4">
+<h4 id="orga20537a">mscgen</h4>
+<div class="outline-text-4" id="text-orga20537a">
 <p>
 Next I found out about <a href="https://en.wikipedia.org/wiki/Message_sequence_chart">message sequence charts</a>: a category of
 diagrams that encompasses UML sequence diagrams.
@@ -161,7 +160,6 @@ Though on the right track, mscgen isn't expressive enough.
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-mscgen">msc {
   A,B,C;
   A -&gt; B [ arcskip = "4" ];
@@ -176,15 +174,15 @@ Though on the right track, mscgen isn't expressive enough.
 <div class="figure">
 <p><img src="/assets/blog/2015/03/16/distrib-seq-diagram/mscgen_example.png" alt="mscgen_example.png" />
 </p>
-<p><span class="figure-number">Figure 3:</span> mscgen: simple, but not expressive enough</p>
+<p><span class="figure-number">Figure 3: </span>mscgen: simple, but not expressive enough</p>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-orgheadline4" class="outline-4">
-<h4 id="orgheadline4">mscpackage</h4>
-<div class="outline-text-4" id="text-orgheadline4">
+<div id="outline-container-org603e54c" class="outline-4">
+<h4 id="org603e54c">mscpackage</h4>
+<div class="outline-text-4" id="text-org603e54c">
 <p>
 <a href="http://satoss.uni.lu/software/mscpackage/">mscpackage</a> is a LaTeX package for drawing message sequence
 charts. As usual around LaTeX, mscpackage overcomes its LaTeX
@@ -193,33 +191,32 @@ it's the only option so far which can draw the reference diagram:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-latex"><span style="color: #4f97d7; font-weight: bold; font-style: italic;">\begin</span>{<span style="color: #bc6ec5; font-weight: bold;">msc</span>}{Classic Example}
 
-<pre class="src src-latex"><span style="color: #99cc99;">\begin</span>{<span style="color: #f99157;">msc</span>}{Classic Example}
+<span style="color: #4f97d7; font-weight: bold; font-style: italic;">\declinst</span>{s1}{Site 1}{abc}
+<span style="color: #4f97d7; font-weight: bold; font-style: italic;">\declinst</span>{s2}{Site 2}{abc}
 
-<span style="color: #99cc99;">\declinst</span>{s1}{Site 1}{abc}
-<span style="color: #99cc99;">\declinst</span>{s2}{Site 2}{abc}
+<span style="color: #4f97d7; font-weight: bold; font-style: italic;">\msccomment</span>[l]{A = Ins(0, x)}{s1}
+<span style="color: #4f97d7; font-weight: bold; font-style: italic;">\mess</span>{A}{s1}[0.1]{s2}[3]
 
-<span style="color: #99cc99;">\msccomment</span>[l]{A = Ins(0, x)}{s1}
-<span style="color: #99cc99;">\mess</span>{A}{s1}[0.1]{s2}[3]
+<span style="color: #4f97d7; font-weight: bold; font-style: italic;">\msccomment</span>[r]{B = Del(2)}{s2}
+<span style="color: #4f97d7; font-weight: bold; font-style: italic;">\mess</span>{B}{s2}[0.1]{s1}[3]
 
-<span style="color: #99cc99;">\msccomment</span>[r]{B = Del(2)}{s2}
-<span style="color: #99cc99;">\mess</span>{B}{s2}[0.1]{s1}[3]
+<span style="color: #4f97d7; font-weight: bold; font-style: italic;">\nextlevel</span>
+<span style="color: #4f97d7; font-weight: bold; font-style: italic;">\action</span>{xabc}{s1}
+<span style="color: #4f97d7; font-weight: bold; font-style: italic;">\action</span>{ab}{s2}
 
-<span style="color: #99cc99;">\nextlevel</span>
-<span style="color: #99cc99;">\action</span>{xabc}{s1}
-<span style="color: #99cc99;">\action</span>{ab}{s2}
+<span style="color: #4f97d7; font-weight: bold; font-style: italic;">\nextlevel</span>
 
-<span style="color: #99cc99;">\nextlevel</span>
+<span style="color: #4f97d7; font-weight: bold; font-style: italic;">\nextlevel</span>
+<span style="color: #4f97d7; font-weight: bold; font-style: italic;">\msccomment</span>[l]{IT(B, A)}{s1}
+<span style="color: #4f97d7; font-weight: bold; font-style: italic;">\msccomment</span>[r]{IT(A, B)}{s2}
 
-<span style="color: #99cc99;">\nextlevel</span>
-<span style="color: #99cc99;">\msccomment</span>[l]{IT(B, A)}{s1}
-<span style="color: #99cc99;">\msccomment</span>[r]{IT(A, B)}{s2}
+<span style="color: #4f97d7; font-weight: bold; font-style: italic;">\nextlevel</span>
+<span style="color: #4f97d7; font-weight: bold; font-style: italic;">\action</span>{xab}{s1}
+<span style="color: #4f97d7; font-weight: bold; font-style: italic;">\action</span>{xab}{s2}
 
-<span style="color: #99cc99;">\nextlevel</span>
-<span style="color: #99cc99;">\action</span>{xab}{s1}
-<span style="color: #99cc99;">\action</span>{xab}{s2}
-
-<span style="color: #99cc99;">\end</span>{<span style="color: #f99157;">msc</span>}
+<span style="color: #4f97d7; font-weight: bold; font-style: italic;">\end</span>{<span style="color: #bc6ec5; font-weight: bold;">msc</span>}
 </pre>
 </div>
 
@@ -232,9 +229,9 @@ it's the only option so far which can draw the reference diagram:
 </div>
 
 
-<div id="outline-container-orgheadline5" class="outline-4">
-<h4 id="orgheadline5">Summary</h4>
-<div class="outline-text-4" id="text-orgheadline5">
+<div id="outline-container-org400e6fa" class="outline-4">
+<h4 id="org400e6fa">Summary</h4>
+<div class="outline-text-4" id="text-org400e6fa">
 <p>
 For my use case, mscpackage is both the winner and only
 contestant. While it strikes a decent balance between simplicity and
@@ -295,7 +292,7 @@ thought.
         </p>
       </div>
       <div class="six columns">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.x (<a href="http://orgmode.org">Org mode</a> 8.x)</p>
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
           Powered by
           <a href="https://github.com/kelvinh/org-page">org-page</a> and
