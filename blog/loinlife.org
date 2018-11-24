@@ -1,0 +1,18 @@
+#+TITLE:       Life in the Loin
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       thomas@healthtensor.com
+#+DATE:        2018-11-25 Sat
+#+URI:         /blog/%y/%m/%d/life-in-the-loin
+#+KEYWORDS:    music, hack
+#+TAGS:        music, hack
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Life in the Loin, by Berry & Hog
+
+I've been figuring how to produce music to tak advantage of Caitria's musical
+savantry. I'll leave the attempts on this site to keep a log.
+
+As for the context of the song: Caitria has been haunted by a mosquito in our
+SF Tenderloin studio. I'm thankful the mosquito finds me distasteful. 
+
+[[audio/mp3:../assets/audio/loinlife.mp3][Life in the Loin]]

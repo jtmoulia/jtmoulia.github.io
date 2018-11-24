@@ -14,6 +14,15 @@
 (require 'org-element)
 (require 'dash)  ;; req'd by org-page anyways
 
+(defun jtmoulia-config/export-audio-mp3-link (path desc format)
+  "Export audio links to other formats"
+  (cl-case format
+    (html
+     (format "<audio controls preload src=\"%s\" type=\"audio/mp3\">%s</audio>" path (or desc "")))
+    ))
+
+(org-add-link-type "audio/mp3" #'ignore #'jtmoulia-config/export-audio-mp3-link)
+
 (let* ((root (file-name-directory (file-truename buffer-file-name)))
        (theme-root-directory (file-name-as-directory (concat root "themes"))))
   (add-to-list 'my-op-sites
