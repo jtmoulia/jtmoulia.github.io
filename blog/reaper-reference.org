@@ -1,0 +1,36 @@
+#+TITLE:       Reaper Reference
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       jtmoulia@gmail.com
+#+DATE:        2018-12-26 Wed
+#+URI:         /blog/%y/%m/%d/reaper-reference
+#+KEYWORDS:    music, reaper, hack
+#+TAGS:        music
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: A reference for the Reaper DAW
+
+[[https://www.reaper.fm/][Reaper]] is an excellent digital audio workstation, but it's often bafflingly
+complex. This page is a living reference of resoureces I've found useful for
+working with Reaper.
+
+* Plugins
+
+** Megababy Sequencer
+
+The MegaBaby sequencer that comes with Reaper is stupidly flexible.
+
+Other resources:
+
+  - NandyC has created a [[https://stash.reaper.fm/v/20869/seq%2520megababy%2520nm][solid fork]] with interface improvements.
+  - Winguitars posted a [[https://www.youtube.com/watch?v=Wq2C-Qg9Hp4][video guide]]
+
+
+** Keyzone Classic Piano (VST)
+
+The [[http://www.vst4free.com/free_vst.php?id=2848][Keyzone Classic]] piano contains samples for five pianos:
+
+- **Keyzone 1**
+- **Yamaha Grand Piano**
+- **Steinway Grand Piano** this piano sounds deep and rich
+- **Basic Electric Piano** an atmospheric, slow attack organ-like feel
+- **Rhodes Piano**
