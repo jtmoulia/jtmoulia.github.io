@@ -1,0 +1,19 @@
+#+TITLE:       Frying Pan
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       jtmoulia@gmail.com
+#+DATE:        2018-12-30 Sun
+#+URI:         /blog/%y/%m/%d/frying-pan
+#+KEYWORDS:    music, hack
+#+TAGS:        music, hack
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Frying Pan, by Berry & Hog
+
+Caitria and I put together a song, Frying Pan -- it's a spaghetti-western-esque
+piece about a desert rose and her hero.
+
+Caitria wrote, sang, and played most of the instruments; I hit record and
+twiddled the knobs. We recorded and arranged the piece using Reaper.
+
+[[audio/mp3:../assets/audio/fryingpan.mp3][Frying Pan]]
+

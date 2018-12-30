@@ -1,6 +1,6 @@
 #+TITLE:       Life in the Loin
 #+AUTHOR:      Thomas Moulia
-#+EMAIL:       thomas@healthtensor.com
+#+EMAIL:       jtmoulia@gmail.com
 #+DATE:        2018-11-25 Sat
 #+URI:         /blog/%y/%m/%d/life-in-the-loin
 #+KEYWORDS:    music, hack
