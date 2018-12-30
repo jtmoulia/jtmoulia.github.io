@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <title>Elixir 0-Arity Functions: Drop the Parens? - jtmoulia</title>
+  <meta charset="utf-8" />
+  <meta name="author" content="Thomas Moulia" />
+    <meta name="description" content="Include the parens when calling 0 arity functions?" />
+    <meta name="keywords" content="elixir, style, erlang, parentheses, parens, function, variable" />
+  <!-- TODO Concatenate CSS -->
+  <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,700,300italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+</head>
+
+  <body class="container">
+<div class="masthead">
+  <div class="masthead-title-div u-pull-left">
+    <h1 class="masthead-title"><a href="/">
+      jtmoulia
+    </a></h1>
+    <!-- TODO Who needs a sub-title?? -->
+    <!-- <p class="masthead-sub-title"> -->
+    <!-- public notebook 📓 -->
+    <!-- </p> -->
+  </div>
+  <nav class="navbar u-pull-right">
+    <ul class="navbar-list">
+      <li><a href="/blog/">Posts</a></li>
+      <li><a href="/about/">Who</a></li>
+    </ul>
+  </nav>
+</div>
+<div class="u-cf"></div>
+
+    <!-- <div> -->
+    <!--   <header class="masthead"> -->
+    <!--     <h1 class="masthead-title"><a href="/">jtmoulia</a></h1> -->
+    <!--     <p>public notebook 📓</p> -->
+    <!--     <ul> -->
+    <!--        -->
+    <!--       <li><a href="/blog/">Blog</a></li> -->
+    <!--        -->
+    <!--       <li><a href="/tags/">Tags</a></li> -->
+    <!--       <li><a href="/about/">About</a></li> -->
+    <!--       <li><a href="http://github.com/jtmoulia">GitHub</a></li> -->
+    <!--       <li><a href="/rss.xml">RSS</a></li> -->
+    <!--     </ul> -->
+    <!--     <form method="get" id="searchform" action="http://www.google.com/search"> -->
+    <!--       <input type="text" class="field" name="q" id="s" placeholder="Search"> -->
+    <!--       <input type="hidden" name="as_sitesearch" value="jtmoulia.pocketknife.io"> -->
+    <!--     </form> -->
+    <!--      -->
+    <!--   </header> -->
+    <!-- </div> -->
+
+  <hr />
+<div class="content">
+  <div class="post">
+      <h3>Elixir 0-Arity Functions: Drop the Parens?</h3>
+    <p>
+A question <a href="https://github.com/niftyn8/elixir_style_guide">from github</a>: <code>func</code> or <code>func()</code> ? And, my opinion...
+</p>
+
+<p>
+tl;dr; consistent use of trailing parens increases code clarity by
+explicitly signaling whether a reference is being used as a function
+call or a variable. Style decisions are case by case, but I'd default
+to keeping the parens when calling a 0 arity function.
+</p>
+
+<div id="outline-container-org38beab1" class="outline-4">
+<h4 id="org38beab1">Elixir + Barewords</h4>
+<div class="outline-text-4" id="text-org38beab1">
+<p>
+Elixir's Ruby heritage is apparent in its expressive and flexible
+syntax -- Elixir is unabashed about adding syntactic sugar to make
+your life easier.
+</p>
+
+<p>
+In particular, it carries over what Avdi Grimm calls Ruby's
+"barewords", references without decoration which can refer to
+different things depending on the context. While it sounds exotic,
+barewords are fundamental to the Elixir, e.g. variable references
+are barewords. <code>thing</code> or <code>Module.thing</code> is a bareword, while
+<code>thing()</code> or <code>Module</code> are not. Functions without arguments may be
+called using the function's name as a bareword, i.e. <code>func</code> and
+<code>func()</code>.
+</p>
+
+<p>
+In Elixir, a bareword is evaluated by first checking the bareword's
+name (the bareword itself) against variables in the context. If it
+isn't a defined variable, Elixir attempts to call the name as a
+function with no arguments. This doesn't have any special error
+handling: a <code>RuntimeError</code> is raised if the function is undefined:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elixir">iex&gt; a
+** (RuntimeError) undefined function: a/0
+
+iex&gt; a()
+** (RuntimeError) undefined function: a/0
+</pre>
+</div>
+
+<p>
+Here's an example of how barewords are first checked against the
+variables in the context, then called as a function:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elixir">defmodule Example do
+
+  def five, do: 5
+
+  @doc """
+  Returns the function `five`, 5 in this case, plus `x`.
+  """
+  def five_plus_fn(x) do
+    five + x
+  end
+
+  @doc """
+  Returns the variable `five`, 4 in this case, plus `x`.
+  """
+  def five_plus_var(x) do
+    five = 4
+    five + x
+  end
+end
+
+IO.inspect [[:five_plus_fn,  Example.five_plus_fn(5)],
+            [:five_plus_var, Example.five_plus_var(5)]]
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">:five_plus_fn</td>
+<td class="org-right">10</td>
+</tr>
+
+<tr>
+<td class="org-left">:five_plus_var</td>
+<td class="org-right">9</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+<div id="outline-container-org0345753" class="outline-4">
+<h4 id="org0345753">For Keeping Parens</h4>
+<div class="outline-text-4" id="text-org0345753">
+<p>
+<code>func()</code>
+</p>
+
+<p>
+Unless I have a good reason, I default to using parens because of
+the clarity it adds to the code.
+</p>
+</div>
+
+<div id="outline-container-orga273197" class="outline-5">
+<h5 id="orga273197">Clarity</h5>
+<div class="outline-text-5" id="text-orga273197">
+<p>
+Using parens to call 0 arity functions increases code clarity by
+explicitly signaling that the reference is a function.
+</p>
+
+<p>
+Reading code is a non-linear process of untangling threads of logic
+until you understand the whole. Having contextual signals (funcall
+vs var) makes references easier to trace.
+</p>
+
+<p>
+The other day, <a href="https://twitter.com/bismark">Ryan Johnson</a> was digging around in
+<a href="https://github.com/elixir-lang/elixir/blob/69c1cf27b0c491fb9b489fb1ed0f6f6a5ce31816/lib/ex_unit/lib/ex_unit/case.ex#L203">ExUnit.Case.test/2,3</a>. He asked:
+</p>
+
+<blockquote>
+<p>
+what does `binding` refer to?
+</p>
+</blockquote>
+
+<p>
+Here's the macro in question, trimmed down for easy digestion:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elixir">defmacro test(message, var \\ quote(do: _), contents) do
+  contents = ...
+  var      = Macro.escape(var)
+  contents = Macro.escape(contents, unquote: true)
+
+  quote bind_quoted: binding do
+    test = :"test #{message}"
+    ExUnit.Case.__on_definition__(__ENV__, test)
+    def unquote(test)(unquote(var)), do: unquote(contents)
+  end
+end
+</pre>
+</div>
+
+<p>
+Here's the process for figuring out what <code>binding</code>, or any
+bareword, refers to:
+</p>
+
+<ol class="org-ol">
+<li>Are there any variables bound to <code>binding</code> in the context?
+It's a bit easier in the example above since I cut out half of
+the macro at the <code>...</code>. Answer: no</li>
+<li>Are there any 0 arity functions called <code>binding</code> defined in
+<code>ExUnit.Case</code> ? Answer: no</li>
+<li>Are there any 0 arity functions called <code>binding</code> imported by
+<code>ExUnit.Case</code>? <code>ExUnit.Case</code> imports four modules, any of which
+might define the function. Answer: yes</li>
+<li>Still can't find it? Try starting back at (1).</li>
+</ol>
+
+<p>
+This process is trivial for a computer brain running the correct
+program, but our human brains are not nearly as well equipped to
+glean the answer from source code. If you know of any tooling that
+helps with this, let me know!
+</p>
+
+<p>
+After some spelunking, Ryan found did find the answer to his
+question in the nifty <a href="http://elixir-lang.org/docs/stable/elixir/Kernel.html#binding/1">binding/0</a> macro. However, even if he'd known
+about <code>Kernel.binding/0</code>, he still would have had to verify that
+their are no variables named <code>binding</code> which supersede the function
+call.
+</p>
+
+<p>
+If <code>binding()</code> had been used instead of <code>binding</code>, you could
+scratch step 1: the parens signal that the reference is to a
+function rather than a variable. Moreover, if you're wiser than
+Ryan and I and know of <code>Kernel.binding/0</code>, your job is easy.
+</p>
+
+<p>
+In complex code where reference tracing is already difficult,
+forcing the reader to check through multiple contexts is painful
+and unnecessary.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge2fb6e4" class="outline-4">
+<h4 id="orge2fb6e4">For Dropping Parens</h4>
+<div class="outline-text-4" id="text-orge2fb6e4">
+<p>
+<code>func</code>
+</p>
+
+<p>
+Dogma has no place in coding style -- here are some situations
+where it might make sense to drop the parens:
+</p>
+</div>
+
+<div id="outline-container-orga287a77" class="outline-5">
+<h5 id="orga287a77">One Name, Multiple Contexts</h5>
+<div class="outline-text-5" id="text-orga287a77">
+<p>
+The bareword duality between variables and function calls allows
+for easy refactoring from a variable to a function call with no
+arguments. The follow two code snippets show how most <a href="http://elixir-lang.org/docs/stable/mix/">Mixfiles</a> take
+advantage of this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elixir">defmodule MyApp.Mixfile do
+  def project do
+    deps = [{:ecto, "~&gt; 0.8.0"}]
+    [app: :my_app,
+     deps: deps]
+  end
+end
+</pre>
+</div>
+
+<p>
+The punchline: refactoring out the <code>deps</code> variable to its own
+function without changing the reference to it:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elixir">defmodule MyApp.Mixfile do
+  def project do
+    [app: :my_app,
+     deps: deps]
+  end
+
+  defp deps do
+    [{:ecto, "~&gt; 0.8.0"}]
+  end
+end
+</pre>
+</div>
+
+<p>
+It's a neat pattern, and works well in simple modules like a
+mixfile. I'd avoid using this when the function being called does
+significant computation, as opposed to the <code>deps/0</code> function which
+only returns a value.
+</p>
+
+<p>
+See Avdi Grimm's <a href="http://devblog.avdi.org/2012/10/01/barewords/">barewords ruby tapas episode</a> for a great
+description of this.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5158d4f" class="outline-5">
+<h5 id="org5158d4f">Piping</h5>
+<div class="outline-text-5" id="text-org5158d4f">
+<p>
+Empty trailing parentheses are unnecessary when using the pipe
+macro.
+</p>
+
+<p>
+A simple, contrived example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elixir">1..10
+  |&gt; Enum.count
+  |&gt; IO.inspect
+</pre>
+</div>
+
+<pre class="example">
+10
+
+</pre>
+
+<p>
+When using piping, there is <i>no</i> ambiguity about what <code>Enum.count</code>
+is referring to: it's being called as function with one
+argument. Empty trailing parens provide no additional information.
+</p>
+
+<p>
+However, in practice you'll often find yourself piping through
+functions which take more than one argument, which muddies the
+parens aesthetic situation a bit:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elixir">1..10
+  |&gt; Enum.filter(&amp;(rem(&amp;1, 2) == 0))
+  |&gt; Enum.count
+  |&gt; IO.inspect
+</pre>
+</div>
+
+<pre class="example">
+5
+
+</pre>
+
+<p>
+In sum, dropping parens when piping doesn't introduce ambiguity for
+the reader. Use what works best for your situation.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgfeb5fd2" class="outline-5">
+<h5 id="orgfeb5fd2">Readability</h5>
+<div class="outline-text-5" id="text-orgfeb5fd2">
+<p>
+The argument goes that parantheses are noise, and getting rid of
+them improves the clarity of your source. But, as argued above,
+parens are <i>not</i> noise; their presence signals that name refers to
+a 0-arity function.
+</p>
+
+<p>
+As for the scannability of <code>func</code> vs <code>func()</code>, I'm not going to
+argue aesthetics. Instead, I'll say that from Prolog to C to
+mathematics, trailing parens as notation for a function call is
+ubiquitous, arguments or no.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org440892b" class="outline-4">
+<h4 id="org440892b">Other</h4>
+<div class="outline-text-4" id="text-org440892b">
+<ul class="org-ul">
+<li>Discussion of parentheses in function definitions and piping
+in <a href="https://github.com/niftyn8/elixir_style_guide/pull/3">the elixir style guide</a>.</li>
+</ul>
+</div>
+</div>
+
+  </div>
+</div>
+
+<div>
+    <div class="post-meta row">
+      <div class="six columns">
+        <p>
+          Written by <span title="author" class="post-info">Thomas Moulia</span>
+        </p>
+        <p>
+          Tags: <span title="tags" class="post-info"><a href="/tags/elixir/">elixir</a>, <a href="/tags/style/">style</a></span>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>
+          Published:
+          <span title="post date" class="post-info">2015-03-12</span>
+        </p>
+        <p>
+          Modified:
+          <span title="last modification date" class="post-info">2015-03-15</span>
+        </p>
+      </div>
+    </div>
+  <hr />
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript">
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-60774978-1']);
+     _gaq.push(['_trackPageview']);
+     (function() {
+         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+    </script>
+  <div class="footer container">
+    <div class="row">
+      <div class="six columns">
+        <p>
+          Copyright &copy; 2015 -
+          <span id="footerYear"></span>
+        </p>
+        <p>
+          by <a href="mailto:jtmoulia &lt;at&gt; gmail &lt;dot&gt; com">Thomas Moulia</a>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Powered by
+          <a href="https://github.com/kelvinh/org-page">org-page</a> and
+          <a href="http://getskeleton.com/">skeleton</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+
+  </body>
+</html>
