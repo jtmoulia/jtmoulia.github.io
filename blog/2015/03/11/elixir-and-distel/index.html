@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <title>Elixir and Distel - jtmoulia</title>
+  <meta charset="utf-8" />
+  <meta name="author" content="Thomas Moulia" />
+    <meta name="description" content="Distel: Emacs talking Erlixir" />
+    <meta name="keywords" content="elixir, emacs" />
+  <!-- TODO Concatenate CSS -->
+  <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,700,300italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+</head>
+
+  <body class="container">
+<div class="masthead">
+  <div class="masthead-title-div u-pull-left">
+    <h1 class="masthead-title"><a href="/">
+      jtmoulia
+    </a></h1>
+    <!-- TODO Who needs a sub-title?? -->
+    <!-- <p class="masthead-sub-title"> -->
+    <!-- public notebook 📓 -->
+    <!-- </p> -->
+  </div>
+  <nav class="navbar u-pull-right">
+    <ul class="navbar-list">
+      <li><a href="/blog/">Posts</a></li>
+      <li><a href="/about/">Who</a></li>
+    </ul>
+  </nav>
+</div>
+<div class="u-cf"></div>
+
+    <!-- <div> -->
+    <!--   <header class="masthead"> -->
+    <!--     <h1 class="masthead-title"><a href="/">jtmoulia</a></h1> -->
+    <!--     <p>public notebook 📓</p> -->
+    <!--     <ul> -->
+    <!--        -->
+    <!--       <li><a href="/blog/">Blog</a></li> -->
+    <!--        -->
+    <!--       <li><a href="/tags/">Tags</a></li> -->
+    <!--       <li><a href="/about/">About</a></li> -->
+    <!--       <li><a href="http://github.com/jtmoulia">GitHub</a></li> -->
+    <!--       <li><a href="/rss.xml">RSS</a></li> -->
+    <!--     </ul> -->
+    <!--     <form method="get" id="searchform" action="http://www.google.com/search"> -->
+    <!--       <input type="text" class="field" name="q" id="s" placeholder="Search"> -->
+    <!--       <input type="hidden" name="as_sitesearch" value="jtmoulia.pocketknife.io"> -->
+    <!--     </form> -->
+    <!--      -->
+    <!--   </header> -->
+    <!-- </div> -->
+
+  <hr />
+<div class="content">
+  <div class="post">
+      <h3>Elixir and Distel</h3>
+    
+<div id="outline-container-org11b7de0" class="outline-4">
+<h4 id="org11b7de0">Distel: Emacs talking Erlixir</h4>
+<div class="outline-text-4" id="text-org11b7de0">
+<p>
+<a href="https://github.com/tonini/alchemist.el">alchemist.el</a> is a Swiss army knife for working with Elixir from the
+comfort of Emacs. It can run <a href="http://elixir-lang.org/getting-started/mix-otp/introduction-to-mix.html">mix</a> tasks, look up Elixir source
+documentation, autocomplete, ... etc. Alchemist is awesome.
+</p>
+
+<p>
+But, here's the rub: often alchemist has to boot an Erlang VM to
+evaluate a single expression. Running tests boots a VM, looking up a
+function's source doc boots a VM, each prefix autocompletion boots a
+VM. This is slow, and if you want the VM to load the code you're
+actively developing you better not have any compile-time errors.
+</p>
+
+<p>
+Plus, with features like hot code reloading, supervision trees, and
+remote shells, Erlang loves to be manipulated live. Stuart Sierra, a
+Clojurian, said:
+</p>
+
+<blockquote>
+<p>
+One of the great pleasures of working with a dynamic language is
+being able to build a system while simultaneously interacting with
+it.
+</p>
+</blockquote>
+
+
+<p>
+Enter <a href="https://github.com/massemanet/distel">distel</a>. Distel implements the Erlang distribution protocol in
+ELisp. More on the nitty gritty of that later, but long story short:
+distel allows Emacs to pass as an Erlang node; a gnu in Erlang's
+clothing (?!). Instead of booting a new Erlang VM to evaluate an
+expression, the functions can be called on a running node via
+RPC. Start your application on the remote node with an <a href="https://github.com/herenowcoder/reprise">autoreloader</a>
+and you have a <a href="http://thinkrelevance.com/blog/2013/06/04/clojure-workflow-reloaded">long-lived development session</a>.
+</p>
+
+<p>
+The rest of this post is a brief overview of how to use distel from
+an Elixir perspective.
+</p>
+</div>
+
+<div id="outline-container-org6ecbf16" class="outline-5">
+<h5 id="org6ecbf16">Connecting Distel</h5>
+<div class="outline-text-5" id="text-org6ecbf16">
+<p>
+I'll leave the installation up to you, clever reader.
+</p>
+
+<p>
+For programming with distel, the Emacs info pages are surprisingly
+mediocre. Instead, see the included <a href="https://github.com/massemanet/distel/blob/master/doc/gorrie02distel.pdf">Gorrie 02</a>.
+</p>
+
+<p>
+First, you need a node running distributed Erlang; booting an
+Erlang VM running an Elixir console will do:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">iex --sname emacs <span style="color: #4f97d7;">[</span>-S mix<span style="color: #4f97d7;">]</span>
+</pre>
+</div>
+
+<p>
+The first time you run any distel command you'll be prompted for
+the name of the Erlang node to connect to. If you used the short
+name <code>emacs</code> as above, the node name is just <code>emacs</code>
+</p>
+
+<p>
+If you're having issues, make sure that your cookie matches.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org79ee799" class="outline-5">
+<h5 id="org79ee799">RPC against an Erlang node</h5>
+<div class="outline-text-5" id="text-org79ee799">
+<p>
+Distel loads an RPC library, rex, into the remote node. On the
+Emacs side, distel provides <code>erl-send-rpc</code> as a helper to call into
+rex. The function signature, <code>(erl-send-rpc NODE MODULE FUNCTION
+   ARGS)</code>, is reminiscient to Erlang RPC and apply calls and works
+similarly.
+</p>
+
+<p>
+After handling the call, the target node sends a message
+back to Emacs wrapped in an <code>rex</code> tuple, which can be caught with
+<code>erl-receive</code>. Look at the function docs for <code>erl-receive</code> -- between
+pattern matching and variable binding it does quite a bit.
+</p>
+
+<p>
+Putting it all together, here's a function that will call
+<code>Enum.count/1</code> with the arg <code>LIST</code> on the remote node:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold; font-style: italic;">defun</span> <span style="color: #bc6ec5; font-weight: bold;">elixir-enum-count</span> <span style="color: #bc6ec5;">(</span>node list<span style="color: #bc6ec5;">)</span>
+  <span style="color: #9f8766;">"Use NODE to call `Enum.count(LIST)'"</span>
+  <span style="color: #bc6ec5;">(</span>erl-spawn
+    <span style="color: #2d9574;">(</span>erl-send-rpc node 'Elixir.Enum 'count <span style="color: #67b11d;">(</span>list expr<span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span>
+    <span style="color: #2d9574;">(</span>erl-receive <span style="color: #67b11d;">()</span>
+        <span style="color: #67b11d;">(</span><span style="color: #b1951d;">(</span><span style="color: #4f97d7;">[</span>'rex results<span style="color: #4f97d7;">]</span> <span style="color: #4f97d7;">(</span>message <span style="color: #2d9574;">"results: %S"</span> results<span style="color: #4f97d7;">)</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+<p>
+Notice that the module, <code>Enum</code> is referenced using its absolute
+name: <code>Elixir.Enum</code>. You must use the absolute name when
+referencing an Elixir module.
+</p>
+
+<p>
+Another catch: the result of <code>erl-receive</code> isn't returned to the
+calling context; you must use the <a href="https://en.wikipedia.org/wiki/Continuation-passing_style">continuation passing-style</a> to
+handle results. i.e. callbacks, ahoy! Here's the previous example
+rewritten with the result being passed to the callback function.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold; font-style: italic;">defun</span> <span style="color: #bc6ec5; font-weight: bold;">proximel-enum-count</span> <span style="color: #bc6ec5;">(</span>node expr <span style="color: #ce537a; font-weight: bold;">&amp;optional</span> callback<span style="color: #bc6ec5;">)</span>
+  <span style="color: #9f8766;">"Use NODE to generate a list of completions for EXPR.  Optionally</span>
+<span style="color: #9f8766;">call CALLBACK with the completions."</span>
+  <span style="color: #bc6ec5;">(</span>erl-spawn
+    <span style="color: #2d9574;">(</span>erl-send-rpc node 'Elixir.Proximel 'expand <span style="color: #67b11d;">(</span>list expr<span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span>
+    <span style="color: #2d9574;">(</span>erl-receive <span style="color: #67b11d;">(</span>callback<span style="color: #67b11d;">)</span>
+        <span style="color: #67b11d;">(</span><span style="color: #b1951d;">(</span><span style="color: #4f97d7;">[</span>'rex results<span style="color: #4f97d7;">]</span>
+          <span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold; font-style: italic;">progn</span> <span style="color: #bc6ec5;">(</span>message <span style="color: #2d9574;">"results: %S"</span> results<span style="color: #bc6ec5;">)</span>
+                 <span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold; font-style: italic;">if</span> callback <span style="color: #2d9574;">(</span>funcall callback results<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+<p>
+All iterations of <code>proximel-enum-count</code> accept the Erlang <code>NODE</code> as
+the first argument. The current value of <code>NODE</code> can be fetched with
+the function <code>erl-target-node</code>. This makes it easy to define
+interactive functions that accept a node:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold; font-style: italic;">defun</span> <span style="color: #bc6ec5; font-weight: bold;">elixir-enum-count</span> <span style="color: #bc6ec5;">(</span>node list<span style="color: #bc6ec5;">)</span>
+  <span style="color: #9f8766;">"Use NODE to call `Enum.count(LIST)'"</span>
+  <span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold; font-style: italic;">interactive</span> <span style="color: #2d9574;">(</span>list <span style="color: #67b11d;">(</span>erl-target-node<span style="color: #67b11d;">)</span>
+                     <span style="color: #67b11d;">(</span>read-minbuffer <span style="color: #2d9574;">"Enter list: "</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>
+  <span style="color: #bc6ec5;">(</span>erl-spawn
+    <span style="color: #2d9574;">(</span>erl-send-rpc node 'Elixir.Enum 'count <span style="color: #67b11d;">(</span>list expr<span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span>
+    <span style="color: #2d9574;">(</span>erl-receive <span style="color: #67b11d;">()</span>
+        <span style="color: #67b11d;">(</span><span style="color: #b1951d;">(</span><span style="color: #4f97d7;">[</span>'rex results<span style="color: #4f97d7;">]</span> <span style="color: #4f97d7;">(</span>message <span style="color: #2d9574;">"results: %S"</span> results<span style="color: #4f97d7;">)</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1b63143" class="outline-5">
+<h5 id="org1b63143">Demos: Proximel</h5>
+<div class="outline-text-5" id="text-org1b63143">
+<p>
+I put together a basic repo, <a href="https://github.com/jtmoulia/proximel">proximel</a>, which demos loading beam
+files compiled from Elixir source into a remote node, and basic
+Elixir autocompletion.
+</p>
+
+<p>
+In a future post I'll dissect Elixir autocompletion over distel
+with <a href="http://company-mode.github.io/">company-mode</a>.
+</p>
+</div>
+</div>
+</div>
+
+  </div>
+</div>
+
+<div>
+    <div class="post-meta row">
+      <div class="six columns">
+        <p>
+          Written by <span title="author" class="post-info">Thomas Moulia</span>
+        </p>
+        <p>
+          Tags: <span title="tags" class="post-info"><a href="/tags/elixir/">elixir</a>, <a href="/tags/emacs/">emacs</a>, <a href="/tags/erlang/">erlang</a></span>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>
+          Published:
+          <span title="post date" class="post-info">2015-03-11</span>
+        </p>
+        <p>
+          Modified:
+          <span title="last modification date" class="post-info">2015-03-12</span>
+        </p>
+      </div>
+    </div>
+  <hr />
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript">
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-60774978-1']);
+     _gaq.push(['_trackPageview']);
+     (function() {
+         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+    </script>
+  <div class="footer container">
+    <div class="row">
+      <div class="six columns">
+        <p>
+          Copyright &copy; 2015 -
+          <span id="footerYear"></span>
+        </p>
+        <p>
+          by <a href="mailto:jtmoulia &lt;at&gt; gmail &lt;dot&gt; com">Thomas Moulia</a>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Powered by
+          <a href="https://github.com/kelvinh/org-page">org-page</a> and
+          <a href="http://getskeleton.com/">skeleton</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+
+  </body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <title>Intro to Spell: An Elixir WAMP Client - jtmoulia</title>
+  <meta charset="utf-8" />
+  <meta name="author" content="Thomas Moulia" />
+    <meta name="description" content="ob-elixir: interactive development in elixir using org-mode" />
+    <meta name="keywords" content="elixir, wamp, networking" />
+  <!-- TODO Concatenate CSS -->
+  <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,700,300italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+</head>
+
+  <body class="container">
+<div class="masthead">
+  <div class="masthead-title-div u-pull-left">
+    <h1 class="masthead-title"><a href="/">
+      jtmoulia
+    </a></h1>
+    <!-- TODO Who needs a sub-title?? -->
+    <!-- <p class="masthead-sub-title"> -->
+    <!-- public notebook 📓 -->
+    <!-- </p> -->
+  </div>
+  <nav class="navbar u-pull-right">
+    <ul class="navbar-list">
+      <li><a href="/blog/">Posts</a></li>
+      <li><a href="/about/">Who</a></li>
+    </ul>
+  </nav>
+</div>
+<div class="u-cf"></div>
+
+    <!-- <div> -->
+    <!--   <header class="masthead"> -->
+    <!--     <h1 class="masthead-title"><a href="/">jtmoulia</a></h1> -->
+    <!--     <p>public notebook 📓</p> -->
+    <!--     <ul> -->
+    <!--        -->
+    <!--       <li><a href="/blog/">Blog</a></li> -->
+    <!--        -->
+    <!--       <li><a href="/tags/">Tags</a></li> -->
+    <!--       <li><a href="/about/">About</a></li> -->
+    <!--       <li><a href="http://github.com/jtmoulia">GitHub</a></li> -->
+    <!--       <li><a href="/rss.xml">RSS</a></li> -->
+    <!--     </ul> -->
+    <!--     <form method="get" id="searchform" action="http://www.google.com/search"> -->
+    <!--       <input type="text" class="field" name="q" id="s" placeholder="Search"> -->
+    <!--       <input type="hidden" name="as_sitesearch" value="jtmoulia.pocketknife.io"> -->
+    <!--     </form> -->
+    <!--      -->
+    <!--   </header> -->
+    <!-- </div> -->
+
+  <hr />
+<div class="content">
+  <div class="post">
+      <h3>Intro to Spell: An Elixir WAMP Client</h3>
+    <p>
+I contracted with <a href="https://www.mymedsandme.com">MyMeds&amp;Me</a>, a London based company focusing on pharmaceutical
+adverse event reporting and event capture, to build <a href="https://github.com/MyMedsAndMe/spell">Spell</a>.
+</p>
+
+<div id="outline-container-org0a1db7c" class="outline-4">
+<h4 id="org0a1db7c">A WAMP Client</h4>
+<div class="outline-text-4" id="text-org0a1db7c">
+<p>
+The <a href="http://wamp.ws/">Web Application Messaging Protocol</a> [WAMP] is an open messaging protocol
+designed by <a href="http://tavendo.com/">Tavendo GmbH</a>. It specifies Publish Subscribe [PubSub] and Remote
+Procedure Call [RPC] functionality using a modular approach; peers must
+implement the basic protocol, but can negotiate advanced features. As an open
+specification, it supports polyglot, service oriented backends.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9a17010" class="outline-4">
+<h4 id="org9a17010">Spell's Purpose and Implementation</h4>
+<div class="outline-text-4" id="text-org9a17010">
+<p>
+MyMeds&amp;Me was interested in decoupling their backend and transitioning from Ruby
+to Elixir, which led them to WAMP. WAMP supports peers written in any language
+within the same distributed system, allowing which could implement or rewrite
+services in the most appropriate language. However, there was no WAMP client
+written in Elixir, i.e. no bridge for transitioning components over. 
+</p>
+
+<p>
+I worked with the MyMeds&amp;Me engineering team to specify the requirements for an
+Elixir WAMP client, and flesh out the requirements into a technical plan and
+timeline. The work was split into two steps: first, the basic WAMP profile, and
+secondly, particular advanced features (e.g. challenge response authentication
+[CRA]) critical to their application. From initial design to completion, the
+project took less than two months.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgceaef82" class="outline-4">
+<h4 id="orgceaef82">Example</h4>
+<div class="outline-text-4" id="text-orgceaef82">
+<p>
+An involved PubSub example should make things more concrete. To make it more
+impressive, imagine that the publisher or subscriber are clients in other
+languages, running on different machines.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elixir"># Events must be published to a topic.
+topic = "com.spell.example.pubsub.topic"
+
+# Create a peer with the subscriber role.
+subscriber = Spell.connect(Crossbar.uri,
+                           realm: Crossbar.get_realm(),
+                           roles: [Spell.Role.Subscriber])
+
+# `call_subscribe/2,3` synchronously subscribes to the topic.
+{:ok, subscription} = Spell.call_subscribe(subscriber, topic)
+
+# Create a peer with the publisher role.
+publisher = Spell.connect(Crossbar.uri,
+                          realm: Crossbar.get_realm(),
+                          roles: [Spell.Role.Publisher])
+
+# `call_publish/2,3` synchronously publishes a message to the topic.
+{:ok, publication} = Spell.call_publish(publisher, topic)
+
+# `receive_event/2,3` blocks to receive the event.
+case Spell.receive_event(publisher, subscription) do
+  {:ok, event}     -&gt; handle_event(event)
+  {:error, reason} -&gt; {:error, reason}
+end
+
+# Cleanup.
+for peer &lt;- [subscriber, publisher], do: Spell.close(peer)
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org7b5419f" class="outline-4">
+<h4 id="org7b5419f">Comments</h4>
+<div class="outline-text-4" id="text-org7b5419f">
+<p>
+There was another WAMP client written in Erlang, <a href="https://github.com/bwegh/awre">awre</a>. While awre is a fine
+solution, we decided to implement a new client to take advantage of Elixir's
+extensibility and ecosystem. Spell uses Elixir libraries and tools where
+possible.
+</p>
+
+<p>
+Elixir was a great fit for development. Erlang's message passing architecture
+and failure handling is a natural fit for network applications. Overlaid with
+Elixir's extensibility (metaprogramming and protocols, anyone?) we had a client
+which supported synchronous and asynchronous styles of programming, and could be
+easily extended to support WAMP's serialization and transport options. You can
+read more about it in the <a href="https://github.com/MyMedsAndMe/spell/blob/master/README.md">README</a>.
+</p>
+</div>
+</div>
+
+  </div>
+</div>
+
+<div>
+    <div class="post-meta row">
+      <div class="six columns">
+        <p>
+          Written by <span title="author" class="post-info">Thomas Moulia</span>
+        </p>
+        <p>
+          Tags: <span title="tags" class="post-info"><a href="/tags/elixir/">elixir</a>, <a href="/tags/erlang/">erlang</a>, <a href="/tags/contracting/">contracting</a>, <a href="/tags/networking/">networking</a></span>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>
+          Published:
+          <span title="post date" class="post-info">2015-04-01</span>
+        </p>
+        <p>
+          Modified:
+          <span title="last modification date" class="post-info">2016-02-06</span>
+        </p>
+      </div>
+    </div>
+  <hr />
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript">
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-60774978-1']);
+     _gaq.push(['_trackPageview']);
+     (function() {
+         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+    </script>
+  <div class="footer container">
+    <div class="row">
+      <div class="six columns">
+        <p>
+          Copyright &copy; 2015 -
+          <span id="footerYear"></span>
+        </p>
+        <p>
+          by <a href="mailto:jtmoulia &lt;at&gt; pocketknife &lt;dot&gt; io">Thomas Moulia</a>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Powered by
+          <a href="https://github.com/kelvinh/org-page">org-page</a> and
+          <a href="http://getskeleton.com/">skeleton</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+
+  </body>
+</html>
