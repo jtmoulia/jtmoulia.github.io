@@ -1,0 +1,94 @@
+#+TITLE:       Recipes
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       jtmoulia@gmail.com
+#+DATE:        2018-12-29 Sat
+#+URI:         /blog/%y/%m/%d/recipes
+#+KEYWORDS:    food, recipes
+#+TAGS:        food
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Some food recipes.
+
+A collection of food recipes.
+
+* Breadmaker
+
+** Fluffy and Sweet
+
+   Large white loaf
+
+   - 1 1/4 cup of body temp water
+   - 2 tbs oil
+   - 2 tbs honey
+   - 1 1/2 tsp yeast
+   - 3 1/4 cup flour
+   - 2 tsp salt
+   - 1 tsp vital wheat gluten (to make it fluffy)
+
+* Pickles
+** Salt + Vinegar Hot Pickled Cukes
+
+   Best way to figure this out is mix up a picklin juice that tastes like the
+   pickles you want.
+
+   Then boil the juice, and add it to a jar packed with veggies.
+
+   Harder veggies [carrots!] can be par-boiled first.
+
+   First cut used much salt and a bit less white vinegar.
+
+   Ideas for mix-ins:
+
+   - Mustard seeds (crushed?)
+   - Dill
+   - Crushed peppers
+   - Chopped garlic
+   - Jalapenos
+
+* Granola
+** Basic
+
+   1. Mix granola + nut + berry shit [dry]
+   2. Separately mix maple syrup [2?] egg white, vanilla to taste [wet]
+   3. Keep dry stuff moist with wet stuff
+   4. Bake @ 250℉ until it starts to brown
+   5. Crack door + turn off oven
+   6. Leave until super crispy
+
+* Baked Veggies
+** Roasted Broccoli / Cauliflower / Brussel Sprouts
+
+- Preheat oven to 400℉ for crispy
+- Chop down veggies
+- Spread veggies across cooking pan
+- Sprinkle with oil & flavor, e.g.
+  - salt & pepper
+  - vinegar (balsamic, rice)
+  - soy sauce
+  - hot sauce
+  - ?
+- Bake until just crispy, or to your taste
+
+** Eggplant Parmesan
+
+- 3 eggplant, thinly sliced
+- 16oz mozzarella (shred)
+- 1/2 cup grated parmesan
+- 2 eggs, beaten
+- 4 cups breadcrumbs
+
+Bake until the top has that golden fried cheese look. It takes longer than I'd
+expected to get the eggplant cooked all the way through.
+
+* Sauces
+
+** Roux
+
+Equal parts flour and fat, mix with water and continuously stir over low heat
+until completely smooth.
+
+Awesome pie filler.
+
+[[https://www.reaper.fm/][Reaper]] is an excellent digital audio workstation, but it's often bafflingly
+complex. This page is a living reference of resoureces I've found useful for
+working with Reaper.
