@@ -61,14 +61,14 @@
       <h3>Using Pipenv &amp; Jupyter</h3>
     <p>
 <a href="https://www.python.org/">Python</a>'s data analysis packages (<a href="https://pandas.pydata.org/">pandas</a>, <a href="https://scikit-learn.org/stable/">sklearn</a>, <a href="https://spacy.io/">spacy</a>, etc) and user
-interfaces (<a href="https://jupyter.org/">Jupyter</a>, <a href="https://ipython.org/">ipython</a>, <a href="http://seaborn.pydata.org/">seaborn</a>) make it a swiss army knife for working
+interfaces (<a href="https://jupyter.org/">Jupyter</a>, <a href="https://ipython.org/">IPython</a>, <a href="http://seaborn.pydata.org/">seaborn</a>) make it a swiss army knife for working
 with data. This article sketches out how to quickly set up a Python data
 analysis environment using <a href="https://pipenv.readthedocs.io/en/latest/">Pipenv</a> to install Jupyter.
 </p>
 
-<div id="outline-container-org918e97f" class="outline-4">
-<h4 id="org918e97f">Install Pipenv</h4>
-<div class="outline-text-4" id="text-org918e97f">
+<div id="outline-container-orgbf851b6" class="outline-4">
+<h4 id="orgbf851b6">Install Pipenv</h4>
+<div class="outline-text-4" id="text-orgbf851b6">
 <p>
 The one requirement is <a href="https://pipenv.readthedocs.io/en/latest/install/#installing-pipenv">Pipenv</a> for setting up the Python <a href="https://docs.python.org/3/library/venv.html">venv</a> and installing the
 dependencies into it. If you're on OS X <a href="https://brew.sh/">homebrew</a> is a great package manager:
@@ -81,9 +81,9 @@ dependencies into it. If you're on OS X <a href="https://brew.sh/">homebrew</a> 
 </div>
 </div>
 
-<div id="outline-container-org812034d" class="outline-4">
-<h4 id="org812034d">Set up the venv</h4>
-<div class="outline-text-4" id="text-org812034d">
+<div id="outline-container-org07b6e08" class="outline-4">
+<h4 id="org07b6e08">Set up the venv</h4>
+<div class="outline-text-4" id="text-org07b6e08">
 <p>
 Pipenv identifies which venv should be used by the working directory, so first
 create and navigate into your project directory:
@@ -96,7 +96,7 @@ create and navigate into your project directory:
 </div>
 
 <p>
-With Pipenv you can set up the venv with jupyter:
+With Pipenv you can set up the venv with Jupyter:
 </p>
 
 <div class="org-src-container">
@@ -105,9 +105,9 @@ With Pipenv you can set up the venv with jupyter:
 </div>
 
 <p>
-Here's a further install which sets up additional data analysis packages:
-<code>pandas</code> for data manipulation, <code>seaborn</code> for visualization, and <code>spacy</code> for
-NLP:
+Based on what you need to get done you can install additional data analysis
+packages, e.g. <code>pandas</code> for data manipulation, <code>seaborn</code> for visualization, and
+<code>spacy</code> for NLP:
 </p>
 
 <div class="org-src-container">
@@ -120,12 +120,11 @@ Note that your exact Python environment can be replicated using the <code>Pipfil
 </p>
 </div>
 </div>
-
-<div id="outline-container-org8cbed61" class="outline-4">
-<h4 id="org8cbed61">Starting the Jupyter Notebook</h4>
-<div class="outline-text-4" id="text-org8cbed61">
+<div id="outline-container-orga725c39" class="outline-4">
+<h4 id="orga725c39">Starting the Jupyter Notebook</h4>
+<div class="outline-text-4" id="text-orga725c39">
 <p>
-Launch the Jupyter kernel and notebook by calling:
+Launch the Jupyter kernel and notebook by calling from your project directory:
 </p>
 
 <div class="org-src-container">
@@ -140,9 +139,9 @@ running any further commands in the same shell.
 </p>
 </div>
 
-<div id="outline-container-org2dcc644" class="outline-5">
-<h5 id="org2dcc644">Importing Python Libraries</h5>
-<div class="outline-text-5" id="text-org2dcc644">
+<div id="outline-container-orgd485e65" class="outline-5">
+<h5 id="orgd485e65">Importing Python Libraries</h5>
+<div class="outline-text-5" id="text-orgd485e65">
 <p>
 Assuming you installed the libraries described above they can be imported in the
 Jupyter notebook by running:
@@ -153,23 +152,37 @@ Jupyter notebook by running:
 <span style="color: #4f97d7; font-weight: bold; font-style: italic;">import</span> seaborn <span style="color: #4f97d7; font-weight: bold; font-style: italic;">as</span> sns
 </pre>
 </div>
+
+<p>
+Here are some other commonly imported packages with their shorthand alias:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #4f97d7; font-weight: bold; font-style: italic;">import</span> numpy <span style="color: #4f97d7; font-weight: bold; font-style: italic;">as</span> np
+<span style="color: #4f97d7; font-weight: bold; font-style: italic;">import</span> matplotlib.pyplot <span style="color: #4f97d7; font-weight: bold; font-style: italic;">as</span> plt
+</pre>
+</div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orge5bba6d" class="outline-4">
-<h4 id="orge5bba6d">Connecting the IPython Console</h4>
-<div class="outline-text-4" id="text-orge5bba6d">
+<div id="outline-container-org0201fd6" class="outline-4">
+<h4 id="org0201fd6">Connecting the IPython Console</h4>
+<div class="outline-text-4" id="text-org0201fd6">
 <p>
 To run ad-hoc commands and inspect the state of variables in the notebook you
-can connect an ipython console to the running Jupyter notebook. From the project
-directory where the jupyter notebook was launched run:
+can connect an IPython console to the running Jupyter notebook. From the project
+directory where the Jupyter notebook was launched run:
 </p>
 
 <div class="org-src-container">
 <pre class="src src-sh">pipenv run jupyter console --existing
 </pre>
 </div>
+
+<p>
+IPython is especially useful for quickly <a href="https://ipython.readthedocs.io/en/stable/interactive/reference.html#dynamic-object-information">looking up documentation</a>.
+</p>
 </div>
 </div>
 
