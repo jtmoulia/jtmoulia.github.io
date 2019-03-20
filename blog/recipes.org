@@ -11,9 +11,9 @@
 
 A collection of food recipes.
 
-* Breadmaker
+* Bread
 
-** Fluffy and Sweet
+** [breadmaker] Fluffy and Sweet
 
    Large white loaf
 
@@ -25,6 +25,26 @@ A collection of food recipes.
    - 2 tsp salt
    - 1 tsp vital wheat gluten (to make it fluffy)
 
+** Hamed's Bread
+
+*** Ingredients
+
+- 3 1/4 cups flour
+- 1 tsp salt
+- 3 tsp sugar
+- 2 tsp canola (olive!?) oil
+- 1 sachet yeast
+- 
+- 1 1/2 cup water
+
+*** Steps
+
+1. mix the flour, sugar, salt, and yeast. Set aside this dry mix
+2. mix water and oil
+3. add the dry to the wet and give a good mix. Set aside this starter to rise
+   1. you can mix in a
+4. Knead the bread
+   
 * Pickles
 ** Salt + Vinegar Hot Pickled Cukes
 
@@ -92,3 +112,48 @@ Awesome pie filler.
 [[https://www.reaper.fm/][Reaper]] is an excellent digital audio workstation, but it's often bafflingly
 complex. This page is a living reference of resoureces I've found useful for
 working with Reaper.
+
+** Tahini
+
+*** Ingredients
+- Sesame seeds
+-
+*** Steps
+
+- Roast the sesame seeds
+* Rice
+** Basic Fried Rice
+
+*** Ingredients
+
+- oil
+  - an oil with a high smoke point is good, e.g. grapeseed oil
+- rice
+  - fluff it up if it's been in the fridge
+- onion
+- garlic
+  - diced
+  - I usually go heavy, tossing in a few cloves
+- ginger
+  - can be grated right into the pan
+- eggs
+- some seasonings, e.g.
+  - soy sauce
+  - rice vinegar
+  - garlic powder
+  - salt & pepper
+
+*** Steps
+
+1. pour in the oil and heat it up to the verge of burning the oil
+2. prepare and add in the slow cooking vegetables, e.g. onion, garlic, and ginger
+   1. season with dry seasonings until tasty
+   2. saute until the veggies are half-coked (golden rather than browned)
+3. add and fry rice
+   1. mix in the rest of the seasonings until tasty
+   2. add more oil if necessary, but the less oil the fluffier the fry
+   3. fry until browned on the bottom of the pan, then mix -- shift the pan and
+      repeat until full of delicious brown chunks
+4. shift the rice to the edges of the pan and add eggs to the middle
+   1. before adding: mix and lightly season the eggs in a separate bowl
+   2. let the eggs form up, then mix into the rest of the rice

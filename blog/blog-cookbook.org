@@ -24,12 +24,13 @@ to the GitHub remote hooks update the site.
 
 The typical workflow is:
 
-  1. make changes in the =source= branch
-  2. build the blog in the =_build= directory via =my-op/publish-to-build=
-  3. push changes to the GitHub remote's =source= branch
-  4. build the blog in the =master= branch via =my-op/publish-to-master=
-  5. push changes to the GitHub remote's =master= branch
-  6. check out [[http://jtmoulia.pocketknife.io][jtmoulia.pocketknife.io]]
+  1. evaluate =jtmoulia-config.el=
+  2. make changes in the =source= branch
+  3. build the blog in the =_build= directory via =my-op/publish-to-build=
+  4. push changes to the GitHub remote's =source= branch
+  5. build the blog in the =master= branch via =my-op/publish-to-master=
+  6. push changes to the GitHub remote's =master= branch
+  7. check out [[http://jtmoulia.pocketknife.io][jtmoulia.pocketknife.io]]
     
 * Building to the =_build= directory
 

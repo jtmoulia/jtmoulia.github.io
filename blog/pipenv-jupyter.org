@@ -1,0 +1,83 @@
+#+TITLE:       Using Pipenv & Jupyter
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       jtmoulia@gmail.com
+#+DATE:        2019-03-19 Tue
+#+URI:         /blog/%y/%m/%d/pipenv-jupyter
+#+KEYWORDS:    pipenv, jupyter, python
+#+TAGS:        python
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Getting started with jupyter using pipenv
+
+[[https://www.python.org/][Python]]'s data analysis packages ([[https://pandas.pydata.org/][pandas]], [[https://scikit-learn.org/stable/][sklearn]], [[https://spacy.io/][spacy]], etc) and user
+interfaces ([[https://jupyter.org/][Jupyter]], [[https://ipython.org/][ipython]], [[http://seaborn.pydata.org/][seaborn]]) make it a swiss army knife for working
+with data. This article sketches out how to quickly set up a Python data
+analysis environment using [[https://pipenv.readthedocs.io/en/latest/][Pipenv]] to install Jupyter.
+
+* Install Pipenv
+
+The one requirement is [[https://pipenv.readthedocs.io/en/latest/install/#installing-pipenv][Pipenv]] for setting up the Python [[https://docs.python.org/3/library/venv.html][venv]] and installing the
+dependencies into it. If you're on OS X [[https://brew.sh/][homebrew]] is a great package manager:
+
+#+BEGIN_SRC sh
+  brew install pipenv
+#+END_SRC
+
+* Set up the venv
+
+Pipenv identifies which venv should be used by the working directory, so first
+create and navigate into your project directory:
+
+#+BEGIN_SRC sh
+  mkdir my-project
+  cd my-project
+#+END_SRC
+
+With Pipenv you can set up the venv with jupyter:
+
+#+BEGIN_SRC sh
+  pipenv install jupyter
+#+END_SRC
+
+Here's a further install which sets up additional data analysis packages:
+=pandas= for data manipulation, =seaborn= for visualization, and =spacy= for
+NLP:
+
+#+BEGIN_SRC sh
+  pipenv install pandas seaborn spacy
+#+END_SRC
+
+Note that your exact Python environment can be replicated using the =Pipfile= and =Pipfile.lock= files.
+
+* Starting the Jupyter Notebook
+  
+Launch the Jupyter kernel and notebook by calling:
+
+#+BEGIN_SRC sh
+  pipenv run jupyter notebook
+#+END_SRC
+
+Once loaded, Jupyter should automatically launch its filesystem navigator in
+your browser. This command will run in the foreground, preventing you from
+running any further commands in the same shell.
+
+** Importing Python Libraries
+
+Assuming you installed the libraries described above they can be imported in the
+Jupyter notebook by running:
+
+#+BEGIN_SRC python
+  import pandas as pd
+  import seaborn as sns
+#+END_SRC
+
+* Connecting the IPython Console
+
+To run ad-hoc commands and inspect the state of variables in the notebook you
+can connect an ipython console to the running Jupyter notebook. From the project
+directory where the jupyter notebook was launched run:
+
+#+BEGIN_SRC sh
+  pipenv run jupyter console --existing
+#+END_SRC
+
