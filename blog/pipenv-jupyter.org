@@ -10,7 +10,7 @@
 #+DESCRIPTION: Getting started with jupyter using pipenv
 
 [[https://www.python.org/][Python]]'s data analysis packages ([[https://pandas.pydata.org/][pandas]], [[https://scikit-learn.org/stable/][sklearn]], [[https://spacy.io/][spacy]], etc) and user
-interfaces ([[https://jupyter.org/][Jupyter]], [[https://ipython.org/][ipython]], [[http://seaborn.pydata.org/][seaborn]]) make it a swiss army knife for working
+interfaces ([[https://jupyter.org/][Jupyter]], [[https://ipython.org/][IPython]], [[http://seaborn.pydata.org/][seaborn]]) make it a swiss army knife for working
 with data. This article sketches out how to quickly set up a Python data
 analysis environment using [[https://pipenv.readthedocs.io/en/latest/][Pipenv]] to install Jupyter.
 
@@ -33,25 +33,24 @@ create and navigate into your project directory:
   cd my-project
 #+END_SRC
 
-With Pipenv you can set up the venv with jupyter:
+With Pipenv you can set up the venv with Jupyter:
 
 #+BEGIN_SRC sh
   pipenv install jupyter
 #+END_SRC
 
-Here's a further install which sets up additional data analysis packages:
-=pandas= for data manipulation, =seaborn= for visualization, and =spacy= for
-NLP:
+Based on what you need to get done you can install additional data analysis
+packages, e.g. =pandas= for data manipulation, =seaborn= for visualization, and
+=spacy= for NLP:
 
 #+BEGIN_SRC sh
   pipenv install pandas seaborn spacy
 #+END_SRC
 
 Note that your exact Python environment can be replicated using the =Pipfile= and =Pipfile.lock= files.
-
 * Starting the Jupyter Notebook
   
-Launch the Jupyter kernel and notebook by calling:
+Launch the Jupyter kernel and notebook by calling from your project directory:
 
 #+BEGIN_SRC sh
   pipenv run jupyter notebook
@@ -71,13 +70,21 @@ Jupyter notebook by running:
   import seaborn as sns
 #+END_SRC
 
+Here are some other commonly imported packages with their shorthand alias:
+
+#+BEGIN_SRC python
+  import numpy as np
+  import matplotlib.pyplot as plt
+#+END_SRC
+
 * Connecting the IPython Console
 
 To run ad-hoc commands and inspect the state of variables in the notebook you
-can connect an ipython console to the running Jupyter notebook. From the project
-directory where the jupyter notebook was launched run:
+can connect an IPython console to the running Jupyter notebook. From the project
+directory where the Jupyter notebook was launched run:
 
 #+BEGIN_SRC sh
   pipenv run jupyter console --existing
 #+END_SRC
 
+IPython is especially useful for quickly [[https://ipython.readthedocs.io/en/stable/interactive/reference.html#dynamic-object-information][looking up documentation]].
