@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-  <title>Reaper Reference - jtmoulia</title>
+  <title>Using Pipenv &amp; Jupyter - jtmoulia</title>
   <meta charset="utf-8" />
   <meta name="author" content="Thomas Moulia" />
-    <meta name="description" content="A reference for the Reaper DAW" />
-    <meta name="keywords" content="music, reaper, hack" />
+    <meta name="description" content="Getting started with jupyter using pipenv" />
+    <meta name="keywords" content="pipenv, jupyter, python" />
   <!-- TODO Concatenate CSS -->
   <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
   <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
@@ -58,50 +58,96 @@
   <hr />
 <div class="content">
   <div class="post">
-      <h3>Reaper Reference</h3>
+      <h3>Using Pipenv &amp; Jupyter</h3>
     <p>
-<a href="https://www.reaper.fm/">Reaper</a> is an excellent digital audio workstation, but it's often bafflingly
-complex. This page is a living reference of resoureces I've found useful for
-working with Reaper.
+<a href="https://www.python.org/">Python</a>'s data analysis packages (<a href="https://pandas.pydata.org/">pandas</a>, <a href="https://scikit-learn.org/stable/">sklearn</a>, <a href="https://spacy.io/">spacy</a>, etc) and user
+interfaces (<a href="https://jupyter.org/">jupyter</a>, <a href="https://ipython.org/">ipython</a>, <a href="http://seaborn.pydata.org/">seaborn</a>) make it a swiss army knife for working
+with data. This article sketches out how to quickly set up a Python data
+analysis environment using P[<a href="https://pipenv.readthedocs.io/en/latest/">https://pipenv.readthedocs.io/en/latest/</a>][pipenv]] to install jupyter.
 </p>
 
-<div id="outline-container-org62135b7" class="outline-4">
-<h4 id="org62135b7">Plugins</h4>
-<div class="outline-text-4" id="text-org62135b7">
-</div>
-<div id="outline-container-orge67a4b4" class="outline-5">
-<h5 id="orge67a4b4">Megababy Sequencer</h5>
-<div class="outline-text-5" id="text-orge67a4b4">
+<div id="outline-container-org692889f" class="outline-4">
+<h4 id="org692889f">Install Pipenv</h4>
+<div class="outline-text-4" id="text-org692889f">
 <p>
-The MegaBaby sequencer that comes with Reaper is stupidly flexible.
+The one requirement is <a href="https://pipenv.readthedocs.io/en/latest/install/#installing-pipenv">Pipenv</a> for setting up the Python <a href="https://docs.python.org/3/library/venv.html">venv</a> and installing the
+dependencies into it.
 </p>
-
-<p>
-Other resources:
-</p>
-
-<ul class="org-ul">
-<li>NandyC has created a <a href="https://stash.reaper.fm/v/20869/seq%20megababy%20nm">solid fork</a> with interface improvements.</li>
-<li>Winguitars posted a <a href="https://www.youtube.com/watch?v=Wq2C-Qg9Hp4">video guide</a></li>
-</ul>
 </div>
 </div>
 
-
-<div id="outline-container-org46fd1c5" class="outline-5">
-<h5 id="org46fd1c5">Keyzone Classic Piano (VST)</h5>
-<div class="outline-text-5" id="text-org46fd1c5">
+<div id="outline-container-org9d0e7f1" class="outline-4">
+<h4 id="org9d0e7f1">Set up the venv</h4>
+<div class="outline-text-4" id="text-org9d0e7f1">
 <p>
-The <a href="http://www.vst4free.com/free_vst.php?id=2848">Keyzone Classic</a> piano contains samples for five pianos:
+Pipenv identifies which venv should be used by the working directory, so first
+create and navigate into your project directory:
 </p>
 
-<ul class="org-ul">
-<li><b><b>Keyzone 1</b></b></li>
-<li><b><b>Yamaha Grand Piano</b></b></li>
-<li><b><b>Steinway Grand Piano</b></b> this piano sounds deep and rich</li>
-<li><b><b>Basic Electric Piano</b></b> an atmospheric, slow attack organ-like feel</li>
-<li><b><b>Rhodes Piano</b></b></li>
-</ul>
+<div class="org-src-container">
+<pre class="src src-sh">mkdir my-project
+<span style="color: #4f97d7;">cd</span> my-project
+</pre>
+</div>
+
+<p>
+With Pipenv you can set up the venv with jupyter:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">pipenv install jupyter
+</pre>
+</div>
+
+<p>
+Here's a further install which sets up additional data analysis packages:
+<code>pandas</code> for data manipulation, <code>seaborn</code> for visualization, and <code>spacy</code> for
+NLP:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">pipenv install pandas seaborn spacy
+</pre>
+</div>
+
+<p>
+Note that using the <code>Pipfile</code> and <code>Pipfile.lock</code> files your exact Python
+environment can be replicated.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd2234f5" class="outline-4">
+<h4 id="orgd2234f5">Starting the Jupyter Notebook</h4>
+<div class="outline-text-4" id="text-orgd2234f5">
+<p>
+The jupyter notebook can be launched by calling:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">pipenv run jupyter notebook
+</pre>
+</div>
+
+<p>
+Once loaded, Jupyter should automatically launch its filesystem navigator in
+your browser.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2e4ee79" class="outline-4">
+<h4 id="org2e4ee79">Connecting the IPython Console</h4>
+<div class="outline-text-4" id="text-org2e4ee79">
+<p>
+To run ad-hoc commands and inspect the state of variables in the notebook you
+can connect an ipython console to the running Jupyter notebook. From the project
+directory where the jupyter notebook was launched run:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">pipenv run jupyter console --existing
+</pre>
 </div>
 </div>
 </div>
@@ -116,17 +162,17 @@ The <a href="http://www.vst4free.com/free_vst.php?id=2848">Keyzone Classic</a> p
           Written by <span title="author" class="post-info">Thomas Moulia</span>
         </p>
         <p>
-          Tags: <span title="tags" class="post-info"><a href="/tags/music/">music</a></span>
+          Tags: <span title="tags" class="post-info"><a href="/tags/python/">python</a></span>
         </p>
       </div>
       <div class="six columns">
         <p>
           Published:
-          <span title="post date" class="post-info">2018-12-26</span>
+          <span title="post date" class="post-info">2019-03-19</span>
         </p>
         <p>
           Modified:
-          <span title="last modification date" class="post-info">2018-12-26</span>
+          <span title="last modification date" class="post-info">2019-03-19</span>
         </p>
       </div>
     </div>

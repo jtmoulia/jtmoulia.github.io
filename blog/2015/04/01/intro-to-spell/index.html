@@ -64,9 +64,9 @@ I contracted with <a href="https://www.mymedsandme.com">MyMeds&amp;Me</a>, a Lon
 adverse event reporting and event capture, to build <a href="https://github.com/MyMedsAndMe/spell">Spell</a>.
 </p>
 
-<div id="outline-container-org0a1db7c" class="outline-4">
-<h4 id="org0a1db7c">A WAMP Client</h4>
-<div class="outline-text-4" id="text-org0a1db7c">
+<div id="outline-container-orgcd97963" class="outline-4">
+<h4 id="orgcd97963">A WAMP Client</h4>
+<div class="outline-text-4" id="text-orgcd97963">
 <p>
 The <a href="http://wamp.ws/">Web Application Messaging Protocol</a> [WAMP] is an open messaging protocol
 designed by <a href="http://tavendo.com/">Tavendo GmbH</a>. It specifies Publish Subscribe [PubSub] and Remote
@@ -77,9 +77,9 @@ specification, it supports polyglot, service oriented backends.
 </div>
 </div>
 
-<div id="outline-container-org9a17010" class="outline-4">
-<h4 id="org9a17010">Spell's Purpose and Implementation</h4>
-<div class="outline-text-4" id="text-org9a17010">
+<div id="outline-container-orgff11bbd" class="outline-4">
+<h4 id="orgff11bbd">Spell's Purpose and Implementation</h4>
+<div class="outline-text-4" id="text-orgff11bbd">
 <p>
 MyMeds&amp;Me was interested in decoupling their backend and transitioning from Ruby
 to Elixir, which led them to WAMP. WAMP supports peers written in any language
@@ -99,9 +99,9 @@ project took less than two months.
 </div>
 </div>
 
-<div id="outline-container-orgceaef82" class="outline-4">
-<h4 id="orgceaef82">Example</h4>
-<div class="outline-text-4" id="text-orgceaef82">
+<div id="outline-container-org2efaadc" class="outline-4">
+<h4 id="org2efaadc">Example</h4>
+<div class="outline-text-4" id="text-org2efaadc">
 <p>
 An involved PubSub example should make things more concrete. To make it more
 impressive, imagine that the publisher or subscriber are clients in other
@@ -142,9 +142,9 @@ for peer &lt;- [subscriber, publisher], do: Spell.close(peer)
 </div>
 
 
-<div id="outline-container-org7b5419f" class="outline-4">
-<h4 id="org7b5419f">Comments</h4>
-<div class="outline-text-4" id="text-org7b5419f">
+<div id="outline-container-orged86391" class="outline-4">
+<h4 id="orged86391">Comments</h4>
+<div class="outline-text-4" id="text-orged86391">
 <p>
 There was another WAMP client written in Erlang, <a href="https://github.com/bwegh/awre">awre</a>. While awre is a fine
 solution, we decided to implement a new client to take advantage of Elixir's
