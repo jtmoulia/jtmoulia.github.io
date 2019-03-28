@@ -1,0 +1,65 @@
+#+TITLE:       My Dotfiles and Config, Managed by Asible
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       jtmoulia@gmail.com
+#+DATE:        2019-03-27 Wed
+#+URI:         /blog/%y/%m/%d/my-dotfiles-and-config-managed-by-asible
+#+KEYWORDS:    config, linux, emacs
+#+TAGS:        linux
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Ansible to manage dotfiles and various system configs.
+
+Tools are great, but they have to be portable to the system you're working on to
+be used. I install and configure tools across environments using this
+[[https://github.com/jtmoulia/dotfiles][jtmoulia/dotfiles]] repo. =jtmoulia/dotfiles= uses the IT automation tool [[https://www.ansible.com/][Ansible]]
+to define and configure the target environment.
+
+* Dotfiles History
+
+The current Ansible driven configuration is the latest in a series of attempts.
+Initally I copied some dotfiles from computer to computer, using USB sticks,
+emails, and scp to set up bespoke environments based on what I needed. To share
+and version the dotfiles across system =jtmoulia/dotfiles= was committed back
+in 2012. I symlinked everything into my home directory using
+
+This worked great until I wanted to do anything more complicated than just
+symlinking files right into the home directory, like, say the basic tasks of
+copying in a file (symlinks don't work for all dotfiles) or symlinking a file
+into =~/.config=. As these issues were addressed the bash script grew into a
+monster Makefile that could copy, symlink, and backup multiple layers of files.
+
+With the Makefile I could unpack some files and symlinks into my target system,
+but that was the extent of it. That finally brings us to why Ansible. Ansible
+allows installing files anywhere into the system as well as all sorts of other
+configuration tasks. It's like =make=, but the target state isn't isn't limited
+to the existence of a file: the [[https://docs.ansible.com/ansible/latest/modules/modules_by_category.html]["targets"]] range from running a service to
+inserting a line into a file. The task definitions are a bit verbose, but super
+clear as to their intent. Beween roles and playbooks Ansible lets you layer
+tasks any way necessary.
+
+* Setup
+
+If you already have Pipenv installed you can quickly pull down the repo and
+install the required Python dependencies (Ansible):
+
+#+BEGIN_SRC sh
+  git checkout https://github.com/jtmoulia/dotfiles ~/.dotfiles
+  cd ~/.dotfiles
+  pipenv install
+#+END_SRC
+
+With the dependencies installed into a virtual environment you can now execute
+your configuration:
+
+#+BEGIN_SRC sh
+  ./bin/dotsible.sh
+#+END_SRC
+
+This will install the basic configuration, including a helper script,
+=dotsible=, to quickly run =~/dotfiles/bin/dotsible.sh=
+
+* Learning More
+
+If you're familiar with Ansible it's simple to add new functionality (via roles)
+and target environments (via playbooks). Read more in the =jtmoulia/dotfiles=
+[[https://github.com/jtmoulia/dotfiles/blob/master/README.md][README]].
