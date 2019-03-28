@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-  <title>Switchboard - jtmoulia</title>
+  <title>My Dotfiles and Config, Managed by Asible - jtmoulia</title>
   <meta charset="utf-8" />
   <meta name="author" content="Thomas Moulia" />
-    <meta name="description" content="Switchboard: An IMAP connection manager [Spatch]" />
-    <meta name="keywords" content="erlang, email" />
+    <meta name="description" content="Ansible to manage dotfiles and various system configs." />
+    <meta name="keywords" content="config, linux, emacs" />
   <!-- TODO Concatenate CSS -->
   <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
   <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
@@ -58,47 +58,86 @@
   <hr />
 <div class="content">
   <div class="post">
-      <h3>Switchboard</h3>
-    
-<div class="figure">
-<p><img src="/assets/blog/2014/06/05/switchboard/switchboard_by_spatch.png" alt="switchboard_by_spatch.png" />
+      <h3>My Dotfiles and Config, Managed by Asible</h3>
+    <p>
+Tools are great, but they have to be portable to the system you're working on to
+be used. I install and configure tools across environments using this
+<a href="https://github.com/jtmoulia/dotfiles">jtmoulia/dotfiles</a> repo. <code>jtmoulia/dotfiles</code> uses the IT automation tool <a href="https://www.ansible.com/">Ansible</a>
+to define and configure the target environment.
 </p>
+
+<div id="outline-container-orgbfcd58e" class="outline-4">
+<h4 id="orgbfcd58e">Dotfiles History</h4>
+<div class="outline-text-4" id="text-orgbfcd58e">
+<p>
+The current Ansible driven configuration is the latest in a series of attempts.
+Initally I copied some dotfiles from computer to computer, using USB sticks,
+emails, and scp to set up bespoke environments based on what I needed. To share
+and version the dotfiles across system <code>jtmoulia/dotfiles</code> was committed back
+in 2012. I symlinked everything into my home directory using
+</p>
+
+<p>
+This worked great until I wanted to do anything more complicated than just
+symlinking files right into the home directory, like, say the basic tasks of
+copying in a file (symlinks don't work for all dotfiles) or symlinking a file
+into <code>~/.config</code>. As these issues were addressed the bash script grew into a
+monster Makefile that could copy, symlink, and backup multiple layers of files.
+</p>
+
+<p>
+With the Makefile I could unpack some files and symlinks into my target system,
+but that was the extent of it. That finally brings us to why Ansible. Ansible
+allows installing files anywhere into the system as well as all sorts of other
+configuration tasks. It's like <code>make</code>, but the target state isn't isn't limited
+to the existence of a file: the <a href="https://docs.ansible.com/ansible/latest/modules/modules_by_category.html">"targets"</a> range from running a service to
+inserting a line into a file. The task definitions are a bit verbose, but super
+clear as to their intent. Beween roles and playbooks Ansible lets you layer
+tasks any way necessary.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org538708e" class="outline-4">
+<h4 id="org538708e">Setup</h4>
+<div class="outline-text-4" id="text-org538708e">
+<p>
+If you already have Pipenv installed you can quickly pull down the repo and
+install the required Python dependencies (Ansible):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">git checkout https://github.com/jtmoulia/dotfiles ~/.dotfiles
+<span style="color: #4f97d7;">cd</span> ~/.dotfiles
+pipenv install
+</pre>
 </div>
 
 <p>
-I developed <a href="http://switchboard.spatch.co">Switchboard</a> with <a href="http://spatch.co">Spatch</a> to provide their mobile
-application with real-time push notifications and processing.
+With the dependencies installed into a virtual environment you can now execute
+your configuration:
 </p>
 
-<div id="outline-container-org95bd0b3" class="outline-4">
-<h4 id="org95bd0b3">What is it?</h4>
-<div class="outline-text-4" id="text-org95bd0b3">
-<p>
-Switchboard provides high level tools for managing IMAP clients across
-email accounts and providers:
-</p>
-
-<ul class="org-ul">
-<li>Manages the lifecycle of IMAP processes, and handles error conditions;</li>
-<li>Provides an API allowing workers to process emails as they arrive;</li>
-<li>Handles the boilerplate of IMAP connection management and monitoring for new emails.</li>
-</ul>
+<div class="org-src-container">
+<pre class="src src-sh">./bin/dotsible.sh
+</pre>
+</div>
 
 <p>
-Switchboard frees you from the plumbing of server-side email handling,
-allowing you to focus on your products and services.
+This will install the basic configuration, including a helper script,
+<code>dotsible</code>, to quickly run <code>~/dotfiles/bin/dotsible.sh</code>
 </p>
 </div>
 </div>
 
-<div id="outline-container-org8c9a49a" class="outline-4">
-<h4 id="org8c9a49a">Links</h4>
-<div class="outline-text-4" id="text-org8c9a49a">
-<ul class="org-ul">
-<li><a href="https://news.ycombinator.com/item?id=7905318">HN Thread</a></li>
-<li><a href="https://github.com/thusfresh/switchboard">Switchboard Repo</a></li>
-<li><a href="https://github.com/jtmoulia/switchboard-python">Python Client Repo</a></li>
-</ul>
+<div id="outline-container-org047b18a" class="outline-4">
+<h4 id="org047b18a">Learning More</h4>
+<div class="outline-text-4" id="text-org047b18a">
+<p>
+If you're familiar with Ansible it's simple to add new functionality (via
+roles) and target environments (via playbooks). Read more in the dotfiles'
+<a href="https://github.com/jtmoulia/dotfiles/blob/master/README.md">README</a>.
+</p>
 </div>
 </div>
 
@@ -112,17 +151,17 @@ allowing you to focus on your products and services.
           Written by <span title="author" class="post-info">Thomas Moulia</span>
         </p>
         <p>
-          Tags: <span title="tags" class="post-info"><a href="/tags/erlang/">erlang</a>, <a href="/tags/email/">email</a>, <a href="/tags/contracting/">contracting</a></span>
+          Tags: <span title="tags" class="post-info"><a href="/tags/linux/">linux</a></span>
         </p>
       </div>
       <div class="six columns">
         <p>
           Published:
-          <span title="post date" class="post-info">2014-06-05</span>
+          <span title="post date" class="post-info">2019-03-27</span>
         </p>
         <p>
           Modified:
-          <span title="last modification date" class="post-info">2015-03-12</span>
+          <span title="last modification date" class="post-info">2019-03-27</span>
         </p>
       </div>
     </div>
