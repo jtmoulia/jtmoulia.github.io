@@ -1,8 +1,8 @@
-#+TITLE:       My Dotfiles and Config, Managed by Asible
+#+TITLE:       My Dotfiles and Config, Managed by Ansible
 #+AUTHOR:      Thomas Moulia
 #+EMAIL:       jtmoulia@gmail.com
 #+DATE:        2019-03-27 Wed
-#+URI:         /blog/%y/%m/%d/my-dotfiles-and-config-managed-by-asible
+#+URI:         /blog/%y/%m/%d/my-dotfiles-and-config-managed-by-ansible
 #+KEYWORDS:    config, linux, emacs
 #+TAGS:        linux
 #+LANGUAGE:    en
