@@ -4,77 +4,77 @@
     <title>jtmoulia</title>
     <link>http://jtmoulia.pocketknife.io</link>
     <description>public notebook 📓</description>
-    <pubDate>Wed, 27 Mar 2019 22:37:45 PDT</pubDate>
-    <lastBuildDate>Wed, 27 Mar 2019 22:37:45 PDT</lastBuildDate>
+    <pubDate>Thu, 04 Apr 2019 20:55:30 PDT</pubDate>
+    <lastBuildDate>Thu, 04 Apr 2019 20:55:30 PDT</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
     <item>
-      <title>My Dotfiles and Config, Managed by Asible</title>
-      <link>http://jtmoulia.pocketknife.io/blog/2019/03/27/my-dotfiles-and-config-managed-by-asible</link>
-      <description><![CDATA[Ansible to manage dotfiles and various system configs.]]></description>
-      <pubDate>2019-03-27</pubDate>
-      <guid>http://jtmoulia.pocketknife.io/blog/2019/03/27/my-dotfiles-and-config-managed-by-asible</guid>
+      <title>Reaper Reference</title>
+      <link>http://jtmoulia.pocketknife.io/blog/2018/12/26/reaper-reference</link>
+      <description><![CDATA[A reference for the Reaper DAW]]></description>
+      <pubDate>2019-04-04</pubDate>
+      <guid>http://jtmoulia.pocketknife.io/blog/2018/12/26/reaper-reference</guid>
+    </item>
+    <item>
+      <title>My Dotfiles and Config, Managed by Ansible</title>
+      <link>http://jtmoulia.pocketknife.io/blog/2019/03/27/my-dotfiles-and-config-managed-by-ansible</link>
+      <description><![CDATA[]]></description>
+      <pubDate>2019-04-03</pubDate>
+      <guid>http://jtmoulia.pocketknife.io/blog/2019/03/27/my-dotfiles-and-config-managed-by-ansible</guid>
     </item>
     <item>
       <title>Cookbook for this Blog</title>
       <link>http://jtmoulia.pocketknife.io/blog/2018/11/24/cookbook-for-this-blog</link>
-      <description><![CDATA[A cookbook for working with this blog.]]></description>
+      <description><![CDATA[]]></description>
       <pubDate>2019-03-19</pubDate>
       <guid>http://jtmoulia.pocketknife.io/blog/2018/11/24/cookbook-for-this-blog</guid>
     </item>
     <item>
       <title>Using Pipenv &amp; Jupyter</title>
       <link>http://jtmoulia.pocketknife.io/blog/2019/03/19/pipenv-jupyter</link>
-      <description><![CDATA[Getting started with jupyter using pipenv]]></description>
+      <description><![CDATA[]]></description>
       <pubDate>2019-03-19</pubDate>
       <guid>http://jtmoulia.pocketknife.io/blog/2019/03/19/pipenv-jupyter</guid>
     </item>
     <item>
       <title>Recipes</title>
       <link>http://jtmoulia.pocketknife.io/blog/2018/12/29/recipes</link>
-      <description><![CDATA[Some food recipes.]]></description>
+      <description><![CDATA[]]></description>
       <pubDate>2019-03-19</pubDate>
       <guid>http://jtmoulia.pocketknife.io/blog/2018/12/29/recipes</guid>
     </item>
     <item>
       <title>Frying Pan</title>
       <link>http://jtmoulia.pocketknife.io/blog/2018/12/30/frying-pan</link>
-      <description><![CDATA[Frying Pan, by Berry & Hog]]></description>
+      <description><![CDATA[]]></description>
       <pubDate>2018-12-29</pubDate>
       <guid>http://jtmoulia.pocketknife.io/blog/2018/12/30/frying-pan</guid>
     </item>
     <item>
       <title>Life in the Loin</title>
       <link>http://jtmoulia.pocketknife.io/blog/2018/11/25/life-in-the-loin</link>
-      <description><![CDATA[Life in the Loin, by Berry & Hog]]></description>
+      <description><![CDATA[]]></description>
       <pubDate>2018-12-29</pubDate>
       <guid>http://jtmoulia.pocketknife.io/blog/2018/11/25/life-in-the-loin</guid>
     </item>
     <item>
-      <title>Reaper Reference</title>
-      <link>http://jtmoulia.pocketknife.io/blog/2018/12/26/reaper-reference</link>
-      <description><![CDATA[A reference for the Reaper DAW]]></description>
-      <pubDate>2018-12-26</pubDate>
-      <guid>http://jtmoulia.pocketknife.io/blog/2018/12/26/reaper-reference</guid>
-    </item>
-    <item>
       <title>my-op for org-page</title>
       <link>http://jtmoulia.pocketknife.io/blog/2016/02/06/my-op-for-org-page</link>
-      <description><![CDATA[my-op, an organizer for org-page sites]]></description>
+      <description><![CDATA[]]></description>
       <pubDate>2018-11-23</pubDate>
       <guid>http://jtmoulia.pocketknife.io/blog/2016/02/06/my-op-for-org-page</guid>
     </item>
     <item>
       <title>Working at HealthTensor</title>
       <link>http://jtmoulia.pocketknife.io/blog/2018/11/23/working-at-healthtensor</link>
-      <description><![CDATA[working with HealthTensor to automate documentation for physicians]]></description>
+      <description><![CDATA[]]></description>
       <pubDate>2018-11-23</pubDate>
       <guid>http://jtmoulia.pocketknife.io/blog/2018/11/23/working-at-healthtensor</guid>
     </item>
     <item>
       <title>Intro to Spell: An Elixir WAMP Client</title>
       <link>http://jtmoulia.pocketknife.io/blog/2015/04/01/intro-to-spell</link>
-      <description><![CDATA[ob-elixir: interactive development in elixir using org-mode]]></description>
+      <description><![CDATA[]]></description>
       <pubDate>2016-02-06</pubDate>
       <guid>http://jtmoulia.pocketknife.io/blog/2015/04/01/intro-to-spell</guid>
     </item>
