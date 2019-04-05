@@ -34,3 +34,13 @@ The [[http://www.vst4free.com/free_vst.php?id=2848][Keyzone Classic]] piano cont
 - **Steinway Grand Piano** this piano sounds deep and rich
 - **Basic Electric Piano** an atmospheric, slow attack organ-like feel
 - **Rhodes Piano**
+
+** Helm Synthesizer
+
+[[https://tytel.org/helm/][Helm]] is a beautifully designed, cross-platform, open-source synthesizer.
+Importantly for synth novices like me, it comes with an enormous array of
+presets that lets you quickly try out new sounds. The audio produced is high
+quality, and can be tailored to the production.
+
+One nitpick: the UI is large on my 13" MBP. Expanding the plugin out of the
+plugin list view gives helm a bit more space to breathe.
