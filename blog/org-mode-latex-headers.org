@@ -1,0 +1,62 @@
+#+TITLE:       Org Mode LaTeX Headers
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       thomas@healthtensor.com
+#+DATE:        2019-05-22 Wed
+#+URI:         /blog/%y/%m/%d/org-mode-latex-headers
+#+KEYWORDS:    emacs, org-mode, literate programming, interactive development
+#+TAGS:        emacs, org-mode
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: A set of org mode headers that'll provide a nice looking LaTeX export.
+
+Here's a set of org mode headers that export a LaTeX PDF I like the look of:
+
+#+begin_src org
+  #+LaTeX_CLASS_OPTIONS: [12pt]
+  #+LATEX_HEADER: \usepackage[margin=1.25in]{geometry}
+  #+LaTeX_HEADER: \usepackage{fourier}
+  #+LaTeX_HEADER: \usepackage[scaled]{helvet}
+  #+LaTeX_HEADER: \usepackage{courier}
+  #+LaTeX_HEADER: \linespread{1.10}
+#+end_src
+
+Compared to the default this shrinks the margins, fattens up the font, and
+spreads the lines. Here's how an example org doc looks all styled up:
+
+#+ATTR_HTML: :style border:2px solid #444;
+[[../assets/img/org-pdf-styled.jpg]]
+
+* An org mode PDF's default style
+  
+LaTeX's default article format is stodgy, with a very serifed font and massive
+margins. Here's how an unstyled example document looks rendered:
+
+#+ATTR_HTML: :style border:2px solid #444;
+[[../assets/img/org-pdf-default.jpg]]
+
+* Widening the margins
+  
+  Let's shrink the margins to 1.25 inches using the =geometry= package:
+
+  #+begin_src org
+    #+LaTeX_HEADER: \usepackage[margin=1.25in]{geometry}
+  #+end_src
+  
+#+ATTR_HTML: :style border:2px solid #444;
+[[../assets/img/org-pdf-margins.jpg]]
+
+* Spreading out the text and changing the fonts
+
+  The text lines are cramped by default, and the font is super serifed. Here's
+  some cleanup:
+  
+  #+begin_src org
+  #+LaTeX_CLASS_OPTIONS: [12pt]
+    #+LaTeX_HEADER: \usepackage{fourier}
+    #+LaTeX_HEADER: \usepackage[scaled=0.875]{helvet}
+    #+LaTeX_HEADER: \renewcommand{\ttdefault}{lmtt}
+    #+LaTeX_HEADER: \linespread{1.10}
+  #+end_src
+
+#+ATTR_HTML: :style border:2px solid #444;
+[[../assets/img/org-pdf-text.jpg]]
