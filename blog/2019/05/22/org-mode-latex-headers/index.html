@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-  <title>Reaper Reference - jtmoulia</title>
+  <title>Org Mode LaTeX Headers - jtmoulia</title>
   <meta charset="utf-8" />
   <meta name="author" content="Thomas Moulia" />
-    <meta name="description" content="A reference for the Reaper DAW" />
-    <meta name="keywords" content="music, reaper, hack" />
+    <meta name="description" content="A set of org mode headers that&#39;ll provide a nice looking LaTeX export." />
+    <meta name="keywords" content="emacs, org-mode, literate programming, interactive development" />
   <!-- TODO Concatenate CSS -->
   <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
   <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
@@ -58,66 +58,88 @@
   <hr />
 <div class="content">
   <div class="post">
-      <h3>Reaper Reference</h3>
+      <h3>Org Mode LaTeX Headers</h3>
     <p>
-<a href="https://www.reaper.fm/">Reaper</a> is an excellent digital audio workstation, but it's often bafflingly
-complex. This page is a living reference of resoureces I've found useful for
-working with Reaper.
+Here's a set of org mode headers that export a LaTeX PDF I like the look of:
 </p>
 
-<div id="outline-container-org5004f1a" class="outline-4">
-<h4 id="org5004f1a">Plugins</h4>
-<div class="outline-text-4" id="text-org5004f1a">
-</div>
-<div id="outline-container-org395c347" class="outline-5">
-<h5 id="org395c347">Megababy Sequencer</h5>
-<div class="outline-text-5" id="text-org395c347">
-<p>
-The MegaBaby sequencer that comes with Reaper is stupidly flexible.
-</p>
-
-<p>
-Other resources:
-</p>
-
-<ul class="org-ul">
-<li>NandyC has created a <a href="https://stash.reaper.fm/v/20869/seq%20megababy%20nm">solid fork</a> with interface improvements.</li>
-<li>Winguitars posted a <a href="https://www.youtube.com/watch?v=Wq2C-Qg9Hp4">video guide</a></li>
-</ul>
-</div>
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #da8b55;">#+LaTeX_CLASS_OPTIONS: [12pt]</span>
+<span style="color: #da8b55;">#+LATEX_HEADER: \usepackage[margin=1.25in]{geometry}</span>
+<span style="color: #da8b55;">#+LaTeX_HEADER: \usepackage{fourier}</span>
+<span style="color: #da8b55;">#+LaTeX_HEADER: \usepackage[scaled]{helvet}</span>
+<span style="color: #da8b55;">#+LaTeX_HEADER: \usepackage{courier}</span>
+<span style="color: #da8b55;">#+LaTeX_HEADER: \linespread{1.10}</span>
+</pre>
 </div>
 
-
-<div id="outline-container-org090ca32" class="outline-5">
-<h5 id="org090ca32">Keyzone Classic Piano (VST)</h5>
-<div class="outline-text-5" id="text-org090ca32">
 <p>
-The <a href="http://www.vst4free.com/free_vst.php?id=2848">Keyzone Classic</a> piano contains samples for five pianos:
+Compared to the default this shrinks the margins, fattens up the font, and
+spreads the lines. Here's how an example org doc looks all styled up:
 </p>
 
-<ul class="org-ul">
-<li><b><b>Keyzone 1</b></b></li>
-<li><b><b>Yamaha Grand Piano</b></b></li>
-<li><b><b>Steinway Grand Piano</b></b> this piano sounds deep and rich</li>
-<li><b><b>Basic Electric Piano</b></b> an atmospheric, slow attack organ-like feel</li>
-<li><b><b>Rhodes Piano</b></b></li>
-</ul>
+
+<div class="figure">
+<p><img src="/assets/blog/2019/05/22/org-mode-latex-headers/org-pdf-styled.jpg" alt="org-pdf-styled.jpg" style="border:2px solid #444;" />
+</p>
+</div>
+
+<div id="outline-container-org0b8c312" class="outline-4">
+<h4 id="org0b8c312">An org mode PDF's default style</h4>
+<div class="outline-text-4" id="text-org0b8c312">
+<p>
+LaTeX's default article format is stodgy, with a very serifed font and massive
+margins. Here's how an unstyled example document looks rendered:
+</p>
+
+
+<div class="figure">
+<p><img src="/assets/blog/2019/05/22/org-mode-latex-headers/org-pdf-default.jpg" alt="org-pdf-default.jpg" style="border:2px solid #444;" />
+</p>
+</div>
 </div>
 </div>
 
-<div id="outline-container-orgfae8a86" class="outline-5">
-<h5 id="orgfae8a86">Helm Synthesizer</h5>
-<div class="outline-text-5" id="text-orgfae8a86">
+<div id="outline-container-orgafccbce" class="outline-4">
+<h4 id="orgafccbce">Widening the margins</h4>
+<div class="outline-text-4" id="text-orgafccbce">
 <p>
-<a href="https://tytel.org/helm/">Helm</a> is a beautifully designed, cross-platform, open-source synthesizer.
-Importantly for synth novices like me, it comes with an enormous array of
-presets that lets you quickly try out new sounds. The audio produced is high
-quality, and can be tailored to the production.
+Let's shrink the margins to 1.25 inches using the <code>geometry</code> package:
 </p>
 
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #da8b55;">#+LaTeX_HEADER: \usepackage[margin=1.25in]{geometry}</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="/assets/blog/2019/05/22/org-mode-latex-headers/org-pdf-margins.jpg" alt="org-pdf-margins.jpg" style="border:2px solid #444;" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge50cc72" class="outline-4">
+<h4 id="orge50cc72">Spreading out the text and changing the fonts</h4>
+<div class="outline-text-4" id="text-orge50cc72">
 <p>
-One nitpick: the UI is large on my 13" MBP. Expanding the plugin out of the
-plugin list view gives helm a bit more space to breathe.
+The text lines are cramped by default, and the font is super serifed. Here's
+some cleanup:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #da8b55;">#+LaTeX_CLASS_OPTIONS: [12pt]</span>
+<span style="color: #da8b55;">  #+LaTeX_HEADER: \usepackage{fourier}</span>
+<span style="color: #da8b55;">  #+LaTeX_HEADER: \usepackage[scaled=0.875]{helvet}</span>
+<span style="color: #da8b55;">  #+LaTeX_HEADER: \renewcommand{\ttdefault}{lmtt}</span>
+<span style="color: #da8b55;">  #+LaTeX_HEADER: \linespread{1.10}</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="/assets/blog/2019/05/22/org-mode-latex-headers/org-pdf-text.jpg" alt="org-pdf-text.jpg" style="border:2px solid #444;" />
 </p>
 </div>
 </div>
@@ -133,17 +155,17 @@ plugin list view gives helm a bit more space to breathe.
           Written by <span title="author" class="post-info">Thomas Moulia</span>
         </p>
         <p>
-          Tags: <span title="tags" class="post-info"><a href="/tags/music/">music</a></span>
+          Tags: <span title="tags" class="post-info"><a href="/tags/emacs/">emacs</a>, <a href="/tags/org-mode/">org-mode</a></span>
         </p>
       </div>
       <div class="six columns">
         <p>
           Published:
-          <span title="post date" class="post-info">2018-12-26</span>
+          <span title="post date" class="post-info">2019-05-22</span>
         </p>
         <p>
           Modified:
-          <span title="last modification date" class="post-info">2019-04-04</span>
+          <span title="last modification date" class="post-info">2019-05-22</span>
         </p>
       </div>
     </div>
@@ -169,7 +191,7 @@ plugin list view gives helm a bit more space to breathe.
           <span id="footerYear"></span>
         </p>
         <p>
-          by <a href="mailto:jtmoulia &lt;at&gt; gmail &lt;dot&gt; com">Thomas Moulia</a>
+          by <a href="mailto:thomas &lt;at&gt; healthtensor &lt;dot&gt; com">Thomas Moulia</a>
         </p>
       </div>
       <div class="six columns">

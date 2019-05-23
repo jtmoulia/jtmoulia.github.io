@@ -81,9 +81,9 @@ of these global variables: a profile.
 my-op provides tools for switching between and publishing profiles.
 </p>
 
-<div id="outline-container-org184e8bc" class="outline-4">
-<h4 id="org184e8bc">Configuration</h4>
-<div class="outline-text-4" id="text-org184e8bc">
+<div id="outline-container-orge2f5f02" class="outline-4">
+<h4 id="orge2f5f02">Configuration</h4>
+<div class="outline-text-4" id="text-orge2f5f02">
 <p>
 Sites profiles are kept in an assocation list, <code>my-op-sites</code>. Each site is a
 pair: <code>(name . vars)</code>, where vars is <code>((name . value) ...)</code>. Here is this site's
@@ -91,11 +91,11 @@ configuration:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold; font-style: italic;">let*</span> <span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">(</span>root <span style="color: #67b11d;">(</span>file-name-directory <span style="color: #b1951d;">(</span>file-truename buffer-file-name<span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span>
-       <span style="color: #2d9574;">(</span>theme-root-directory <span style="color: #67b11d;">(</span>file-name-as-directory <span style="color: #b1951d;">(</span>concat root <span style="color: #2d9574;">"themes"</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>
-  <span style="color: #bc6ec5;">(</span>add-to-list 'my-op-sites
+<pre class="src src-emacs-lisp"><span style="color: #3a81c3;">(</span><span style="color: #3a81c3; font-weight: bold; font-style: italic;">let*</span> <span style="color: #6c3163;">(</span><span style="color: #2d9574;">(</span>root <span style="color: #67b11d;">(</span>file-name-directory <span style="color: #b1951d;">(</span>file-truename buffer-file-name<span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span>
+       <span style="color: #2d9574;">(</span>theme-root-directory <span style="color: #67b11d;">(</span>file-name-as-directory <span style="color: #b1951d;">(</span>concat root <span style="color: #2d9574;">"themes"</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #6c3163;">)</span>
+  <span style="color: #6c3163;">(</span>add-to-list 'my-op-sites
                `<span style="color: #2d9574;">(</span>jtblog .
-                        <span style="color: #67b11d;">(</span><span style="color: #b1951d;">(</span>org-html-toplevel-hlevel . <span style="color: #a45bad;">4</span><span style="color: #b1951d;">)</span>
+                        <span style="color: #67b11d;">(</span><span style="color: #b1951d;">(</span>org-html-toplevel-hlevel . <span style="color: #4e3163;">4</span><span style="color: #b1951d;">)</span>
                          <span style="color: #b1951d;">(</span>org-confirm-babel-evaluate . nil<span style="color: #b1951d;">)</span>
                          <span style="color: #b1951d;">(</span>op/highlight-render . htmlize<span style="color: #b1951d;">)</span>
                          <span style="color: #b1951d;">(</span>op/repository-directory . ,root<span style="color: #b1951d;">)</span>
@@ -108,29 +108,29 @@ configuration:
                          <span style="color: #b1951d;">(</span>op/theme-root-directory . ,theme-root-directory<span style="color: #b1951d;">)</span>
                          <span style="color: #b1951d;">(</span>op/theme . custom<span style="color: #b1951d;">)</span>
                          <span style="color: #b1951d;">(</span>op/personal-google-analytics-id . <span style="color: #2d9574;">"UA-60774978-1"</span><span style="color: #b1951d;">)</span>
-                         <span style="color: #b1951d;">(</span>op/category-ignore-list . <span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"themes"</span> <span style="color: #2d9574;">"assets"</span> <span style="color: #2d9574;">"_build"</span><span style="color: #4f97d7;">)</span><span style="color: #b1951d;">)</span>
+                         <span style="color: #b1951d;">(</span>op/category-ignore-list . <span style="color: #3a81c3;">(</span><span style="color: #2d9574;">"themes"</span> <span style="color: #2d9574;">"assets"</span> <span style="color: #2d9574;">"_build"</span><span style="color: #3a81c3;">)</span><span style="color: #b1951d;">)</span>
                          <span style="color: #b1951d;">(</span>op/category-config-alist
-                          . <span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"blog"</span> <span style="color: #2aa1ae; background-color: #292e34;">;; </span><span style="color: #2aa1ae; background-color: #292e34;">this is the default configuration</span>
-                              <span style="color: #4f97d7;">:show-meta</span> t
-                              <span style="color: #4f97d7;">:show-comment</span> nil
-                              <span style="color: #4f97d7;">:uri-generator</span> op/generate-uri
-                              <span style="color: #4f97d7;">:uri-template</span> <span style="color: #2d9574;">"/blog/%y/%m/%d/%t/"</span>
-                              <span style="color: #4f97d7;">:sort-by</span> <span style="color: #4f97d7;">:date</span>     <span style="color: #2aa1ae; background-color: #292e34;">;; </span><span style="color: #2aa1ae; background-color: #292e34;">how to sort the posts</span>
-                              <span style="color: #4f97d7;">:category-index</span> t<span style="color: #bc6ec5;">)</span> <span style="color: #2aa1ae; background-color: #292e34;">;; </span><span style="color: #2aa1ae; background-color: #292e34;">generate category index or not</span>
-                             <span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"index"</span>
-                              <span style="color: #4f97d7;">:show-meta</span> nil
-                              <span style="color: #4f97d7;">:show-comment</span> nil
-                              <span style="color: #4f97d7;">:uri-generator</span> op/generate-uri
-                              <span style="color: #4f97d7;">:uri-template</span> <span style="color: #2d9574;">"/"</span>
-                              <span style="color: #4f97d7;">:sort-by</span> <span style="color: #4f97d7;">:date</span>
-                              <span style="color: #4f97d7;">:category-index</span> nil<span style="color: #bc6ec5;">)</span>
-                             <span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"about"</span>
-                              <span style="color: #4f97d7;">:show-meta</span> nil
-                              <span style="color: #4f97d7;">:show-comment</span> nil
-                              <span style="color: #4f97d7;">:uri-generator</span> op/generate-uri
-                              <span style="color: #4f97d7;">:uri-template</span> <span style="color: #2d9574;">"/about/"</span>
-                              <span style="color: #4f97d7;">:sort-by</span> <span style="color: #4f97d7;">:date</span>
-                              <span style="color: #4f97d7;">:category-index</span> nil<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+                          . <span style="color: #3a81c3;">(</span><span style="color: #6c3163;">(</span><span style="color: #2d9574;">"blog"</span> <span style="color: #2aa1ae; background-color: #ecf3ec;">;; </span><span style="color: #2aa1ae; background-color: #ecf3ec;">this is the default configuration</span>
+                              <span style="color: #3a81c3;">:show-meta</span> t
+                              <span style="color: #3a81c3;">:show-comment</span> nil
+                              <span style="color: #3a81c3;">:uri-generator</span> op/generate-uri
+                              <span style="color: #3a81c3;">:uri-template</span> <span style="color: #2d9574;">"/blog/%y/%m/%d/%t/"</span>
+                              <span style="color: #3a81c3;">:sort-by</span> <span style="color: #3a81c3;">:date</span>     <span style="color: #2aa1ae; background-color: #ecf3ec;">;; </span><span style="color: #2aa1ae; background-color: #ecf3ec;">how to sort the posts</span>
+                              <span style="color: #3a81c3;">:category-index</span> t<span style="color: #6c3163;">)</span> <span style="color: #2aa1ae; background-color: #ecf3ec;">;; </span><span style="color: #2aa1ae; background-color: #ecf3ec;">generate category index or not</span>
+                             <span style="color: #6c3163;">(</span><span style="color: #2d9574;">"index"</span>
+                              <span style="color: #3a81c3;">:show-meta</span> nil
+                              <span style="color: #3a81c3;">:show-comment</span> nil
+                              <span style="color: #3a81c3;">:uri-generator</span> op/generate-uri
+                              <span style="color: #3a81c3;">:uri-template</span> <span style="color: #2d9574;">"/"</span>
+                              <span style="color: #3a81c3;">:sort-by</span> <span style="color: #3a81c3;">:date</span>
+                              <span style="color: #3a81c3;">:category-index</span> nil<span style="color: #6c3163;">)</span>
+                             <span style="color: #6c3163;">(</span><span style="color: #2d9574;">"about"</span>
+                              <span style="color: #3a81c3;">:show-meta</span> nil
+                              <span style="color: #3a81c3;">:show-comment</span> nil
+                              <span style="color: #3a81c3;">:uri-generator</span> op/generate-uri
+                              <span style="color: #3a81c3;">:uri-template</span> <span style="color: #2d9574;">"/about/"</span>
+                              <span style="color: #3a81c3;">:sort-by</span> <span style="color: #3a81c3;">:date</span>
+                              <span style="color: #3a81c3;">:category-index</span> nil<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
 </pre>
 </div>
 
@@ -142,9 +142,9 @@ select. The default policy is to ask the user if <code>my-op-site</code> is fals
 </div>
 </div>
 
-<div id="outline-container-org05b1050" class="outline-4">
-<h4 id="org05b1050">Usage</h4>
-<div class="outline-text-4" id="text-org05b1050">
+<div id="outline-container-orge4fb8cd" class="outline-4">
+<h4 id="orge4fb8cd">Usage</h4>
+<div class="outline-text-4" id="text-orge4fb8cd">
 <p>
 my-op provides a few interactive commands for publishing and selecting site
 profiles.
@@ -158,9 +158,9 @@ profiles.
 </div>
 </div>
 
-<div id="outline-container-org6929762" class="outline-4">
-<h4 id="org6929762">Future</h4>
-<div class="outline-text-4" id="text-org6929762">
+<div id="outline-container-orgf4dbe37" class="outline-4">
+<h4 id="orgf4dbe37">Future</h4>
+<div class="outline-text-4" id="text-orgf4dbe37">
 <p>
 There's no fixed plan, but I'll continue to tweak the behavior to fit my needs.
 org-page is happily hackable.
