@@ -81,9 +81,9 @@ of these global variables: a profile.
 my-op provides tools for switching between and publishing profiles.
 </p>
 
-<div id="outline-container-orge2f5f02" class="outline-4">
-<h4 id="orge2f5f02">Configuration</h4>
-<div class="outline-text-4" id="text-orge2f5f02">
+<div id="outline-container-orge39ba1f" class="outline-4">
+<h4 id="orge39ba1f">Configuration</h4>
+<div class="outline-text-4" id="text-orge39ba1f">
 <p>
 Sites profiles are kept in an assocation list, <code>my-op-sites</code>. Each site is a
 pair: <code>(name . vars)</code>, where vars is <code>((name . value) ...)</code>. Here is this site's
@@ -91,7 +91,7 @@ configuration:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #3a81c3;">(</span><span style="color: #3a81c3; font-weight: bold; font-style: italic;">let*</span> <span style="color: #6c3163;">(</span><span style="color: #2d9574;">(</span>root <span style="color: #67b11d;">(</span>file-name-directory <span style="color: #b1951d;">(</span>file-truename buffer-file-name<span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #3a81c3;">(</span><span style="color: #3a81c3; font-weight: bold;">let*</span> <span style="color: #6c3163;">(</span><span style="color: #2d9574;">(</span>root <span style="color: #67b11d;">(</span>file-name-directory <span style="color: #b1951d;">(</span>file-truename buffer-file-name<span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span>
        <span style="color: #2d9574;">(</span>theme-root-directory <span style="color: #67b11d;">(</span>file-name-as-directory <span style="color: #b1951d;">(</span>concat root <span style="color: #2d9574;">"themes"</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #6c3163;">)</span>
   <span style="color: #6c3163;">(</span>add-to-list 'my-op-sites
                `<span style="color: #2d9574;">(</span>jtblog .
@@ -142,9 +142,9 @@ select. The default policy is to ask the user if <code>my-op-site</code> is fals
 </div>
 </div>
 
-<div id="outline-container-orge4fb8cd" class="outline-4">
-<h4 id="orge4fb8cd">Usage</h4>
-<div class="outline-text-4" id="text-orge4fb8cd">
+<div id="outline-container-org74b9db3" class="outline-4">
+<h4 id="org74b9db3">Usage</h4>
+<div class="outline-text-4" id="text-org74b9db3">
 <p>
 my-op provides a few interactive commands for publishing and selecting site
 profiles.
@@ -158,9 +158,9 @@ profiles.
 </div>
 </div>
 
-<div id="outline-container-orgf4dbe37" class="outline-4">
-<h4 id="orgf4dbe37">Future</h4>
-<div class="outline-text-4" id="text-orgf4dbe37">
+<div id="outline-container-org1391b31" class="outline-4">
+<h4 id="org1391b31">Future</h4>
+<div class="outline-text-4" id="text-org1391b31">
 <p>
 There's no fixed plan, but I'll continue to tweak the behavior to fit my needs.
 org-page is happily hackable.

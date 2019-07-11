@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <title>SSHing into Termux - jtmoulia</title>
+  <meta charset="utf-8" />
+  <meta name="author" content="Thomas Moulia" />
+    <meta name="description" content="Quick guide for SSHing into termux" />
+    <meta name="keywords" content="termux" />
+  <!-- TODO Concatenate CSS -->
+  <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,700,300italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+</head>
+
+  <body class="container">
+<div class="masthead">
+  <div class="masthead-title-div u-pull-left">
+    <h1 class="masthead-title"><a href="/">
+      jtmoulia
+    </a></h1>
+    <!-- TODO Who needs a sub-title?? -->
+    <!-- <p class="masthead-sub-title"> -->
+    <!-- public notebook 📓 -->
+    <!-- </p> -->
+  </div>
+  <nav class="navbar u-pull-right">
+    <ul class="navbar-list">
+      <li><a href="/blog/">Posts</a></li>
+      <li><a href="/about/">Who</a></li>
+    </ul>
+  </nav>
+</div>
+<div class="u-cf"></div>
+
+    <!-- <div> -->
+    <!--   <header class="masthead"> -->
+    <!--     <h1 class="masthead-title"><a href="/">jtmoulia</a></h1> -->
+    <!--     <p>public notebook 📓</p> -->
+    <!--     <ul> -->
+    <!--        -->
+    <!--       <li><a href="/blog/">Blog</a></li> -->
+    <!--        -->
+    <!--       <li><a href="/tags/">Tags</a></li> -->
+    <!--       <li><a href="/about/">About</a></li> -->
+    <!--       <li><a href="http://github.com/jtmoulia">GitHub</a></li> -->
+    <!--       <li><a href="/rss.xml">RSS</a></li> -->
+    <!--     </ul> -->
+    <!--     <form method="get" id="searchform" action="http://www.google.com/search"> -->
+    <!--       <input type="text" class="field" name="q" id="s" placeholder="Search"> -->
+    <!--       <input type="hidden" name="as_sitesearch" value="jtmoulia.pocketknife.io"> -->
+    <!--     </form> -->
+    <!--      -->
+    <!--   </header> -->
+    <!-- </div> -->
+
+  <hr />
+<div class="content">
+  <div class="post">
+      <h3>SSHing into Termux</h3>
+    <p>
+<a href="https://termux.com/">Termux</a> provides a terminal and linux environment running in Android, allowing
+you to run scripts on your phone.
+</p>
+
+<p>
+Scripting using a phone's touch keyboard is rough. Unless I'm stuck without my
+laptop I'd much prefer to use a real keyboard rather than tapping about. This
+quick guide breaks down how to use Termux to run an SSH server that lets you log
+into in from your laptop.
+</p>
+
+<div id="outline-container-orgf4b5d37" class="outline-4">
+<h4 id="orgf4b5d37">Requirements</h4>
+<div class="outline-text-4" id="text-orgf4b5d37">
+<p>
+Your phone must be addressable from your laptop for this to work, e.g. it'll
+work if they're on the same local network.
+</p>
+
+<p>
+Ths guide assumes you've installed Termux -- <a href="https://f-droid.org/packages/com.termux/">here it is on F-Droid</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgce28f45" class="outline-4">
+<h4 id="orgce28f45">Install OpenSSH</h4>
+<div class="outline-text-4" id="text-orgce28f45">
+<p>
+First install OpenSSH in your Termux environment:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">whoami
+</pre>
+</div>
+
+<p>
+Start the SSH server in Termux by running the daemon:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">sshd
+</pre>
+</div>
+
+<p>
+Note that the SSH server listens on <b>port 8022</b> by default rather than the
+typical 22.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5fb39b5" class="outline-4">
+<h4 id="org5fb39b5">Configure Password</h4>
+<div class="outline-text-4" id="text-org5fb39b5">
+<p>
+TODO: Is this necessary? What's the default password:
+</p>
+
+<p>
+Set the password for your current user in Termux:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">termux $ passwd
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfbb9b5e" class="outline-4">
+<h4 id="orgfbb9b5e">SSH into your Phone</h4>
+<div class="outline-text-4" id="text-orgfbb9b5e">
+<p>
+Assuming you started the SSH server earlier, you can test SSHing into your
+phone.
+</p>
+
+<p>
+Termux runs in a single-user environment, so you're stuck with the provided
+username. Check the username by running from termux:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">termux $ whoami
+</pre>
+</div>
+
+<p>
+This username returned will be referred to as <code>$TERMUX_USER</code> below.
+</p>
+
+<p>
+If your phone and client are on the same local network you can use the IP of
+your phone as its SSH host. To get this IP run (assumes network device is
+<code>wlan0</code>):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">termux $ ip addr show wlan0
+</pre>
+</div>
+
+<p>
+The IP address returned will be referred to as <code>$TERMUX_HOST</code> below.
+</p>
+
+<p>
+From the client machine log into the Termux environment via SSH:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">client $ ssh -p <span style="color: #4e3163;">8022</span> $<span style="color: #715ab1;">TERMUX_USER</span>@$<span style="color: #715ab1;">TERMUX_HOST</span>
+</pre>
+</div>
+
+<p>
+After confirming that you trust the host (<a href="https://en.wikipedia.org/wiki/Trust_on_first_use">TOFU!</a>) you should be logged into
+your phone's Termux environment.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc879733" class="outline-4">
+<h4 id="orgc879733">Passwordless Login</h4>
+<div class="outline-text-4" id="text-orgc879733">
+<p>
+It's simpler (no password!) and more secure to login using public/private key
+authentication. Assuming you've already generated an SSH RSA key copy it into
+your Termux environment by calling:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">client $ ssh-copy-id -i ~/.ssh/id_rsa -p <span style="color: #4e3163;">8022</span> $<span style="color: #715ab1;">TERMUX_USER</span>@$<span style="color: #715ab1;">TERMUX_HOST</span>
+</pre>
+</div>
+
+<p>
+Future SSH logins shouldn't require a password.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc856cc1" class="outline-4">
+<h4 id="orgc856cc1">Disable SSH Password Login</h4>
+<div class="outline-text-4" id="text-orgc856cc1">
+<p>
+Password login is now unnecessary, but still enabled leaving open an attack
+vector. It should be disabled: TODO
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb77d511" class="outline-4">
+<h4 id="orgb77d511">Client SSH Config</h4>
+<div class="outline-text-4" id="text-orgb77d511">
+<p>
+To avoid having to remember the host and username for future logins from the
+client, save the host's SSH configuration to <code>~/.ssh/config</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">Host local-termux
+    HostName $TERMUX_HOST
+    User $TERMUX_USER
+    Port 8022
+</pre>
+</div>
+
+<p>
+You can now quickly SSH into the Termux environment on the local network:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">client $ ssh local-termux
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd35c076" class="outline-4">
+<h4 id="orgd35c076">Stop the SSH Server</h4>
+<div class="outline-text-4" id="text-orgd35c076">
+<p>
+A running SSH server is a potential vulnerability, so it shouldn't be running
+in Termux while not in use. To kill the SSH server run from Termux:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">Termux $ pkill -f ssh d
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org15c9f0d" class="outline-4">
+<h4 id="org15c9f0d">Automating</h4>
+<div class="outline-text-4" id="text-org15c9f0d">
+<p>
+These repetitive tasks beg for automation. In the future I'll add an <a href="https://www.ansible.com/">Ansible</a>
+playbook to configure the Termux environment.
+</p>
+</div>
+</div>
+
+  </div>
+</div>
+
+<div>
+    <div class="post-meta row">
+      <div class="six columns">
+        <p>
+          Written by <span title="author" class="post-info">Thomas Moulia</span>
+        </p>
+        <p>
+          Tags: <span title="tags" class="post-info"><a href="/tags/termux/">termux</a></span>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>
+          Published:
+          <span title="post date" class="post-info">2019-07-10</span>
+        </p>
+        <p>
+          Modified:
+          <span title="last modification date" class="post-info">2019-07-10</span>
+        </p>
+      </div>
+    </div>
+  <hr />
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript">
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-60774978-1']);
+     _gaq.push(['_trackPageview']);
+     (function() {
+         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+    </script>
+  <div class="footer container">
+    <div class="row">
+      <div class="six columns">
+        <p>
+          Copyright &copy; 2015 -
+          <span id="footerYear"></span>
+        </p>
+        <p>
+          by <a href="mailto:jtmoulia &lt;at&gt; gmail &lt;dot&gt; com">Thomas Moulia</a>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Powered by
+          <a href="https://github.com/kelvinh/org-page">org-page</a> and
+          <a href="http://getskeleton.com/">skeleton</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+
+  </body>
+</html>

@@ -67,9 +67,9 @@ assumptions. I'd like to be able to record these cases in a
 human-readable format -- suites of tests for our ideas.
 </p>
 
-<div id="outline-container-org9aa3792" class="outline-4">
-<h4 id="org9aa3792">Academic Figures</h4>
-<div class="outline-text-4" id="text-org9aa3792">
+<div id="outline-container-org5793c03" class="outline-4">
+<h4 id="org5793c03">Academic Figures</h4>
+<div class="outline-text-4" id="text-org5793c03">
 <p>
 Academic OT papers often feature figures similar to Fig 1. In these
 diagrams, operations are created at one site, and then shipped to
@@ -91,9 +91,9 @@ you draw them?
 </div>
 </div>
 
-<div id="outline-container-org60f8bfa" class="outline-4">
-<h4 id="org60f8bfa">UML Sequence Diagrams</h4>
-<div class="outline-text-4" id="text-org60f8bfa">
+<div id="outline-container-org3c2c55f" class="outline-4">
+<h4 id="org3c2c55f">UML Sequence Diagrams</h4>
+<div class="outline-text-4" id="text-org3c2c55f">
 <p>
 I first tried to figure out the name of the diagram. Some brief
 googling took me to <a href="http://www.plantuml.com/">plantuml</a> and its fellow <a href="https://en.wikipedia.org/wiki/Unified_Modeling_Language">UML</a> tools.
@@ -140,9 +140,9 @@ deactivate B
 
 
 
-<div id="outline-container-org151c843" class="outline-4">
-<h4 id="org151c843">mscgen</h4>
-<div class="outline-text-4" id="text-org151c843">
+<div id="outline-container-org3d17f2a" class="outline-4">
+<h4 id="org3d17f2a">mscgen</h4>
+<div class="outline-text-4" id="text-org3d17f2a">
 <p>
 Next I found out about <a href="https://en.wikipedia.org/wiki/Message_sequence_chart">message sequence charts</a>: a category of
 diagrams that encompasses UML sequence diagrams.
@@ -180,9 +180,9 @@ Though on the right track, mscgen isn't expressive enough.
 </div>
 
 
-<div id="outline-container-org244b307" class="outline-4">
-<h4 id="org244b307">mscpackage</h4>
-<div class="outline-text-4" id="text-org244b307">
+<div id="outline-container-org838b4c6" class="outline-4">
+<h4 id="org838b4c6">mscpackage</h4>
+<div class="outline-text-4" id="text-org838b4c6">
 <p>
 <a href="http://satoss.uni.lu/software/mscpackage/">mscpackage</a> is a LaTeX package for drawing message sequence
 charts. As usual around LaTeX, mscpackage overcomes its LaTeX
@@ -191,32 +191,32 @@ it's the only option so far which can draw the reference diagram:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-latex"><span style="color: #3a81c3; font-weight: bold; font-style: italic;">\begin</span>{<span style="color: #6c3163; font-weight: bold;">msc</span>}{Classic Example}
+<pre class="src src-latex"><span style="color: #3a81c3; font-weight: bold;">\begin</span>{<span style="color: #6c3163; font-weight: bold;">msc</span>}{Classic Example}
 
-<span style="color: #3a81c3; font-weight: bold; font-style: italic;">\declinst</span>{s1}{Site 1}{abc}
-<span style="color: #3a81c3; font-weight: bold; font-style: italic;">\declinst</span>{s2}{Site 2}{abc}
+<span style="color: #3a81c3; font-weight: bold;">\declinst</span>{s1}{Site 1}{abc}
+<span style="color: #3a81c3; font-weight: bold;">\declinst</span>{s2}{Site 2}{abc}
 
-<span style="color: #3a81c3; font-weight: bold; font-style: italic;">\msccomment</span>[l]{A = Ins(0, x)}{s1}
-<span style="color: #3a81c3; font-weight: bold; font-style: italic;">\mess</span>{A}{s1}[0.1]{s2}[3]
+<span style="color: #3a81c3; font-weight: bold;">\msccomment</span>[l]{A = Ins(0, x)}{s1}
+<span style="color: #3a81c3; font-weight: bold;">\mess</span>{A}{s1}[0.1]{s2}[3]
 
-<span style="color: #3a81c3; font-weight: bold; font-style: italic;">\msccomment</span>[r]{B = Del(2)}{s2}
-<span style="color: #3a81c3; font-weight: bold; font-style: italic;">\mess</span>{B}{s2}[0.1]{s1}[3]
+<span style="color: #3a81c3; font-weight: bold;">\msccomment</span>[r]{B = Del(2)}{s2}
+<span style="color: #3a81c3; font-weight: bold;">\mess</span>{B}{s2}[0.1]{s1}[3]
 
-<span style="color: #3a81c3; font-weight: bold; font-style: italic;">\nextlevel</span>
-<span style="color: #3a81c3; font-weight: bold; font-style: italic;">\action</span>{xabc}{s1}
-<span style="color: #3a81c3; font-weight: bold; font-style: italic;">\action</span>{ab}{s2}
+<span style="color: #3a81c3; font-weight: bold;">\nextlevel</span>
+<span style="color: #3a81c3; font-weight: bold;">\action</span>{xabc}{s1}
+<span style="color: #3a81c3; font-weight: bold;">\action</span>{ab}{s2}
 
-<span style="color: #3a81c3; font-weight: bold; font-style: italic;">\nextlevel</span>
+<span style="color: #3a81c3; font-weight: bold;">\nextlevel</span>
 
-<span style="color: #3a81c3; font-weight: bold; font-style: italic;">\nextlevel</span>
-<span style="color: #3a81c3; font-weight: bold; font-style: italic;">\msccomment</span>[l]{IT(B, A)}{s1}
-<span style="color: #3a81c3; font-weight: bold; font-style: italic;">\msccomment</span>[r]{IT(A, B)}{s2}
+<span style="color: #3a81c3; font-weight: bold;">\nextlevel</span>
+<span style="color: #3a81c3; font-weight: bold;">\msccomment</span>[l]{IT(B, A)}{s1}
+<span style="color: #3a81c3; font-weight: bold;">\msccomment</span>[r]{IT(A, B)}{s2}
 
-<span style="color: #3a81c3; font-weight: bold; font-style: italic;">\nextlevel</span>
-<span style="color: #3a81c3; font-weight: bold; font-style: italic;">\action</span>{xab}{s1}
-<span style="color: #3a81c3; font-weight: bold; font-style: italic;">\action</span>{xab}{s2}
+<span style="color: #3a81c3; font-weight: bold;">\nextlevel</span>
+<span style="color: #3a81c3; font-weight: bold;">\action</span>{xab}{s1}
+<span style="color: #3a81c3; font-weight: bold;">\action</span>{xab}{s2}
 
-<span style="color: #3a81c3; font-weight: bold; font-style: italic;">\end</span>{<span style="color: #6c3163; font-weight: bold;">msc</span>}
+<span style="color: #3a81c3; font-weight: bold;">\end</span>{<span style="color: #6c3163; font-weight: bold;">msc</span>}
 </pre>
 </div>
 
@@ -229,9 +229,9 @@ it's the only option so far which can draw the reference diagram:
 </div>
 
 
-<div id="outline-container-orgba6de4c" class="outline-4">
-<h4 id="orgba6de4c">Summary</h4>
-<div class="outline-text-4" id="text-orgba6de4c">
+<div id="outline-container-org0cb7870" class="outline-4">
+<h4 id="org0cb7870">Summary</h4>
+<div class="outline-text-4" id="text-org0cb7870">
 <p>
 For my use case, mscpackage is both the winner and only
 contestant. While it strikes a decent balance between simplicity and

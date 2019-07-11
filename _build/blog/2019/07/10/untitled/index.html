@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-  <title>Org Mode LaTeX Headers - jtmoulia</title>
+  <title>Untitled - jtmoulia</title>
   <meta charset="utf-8" />
   <meta name="author" content="Thomas Moulia" />
-    <meta name="description" content="A set of org mode headers that&#39;ll provide a nice looking LaTeX export." />
-    <meta name="keywords" content="emacs, org-mode, literate programming, interactive development" />
   <!-- TODO Concatenate CSS -->
   <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
   <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
@@ -58,88 +56,49 @@
   <hr />
 <div class="content">
   <div class="post">
-      <h3>Org Mode LaTeX Headers</h3>
-    <p>
-Here's a set of org mode headers that export a LaTeX PDF I like the look of:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-org"><span style="color: #da8b55;">#+LaTeX_CLASS_OPTIONS: [12pt]</span>
-<span style="color: #da8b55;">#+LATEX_HEADER: \usepackage[margin=1.25in]{geometry}</span>
-<span style="color: #da8b55;">#+LaTeX_HEADER: \usepackage{fourier}</span>
-<span style="color: #da8b55;">#+LaTeX_HEADER: \usepackage[scaled]{helvet}</span>
-<span style="color: #da8b55;">#+LaTeX_HEADER: \usepackage{courier}</span>
-<span style="color: #da8b55;">#+LaTeX_HEADER: \linespread{1.10}</span>
-</pre>
+      <h3>Untitled</h3>
+    <div id="table-of-contents">
+<h4>Table of Contents</h4>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org4e2a680">1. jtmoulia's blog</a>
+<ul>
+<li><a href="#orgd5f9324">1.1. Dependencies</a></li>
+<li><a href="#orga04c721">1.2. Usage</a></li>
+</ul>
+</li>
+</ul>
 </div>
+</div>
+<div id="outline-container-org4e2a680" class="outline-4">
+<h4 id="org4e2a680"><span class="section-number-4">1</span> jtmoulia's blog</h4>
+<div class="outline-text-4" id="text-1">
+</div>
+<div id="outline-container-orgd5f9324" class="outline-5">
+<h5 id="orgd5f9324"><span class="section-number-5">1.1</span> Dependencies</h5>
+<div class="outline-text-5" id="text-1-1">
+<ul class="org-ul">
+<li>emacs</li>
+<li>org-mode</li>
+<li>org-page</li>
+<li>my-op (see dotfiles)</li>
+</ul>
 
 <p>
-Compared to the default this shrinks the margins, fattens up the font, and
-spreads the lines. Here's how an example org doc looks all styled up:
+Dependencies for running code blocks:
 </p>
 
-
-<div class="figure">
-<p><img src="/assets/blog/2019/05/22/org-mode-latex-headers/org-pdf-styled.jpg" alt="org-pdf-styled.jpg" style="border:2px solid #444;" />
-</p>
+<ul class="org-ul">
+<li>ob-elixir</li>
+</ul>
+</div>
 </div>
 
-<div id="outline-container-org9853c4f" class="outline-4">
-<h4 id="org9853c4f">An org mode PDF's default style</h4>
-<div class="outline-text-4" id="text-org9853c4f">
+<div id="outline-container-orga04c721" class="outline-5">
+<h5 id="orga04c721"><span class="section-number-5">1.2</span> Usage</h5>
+<div class="outline-text-5" id="text-1-2">
 <p>
-LaTeX's default article format is stodgy, with a very serifed font and massive
-margins. Here's how an unstyled example document looks rendered:
-</p>
-
-
-<div class="figure">
-<p><img src="/assets/blog/2019/05/22/org-mode-latex-headers/org-pdf-default.jpg" alt="org-pdf-default.jpg" style="border:2px solid #444;" />
-</p>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org8931771" class="outline-4">
-<h4 id="org8931771">Widening the margins</h4>
-<div class="outline-text-4" id="text-org8931771">
-<p>
-Let's shrink the margins to 1.25 inches using the <code>geometry</code> package:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-org"><span style="color: #da8b55;">#+LaTeX_HEADER: \usepackage[margin=1.25in]{geometry}</span>
-</pre>
-</div>
-
-
-<div class="figure">
-<p><img src="/assets/blog/2019/05/22/org-mode-latex-headers/org-pdf-margins.jpg" alt="org-pdf-margins.jpg" style="border:2px solid #444;" />
-</p>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org5bb6f22" class="outline-4">
-<h4 id="org5bb6f22">Spreading out the text and changing the fonts</h4>
-<div class="outline-text-4" id="text-org5bb6f22">
-<p>
-The text lines are cramped by default, and the font is super serifed. Here's
-some cleanup:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-org"><span style="color: #da8b55;">#+LaTeX_CLASS_OPTIONS: [12pt]</span>
-<span style="color: #da8b55;">  #+LaTeX_HEADER: \usepackage{fourier}</span>
-<span style="color: #da8b55;">  #+LaTeX_HEADER: \usepackage[scaled=0.875]{helvet}</span>
-<span style="color: #da8b55;">  #+LaTeX_HEADER: \renewcommand{\ttdefault}{lmtt}</span>
-<span style="color: #da8b55;">  #+LaTeX_HEADER: \linespread{1.10}</span>
-</pre>
-</div>
-
-
-<div class="figure">
-<p><img src="/assets/blog/2019/05/22/org-mode-latex-headers/org-pdf-text.jpg" alt="org-pdf-text.jpg" style="border:2px solid #444;" />
+Check out the <a href="blog/blog-cookbook.html">cookbook</a>.
 </p>
 </div>
 </div>
@@ -155,17 +114,17 @@ some cleanup:
           Written by <span title="author" class="post-info">Thomas Moulia</span>
         </p>
         <p>
-          Tags: <span title="tags" class="post-info"><a href="/tags/emacs/">emacs</a>, <a href="/tags/org-mode/">org-mode</a></span>
+          Tags: <span title="tags" class="post-info">N/A</span>
         </p>
       </div>
       <div class="six columns">
         <p>
           Published:
-          <span title="post date" class="post-info">2019-05-22</span>
+          <span title="post date" class="post-info">2019-07-10</span>
         </p>
         <p>
           Modified:
-          <span title="last modification date" class="post-info">2019-05-22</span>
+          <span title="last modification date" class="post-info">2019-07-10</span>
         </p>
       </div>
     </div>
