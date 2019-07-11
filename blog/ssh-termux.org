@@ -43,8 +43,6 @@ Ths guide assumes you've installed Termux -- [[https://f-droid.org/packages/com.
   
 * Configure Password 
   
-  TODO: Is this necessary? What's the default password:
-  
   Set the password for your current user in Termux:
 
   #+BEGIN_SRC sh
@@ -99,7 +97,13 @@ Ths guide assumes you've installed Termux -- [[https://f-droid.org/packages/com.
 * Disable SSH Password Login
 
   Password login is now unnecessary, but still enabled leaving open an attack
-  vector. It should be disabled: TODO
+  vector. It should be disabled by ensuring your Termux environment's
+  =$PREFIX/etc/ssh/ssh_config= has:
+
+  #+BEGIN_SRC text
+    PasswordAuthentication no
+    ChallengeResponseAuthentication no
+   #+END_SRC
 
 * Client SSH Config
 
