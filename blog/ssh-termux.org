@@ -1,0 +1,134 @@
+#+TITLE:       SSHing into Termux
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       jtmoulia@gmail.com
+#+DATE:        2019-07-10 Wed
+#+URI:         /blog/%y/%m/%d/ssh-termux
+#+KEYWORDS:    termux
+#+TAGS:        termux
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Quick guide for SSHing into termux
+
+[[https://termux.com/][Termux]] provides a terminal and linux environment running in Android, allowing
+you to run scripts on your phone.
+
+Scripting using a phone's touch keyboard is rough. Unless I'm stuck without my
+laptop I'd much prefer to use a real keyboard rather than tapping about. This
+quick guide breaks down how to use Termux to run an SSH server that lets you log
+into in from your laptop.
+
+* Requirements
+
+Your phone must be addressable from your laptop for this to work, e.g. it'll
+work if they're on the same local network.
+
+Ths guide assumes you've installed Termux -- [[https://f-droid.org/packages/com.termux/][here it is on F-Droid]].
+
+* Install OpenSSH
+
+  First install OpenSSH in your Termux environment:
+  
+  #+BEGIN_SRC sh
+    whoami
+  #+END_SRC
+
+  Start the SSH server in Termux by running the daemon:
+
+  #+BEGIN_SRC sh
+    sshd
+  #+END_SRC
+
+  Note that the SSH server listens on *port 8022* by default rather than the
+  typical 22.
+  
+* Configure Password 
+  
+  TODO: Is this necessary? What's the default password:
+  
+  Set the password for your current user in Termux:
+
+  #+BEGIN_SRC sh
+    termux $ passwd
+  #+END_SRC
+  
+* SSH into your Phone
+
+  Assuming you started the SSH server earlier, you can test SSHing into your
+  phone.
+  
+  Termux runs in a single-user environment, so you're stuck with the provided
+  username. Check the username by running from termux:
+
+  #+BEGIN_SRC sh
+    termux $ whoami
+  #+END_SRC
+  
+  This username returned will be referred to as =$TERMUX_USER= below.
+
+  If your phone and client are on the same local network you can use the IP of
+  your phone as its SSH host. To get this IP run (assumes network device is
+  =wlan0=):
+
+  #+BEGIN_SRC sh
+    termux $ ip addr show wlan0
+  #+END_SRC
+
+  The IP address returned will be referred to as =$TERMUX_HOST= below.
+
+  From the client machine log into the Termux environment via SSH:
+   
+  #+BEGIN_SRC sh
+    client $ ssh -p 8022 $TERMUX_USER@$TERMUX_HOST
+  #+END_SRC
+  
+  After confirming that you trust the host ([[https://en.wikipedia.org/wiki/Trust_on_first_use][TOFU!]]) you should be logged into
+  your phone's Termux environment.
+  
+* Passwordless Login
+  
+  It's simpler (no password!) and more secure to login using public/private key
+  authentication. Assuming you've already generated an SSH RSA key parir, say
+  =~/.ssh/id_rsa[.pub]=, copy it into your Termux environment by calling:
+  
+  #+BEGIN_SRC sh
+    client $ ssh-copy-id -i ~/.ssh/id_rsa -p 8022 $TERMUX_USER@$TERMUX_HOST
+  #+END_SRC
+  
+  Future SSH logins shouldn't require a password.
+  
+* Disable SSH Password Login
+
+  Password login is now unnecessary, but still enabled leaving open an attack
+  vector. It should be disabled: TODO
+
+* Client SSH Config
+
+  To avoid having to remember the host and username for future logins from the
+  client, save the host's SSH configuration to =~/.ssh/config=:
+  
+  #+BEGIN_SRC text
+    Host local-termux
+        HostName $TERMUX_HOST
+        User $TERMUX_USER
+        Port 8022
+   #+END_SRC
+
+   You can now quickly SSH into the Termux environment on the local network:
+
+   #+BEGIN_SRC sh
+     client $ ssh local-termux
+   #+END_SRC
+   
+* Stop the SSH Server
+
+  A running SSH server is a potential vulnerability, so it shouldn't be running
+  in Termux while not in use. To kill the SSH server run from Termux:
+
+  #+BEGIN_SRC sh
+    Termux $ pkill -f ssh d
+  #+END_SRC
+  
+* Automating
+  
+  These repetitive tasks beg for automation. In the future I'll add an [[https://www.ansible.com/][Ansible]]
+  playbook to configure the Termux environment.
