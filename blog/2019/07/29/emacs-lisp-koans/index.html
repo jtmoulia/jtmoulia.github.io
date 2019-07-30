@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-  <title>Working at HealthTensor - jtmoulia</title>
+  <title>Emacs Lisp Koans - jtmoulia</title>
   <meta charset="utf-8" />
   <meta name="author" content="Thomas Moulia" />
-    <meta name="description" content="working with HealthTensor to automate documentation for physicians" />
-    <meta name="keywords" content="healthtensor" />
+    <meta name="description" content="Emacs Lisp Koans provides a guided tour of elisp through test-driven development." />
+    <meta name="keywords" content="emacs, elisp, koans" />
   <!-- TODO Concatenate CSS -->
   <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
   <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
@@ -58,35 +58,41 @@
   <hr />
 <div class="content">
   <div class="post">
-      <h3>Working at HealthTensor</h3>
+      <h3>Emacs Lisp Koans</h3>
     <p>
-For the last two-ish years I've been working with <a href="https://www.healthtensor.com/">HealthTensor</a>, where we're
-helping physicians focus on their patients by automating the clincial note.
+I've started <a href="https://github.com/jtmoulia/elisp-koans">elisp-koans</a>, a guided tour of Emacs Lisp (elisp) through
+test-driven development. <code>elisp-koans</code> is adapted from Google's <a href="https://github.com/google/lisp-koans">Common Lisp
+Koans</a>, which was in turn inspired by the family of TDD Koans, e.g. <a href="http://rubykoans.com/">Ruby Koans</a>
+and <a href="https://github.com/gregmalcolm/python_koans">Python Koans</a>.
+</p>
+
+<div id="outline-container-org056cf9b" class="outline-4">
+<h4 id="org056cf9b">How it works</h4>
+<div class="outline-text-4" id="text-org056cf9b">
+<p>
+You begin by cloning the koans, suites of tests which describe how Emacs Lisp
+and its libraries behave. The tests are initially broken, and fixing them walks
+you through Emacs Lisp as well as its testing framework (ERT).
 </p>
 
 <p>
-The clinical note is a key component of many clinical workflows, e.g. diagnosis,
-billing, and order entry. However, coupled with digital EHRs it's become a major
-source of physician burnout. HealthTensor helps with this problem by using data
-in the EHR to take an initial cut at the clinical note. This frees the physician
-up to focus on patient care, and improves revenue cycle management for the
-provider.
+Here's the first test, which would be fixed by swapping <code>___</code> with <code>t</code> as
+described in the docstring:
 </p>
 
-<p>
-I started working with HealthTensor over the second half of 2016. At that time,
-it was Eli and Nate hacking out of friends' living rooms with the goal of
-<i>bringing AI into healthcare</i>. In early 2017 HealthTensor was accepted into the
-second batch of the Cedars-Sinai Techstars accelerator in Los Angeles. Working
-with experts across the provider spectrum we came to realize the frustration
-caused by the clinical note and by the end of the program we'd proven the
-potential against Cedars-Sinai's clinical data. Since then HealthTensor has come
-a long way.
-</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #3a81c3;">(</span><span style="color: #3a81c3; font-weight: bold;">elisp-koans/deftest</span>
+ elisp-koans/asserts-true <span style="color: #6c3163;">()</span>
+ <span style="color: #2d9574;">"`t' is true. Replace the blank with `t' to assert it is true"</span>
+ <span style="color: #6c3163;">(</span><span style="color: #3a81c3; font-weight: bold;">should</span> ___<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
+</pre>
+</div>
 
 <p>
-HealthTensor is hiring! Take a look at the <a href="https://www.healthtensor.com/careers/">careers page</a> for open positions.
+I'll be adding additional suites as I learn elisp.
 </p>
+</div>
+</div>
 
   </div>
 </div>
@@ -98,17 +104,17 @@ HealthTensor is hiring! Take a look at the <a href="https://www.healthtensor.com
           Written by <span title="author" class="post-info">Thomas Moulia</span>
         </p>
         <p>
-          Tags: <span title="tags" class="post-info"><a href="/tags/contracting/">contracting</a>, <a href="/tags/healthtensor/">healthtensor</a></span>
+          Tags: <span title="tags" class="post-info"><a href="/tags/emacs/">emacs</a>, <a href="/tags/elisp/">elisp</a></span>
         </p>
       </div>
       <div class="six columns">
         <p>
           Published:
-          <span title="post date" class="post-info">2018-11-23</span>
+          <span title="post date" class="post-info">2019-07-29</span>
         </p>
         <p>
           Modified:
-          <span title="last modification date" class="post-info">2018-11-23</span>
+          <span title="last modification date" class="post-info">2019-07-29</span>
         </p>
       </div>
     </div>
@@ -134,7 +140,7 @@ HealthTensor is hiring! Take a look at the <a href="https://www.healthtensor.com
           <span id="footerYear"></span>
         </p>
         <p>
-          by <a href="mailto:jtmoulia &lt;at&gt; gmail &lt;dot&gt; com">Thomas Moulia</a>
+          by <a href="mailto:thomas &lt;at&gt; healthtensor &lt;dot&gt; com">Thomas Moulia</a>
         </p>
       </div>
       <div class="six columns">
