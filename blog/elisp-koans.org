@@ -1,0 +1,33 @@
+#+TITLE:       Emacs Lisp Koans
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       thomas@healthtensor.com
+#+DATE:        2019-07-29 Mon
+#+URI:         /blog/%y/%m/%d/emacs-lisp-koans
+#+KEYWORDS:    emacs, elisp, koans
+#+TAGS:        emacs, elisp
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Emacs Lisp Koans provides a guided tour of elisp through test-driven development.
+
+I've started [[https://github.com/jtmoulia/elisp-koans][elisp-koans]], a guided tour of Emacs Lisp (elisp) through
+test-driven development. =elisp-koans= is adapted from Google's [[https://github.com/google/lisp-koans][Common Lisp
+Koans]], which was in turn inspired by the family of TDD Koans, e.g. [[http://rubykoans.com/][Ruby Koans]]
+and [[https://github.com/gregmalcolm/python_koans][Python Koans]].
+
+* How it works
+
+You begin by cloning the koans, suites of tests which describe how Emacs Lisp
+and its libraries behave. The tests are initially broken, and fixing them walks
+you through Emacs Lisp as well as its testing framework (ERT).
+
+Here's the first test, which would be fixed by swapping =___= with =t= as
+described in the docstring:
+
+#+BEGIN_SRC emacs-lisp
+  (elisp-koans/deftest
+   elisp-koans/asserts-true ()
+   "`t' is true. Replace the blank with `t' to assert it is true"
+   (should ___))
+#+END_SRC
+
+I'll be adding additional suites as I learn elisp.
