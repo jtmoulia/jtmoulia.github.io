@@ -8,7 +8,7 @@
 [[file:./assets/img/dogneill.jpg]]
 
 I live with my +fiancée+ wife and partner in all things, Caitria, and our small
-dog, Curie. In 2014 we started [[http://pocketknife.io][Pocketknife Design and Engineering]], a software
+dog, Curie. In 2013 we started [[http://pocketknife.io][Pocketknife Design and Engineering]], a software
 contracting company. In late 2016 I co-founded [[http://localhost:8123/blog/2018/11/23/working-at-healthtensor/][HealthTensor]].
 
 ** Links
@@ -22,7 +22,9 @@ contracting company. In late 2016 I co-founded [[http://localhost:8123/blog/2018
 
 We tend to move around. Here's where we are, and where we've been:
 
-- San Francisco, CA :: Jun 2018 to Now
+- Morgan Hill, CA :: Jun 2020 - Now
+- Pacifica, CA :: Aug 2019 - Jun 2020
+- San Francisco, CA :: Jun 2018 to Aug 2019
 - Santa Monica, CA :: Jun 2017 to Jul 2018
 - Redwood City, CA :: Dec 2015 to Jul 2017
 - Monson, MA :: Sept 2015 to Nov 2015
@@ -33,10 +35,9 @@ We tend to move around. Here's where we are, and where we've been:
 
 ** Books
 
-I love sci-fi books. Recent reads include:
+I love sci-fi books. Some all-time favorites include:
 
 - The Fractal Prince :: Hannu Rajaniemi
-- The Traitor Baru Cormorant :: Seth Dickinson
 - The Three Body Problem :: Cixin Liu
 - Tales of the Dying Earth :: Jack Vance
-- Stories of your life and Others :: Ted Chiang
+- Stories of your Life and Others :: Ted Chiang

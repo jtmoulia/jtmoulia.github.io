@@ -1,0 +1,147 @@
+#+TITLE:       🏥 Building a Modern, Interoperable Application for Hospitals
+#+AUTHOR:      Thomas Moulia
+#+EMAIL:       thomas@healthtensor.com
+#+DATE:        2021-06-09 Wed
+#+URI:         /blog/%y/%m/%d/hospital-integration-guide-intro
+#+KEYWORDS:    smart-on-fhir, healthtensor
+#+TAGS:        smart-on-fhir, healthtensor
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: What I learned over the last five years building an app for hospitalists
+
+* or, what I learned over the last five years building an app for hospitals
+
+Building a clinical app [fn:clinical-app] and getting healthcare providers
+onboard is hard. This guide should help.
+
+In this series you'll learn how to compose a healthcare application out of
+familiar, modern web technologies: patients / physicians authenticate via
+*OAuth*, clinical data is fetched as *JSON* over a *RESTful API*, and you can
+deliver an *HTML5* user-interface.
+
+As for why: this is the guide I wish I'd had when my company, [[https://www.healthtensor.com/][HealthTensor]], set
+out to build a digital health app for hospitals back in 2017. We had experience
+developing web and mobile apps, but a clinical app? Back then we had no idea
+where to even begin and as a result our first hospital integration took well
+over a year to complete. Fast-forward several years to 2021: with a better
+understanding of the process HealthTensor can now be deployed to a new hospital
+in under a month to ensure no diagnosis is missed and patients get the care they
+need.
+
+[fn:clinical-app] The term *clinical app* covers a huge range of products and
+requirements. I'll focus on developing software applications that 1) are
+web-based, 2) requires up-to-date clinical data, and 3) are used by healthcare
+practitioners at the point-of-care in hospitals. This likely won't fit your
+exact requirements but is super customizable. For example, the front-end might
+be implemented as a desktop or mobile application. Or, patients can authenticate
+you to access data on their behalf instead of healthcare practitioners.
+
+* Contents
+
+This guide is organized as a series of four posts, each of which walks through a
+component of building a clinical app. The content is targeted at early-stage
+clinical application developers and integration managers, or for anyone curious
+about developing an application for healthcare providers.
+
+*insert image of overview here*
+
+#+BEGIN_COMMENT
+Gantt:
+
+Roadmap (the problem is this is wrong)
+
+1. Idea
+2. Clinical Relation
+3. Implementation [& validation]
+4. Validation
+5. Rollout
+6. Testing
+#+END_COMMENT
+
+Below is an overview of the parts; each will be linked to as it's written.
+
+** Part 1: Building a relationship with the health provider and EHR
+
+For your app to be used, the first step is to develop a relationship with a
+healthcare provider and their electronic health record (EHR)[fn:ehr] so you can
+deliver your application to clinicians. Let's assume you have an impactful idea
+that a health provider wants developed out. With the provider onboard you'll be
+required you to complete a security review[fn:security-review] and have a plan
+for testing and deploying. In parallel to completing the healthcare provider's
+requirements you can register your application with the EHR's SMART platform and
+work through their security review.
+
+Part 1 covers developing the clinical relationship and planning the timeline.
+*Note:* Part 1 will be linked here when available.
+
+[fn:ehr] The *Electronic Health Record* (EHR) is the system of record for a
+hopsital's digital data and the platform clinical workflows are built on. While
+SMART on FHIR is specified as a standard, it's implemented, hosted, and managed
+on the hospital's behalf by the individual EHRs. In other words, the EHRs are
+key stakeholders throughout clinical integration. More on [[https://en.wikipedia.org/wiki/Electronic_health_record][wikipedia]].
+
+[fn:security-review] While *security* isn't emphasized in this introduction,
+it's an absolutely critical component of clinical integration. From a business
+and legal perspective your stack must comply to [[https://www.hhs.gov/hipaa/for-professionals/index.html][HIPAA]] as well as any additional
+requirements set by the healthcare provider. Fall short of that you are legally
+and financially liable for breaches. More fundamentally, from an ethical
+perspective you are being entrusted with individuals' private information and
+are responsible for protecting that information. I'll touch on this more in Part
+1, but HIPAA compliance is a massive topic that is better covered elsewhere.
+
+** Part 2: The application platform: SMART on FHIR
+
+Next I'll explain how to work with [[https://docs.smarthealthit.org/][SMART on FHIR]][fn:smart-on-fhir] to handle the
+technical side of clinical integration. We'll work through how to register your
+application with the EHR, authenticate on behalf of patients or physicians
+(OAuth), and fetch clinical data (JSON over a RESTful API). By the end of this
+part you should understand what it takes to build a backend-only hospital
+application.
+
+Part 2 covers how to use SMART on FHIR for authentication and clinical data fetching.
+*Note:* Part 2 will be linked here when available.
+
+[fn:smart-on-fhir] *SMART on FHIR* is a relatively young but disruptive
+healthcare standard designed to facilitate building clinical applications. Since
+its inception at Brigham-Young in 2010 it's grown into a standard supported by
+all major EHRs. Apple's HealthKit, for example, uses SMART on FHIR to give
+patients access to their clinical information.
+
+** Part 3: Developing a web-application in the EHR
+
+The third part covers how to deliver a user-interface to a patient or physician.
+As a composable web-based standard SMART on FHIR allows you to build your
+front-end using any technology which can speak HTTP, e.g. web, mobile, and
+desktop apps are possible. I'll specifically explain how to build a web-app for
+healthcare practitioners that can be loaded from a patient's record in the EHR
+at the point-of-care.
+
+Part 3 explores building a user-interface for clinical apps. *Note:* Part 3 will
+be linked here when available.
+
+** Part 4: Getting the most out of clinical integrations
+
+In the final part of the series you'll see how to get the most out of a hospital
+integration. As a new standard SMART on FHIR still has some rough edges for
+common workflows. It lacks "hooks" for new clinical data, bulk data fetching,
+and complex queries across multiple references. I don't have clean solutions,
+but I can offer some workarounds with their tradeoffs.
+
+Fortunately there are solutions to these issues in the works. Developing
+technologies like [[https://github.com/cds-hooks/sandbox][CDS hooks]], [[https://smarthealthit.org/smart-hl7-bulk-data-access-flat-fhir/][SMART/HL7 bulk data access]], and a [[https://www.hl7.org/fhir/graphql.html][GraphQL API]] will
+fill in the gaps, and each continues the trend of leveraging industry-standards
+to solve real problems with clinical integration.
+
+Part 4 gets into shortcomings with SMART on FHIR, how to overcome them, and
+developing standards. *Note:* Part 4 will be linked here when available.
+
+* Conclusion
+
+For many reasons, some of them good, the healthcare industry is hard to build
+for. New standards have drastically lowered the technical bar to contribution,
+and I hope this guide has helped you understand what tools are available. That
+being said, I'll leave the business, medical, security, and bureaucratic
+challenges up to you.
+
+I can't promise a response, but you can continue the conversation over email:
+hello@healthtensor.com
