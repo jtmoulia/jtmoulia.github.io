@@ -60,9 +60,9 @@
   <div class="post">
       <h3>Elixir and Distel</h3>
     
-<div id="outline-container-org9fdcdb0" class="outline-4">
-<h4 id="org9fdcdb0">Distel: Emacs talking Erlixir</h4>
-<div class="outline-text-4" id="text-org9fdcdb0">
+<div id="outline-container-org3a63ea4" class="outline-4">
+<h4 id="org3a63ea4">Distel: Emacs talking Erlixir</h4>
+<div class="outline-text-4" id="text-org3a63ea4">
 <p>
 <a href="https://github.com/tonini/alchemist.el">alchemist.el</a> is a Swiss army knife for working with Elixir from the
 comfort of Emacs. It can run <a href="http://elixir-lang.org/getting-started/mix-otp/introduction-to-mix.html">mix</a> tasks, look up Elixir source
@@ -70,10 +70,10 @@ documentation, autocomplete, ... etc. Alchemist is awesome.
 </p>
 
 <p>
-But, here's the rub: often alchemist has to boot an Erlang VM to
+But, here&rsquo;s the rub: often alchemist has to boot an Erlang VM to
 evaluate a single expression. Running tests boots a VM, looking up a
-function's source doc boots a VM, each prefix autocompletion boots a
-VM. This is slow, and if you want the VM to load the code you're
+function&rsquo;s source doc boots a VM, each prefix autocompletion boots a
+VM. This is slow, and if you want the VM to load the code you&rsquo;re
 actively developing you better not have any compile-time errors.
 </p>
 
@@ -95,7 +95,7 @@ it.
 <p>
 Enter <a href="https://github.com/massemanet/distel">distel</a>. Distel implements the Erlang distribution protocol in
 ELisp. More on the nitty gritty of that later, but long story short:
-distel allows Emacs to pass as an Erlang node; a gnu in Erlang's
+distel allows Emacs to pass as an Erlang node; a gnu in Erlang&rsquo;s
 clothing (?!). Instead of booting a new Erlang VM to evaluate an
 expression, the functions can be called on a running node via
 RPC. Start your application on the remote node with an <a href="https://github.com/herenowcoder/reprise">autoreloader</a>
@@ -108,11 +108,11 @@ an Elixir perspective.
 </p>
 </div>
 
-<div id="outline-container-orgbcda8b2" class="outline-5">
-<h5 id="orgbcda8b2">Connecting Distel</h5>
-<div class="outline-text-5" id="text-orgbcda8b2">
+<div id="outline-container-org436694f" class="outline-5">
+<h5 id="org436694f">Connecting Distel</h5>
+<div class="outline-text-5" id="text-org436694f">
 <p>
-I'll leave the installation up to you, clever reader.
+I&rsquo;ll leave the installation up to you, clever reader.
 </p>
 
 <p>
@@ -126,25 +126,25 @@ Erlang VM running an Elixir console will do:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">iex --sname emacs <span style="color: #3a81c3;">[</span>-S mix<span style="color: #3a81c3;">]</span>
+<pre class="src src-sh">     iex --sname emacs <span style="color: #61bfff;">[</span>-S mix<span style="color: #61bfff;">]</span>
 </pre>
 </div>
 
 <p>
-The first time you run any distel command you'll be prompted for
+The first time you run any distel command you&rsquo;ll be prompted for
 the name of the Erlang node to connect to. If you used the short
 name <code>emacs</code> as above, the node name is just <code>emacs</code>
 </p>
 
 <p>
-If you're having issues, make sure that your cookie matches.
+If you&rsquo;re having issues, make sure that your cookie matches.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org1df8162" class="outline-5">
-<h5 id="org1df8162">RPC against an Erlang node</h5>
-<div class="outline-text-5" id="text-org1df8162">
+<div id="outline-container-org23db319" class="outline-5">
+<h5 id="org23db319">RPC against an Erlang node</h5>
+<div class="outline-text-5" id="text-org23db319">
 <p>
 Distel loads an RPC library, rex, into the remote node. On the
 Emacs side, distel provides <code>erl-send-rpc</code> as a helper to call into
@@ -161,17 +161,17 @@ pattern matching and variable binding it does quite a bit.
 </p>
 
 <p>
-Putting it all together, here's a function that will call
+Putting it all together, here&rsquo;s a function that will call
 <code>Enum.count/1</code> with the arg <code>LIST</code> on the remote node:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp"><span style="color: #3a81c3;">(</span><span style="color: #3a81c3; font-weight: bold;">defun</span> <span style="color: #6c3163; font-weight: bold;">elixir-enum-count</span> <span style="color: #6c3163;">(</span>node list<span style="color: #6c3163;">)</span>
-  <span style="color: #da8b55;">"Use NODE to call `Enum.count(LIST)'"</span>
-  <span style="color: #6c3163;">(</span>erl-spawn
-    <span style="color: #2d9574;">(</span>erl-send-rpc node 'Elixir.Enum 'count <span style="color: #67b11d;">(</span>list expr<span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span>
-    <span style="color: #2d9574;">(</span>erl-receive <span style="color: #67b11d;">()</span>
-        <span style="color: #67b11d;">(</span><span style="color: #b1951d;">(</span><span style="color: #3a81c3;">[</span>'rex results<span style="color: #3a81c3;">]</span> <span style="color: #3a81c3;">(</span>message <span style="color: #2d9574;">"results: %S"</span> results<span style="color: #3a81c3;">)</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
+<pre class="src src-elisp">     <span style="color: #61bfff;">(</span><span style="color: #ff79c6;">defun</span> <span style="color: #50fa7b;">elixir-enum-count</span> <span style="color: #ff79c6;">(</span>node list<span style="color: #ff79c6;">)</span>
+       <span style="color: #8995ba;">"Use NODE to call `Enum.count(LIST)'"</span>
+       <span style="color: #ff79c6;">(</span>erl-spawn
+         <span style="color: #50fa7b;">(</span>erl-send-rpc node <span style="color: #ff79c6;">'</span><span style="color: #8be9fd;">Elixir.Enum</span> <span style="color: #ff79c6;">'</span><span style="color: #8be9fd;">count</span> <span style="color: #bd93f9;">(</span><span style="color: #8be9fd;">list</span> expr<span style="color: #bd93f9;">)</span><span style="color: #50fa7b;">)</span>
+         <span style="color: #50fa7b;">(</span>erl-receive <span style="color: #bd93f9;">()</span>
+             <span style="color: #bd93f9;">(</span><span style="color: #61bfff;">(</span><span style="color: #ff79c6;">[</span><span style="color: #ff79c6;">'</span><span style="color: #8be9fd;">rex</span> results<span style="color: #ff79c6;">]</span> <span style="color: #ff79c6;">(</span><span style="color: #8be9fd;">message</span> <span style="color: #f1fa8c;">"results: %S"</span> results<span style="color: #ff79c6;">)</span><span style="color: #61bfff;">)</span><span style="color: #bd93f9;">)</span><span style="color: #50fa7b;">)</span><span style="color: #ff79c6;">)</span><span style="color: #61bfff;">)</span>
 </pre>
 </div>
 
@@ -182,22 +182,22 @@ referencing an Elixir module.
 </p>
 
 <p>
-Another catch: the result of <code>erl-receive</code> isn't returned to the
+Another catch: the result of <code>erl-receive</code> isn&rsquo;t returned to the
 calling context; you must use the <a href="https://en.wikipedia.org/wiki/Continuation-passing_style">continuation passing-style</a> to
-handle results. i.e. callbacks, ahoy! Here's the previous example
+handle results. i.e. callbacks, ahoy! Here&rsquo;s the previous example
 rewritten with the result being passed to the callback function.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp"><span style="color: #3a81c3;">(</span><span style="color: #3a81c3; font-weight: bold;">defun</span> <span style="color: #6c3163; font-weight: bold;">proximel-enum-count</span> <span style="color: #6c3163;">(</span>node expr <span style="color: #ba2f59; font-weight: bold;">&amp;optional</span> callback<span style="color: #6c3163;">)</span>
-  <span style="color: #da8b55;">"Use NODE to generate a list of completions for EXPR.  Optionally</span>
-<span style="color: #da8b55;">call CALLBACK with the completions."</span>
-  <span style="color: #6c3163;">(</span>erl-spawn
-    <span style="color: #2d9574;">(</span>erl-send-rpc node 'Elixir.Proximel 'expand <span style="color: #67b11d;">(</span>list expr<span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span>
-    <span style="color: #2d9574;">(</span>erl-receive <span style="color: #67b11d;">(</span>callback<span style="color: #67b11d;">)</span>
-        <span style="color: #67b11d;">(</span><span style="color: #b1951d;">(</span><span style="color: #3a81c3;">[</span>'rex results<span style="color: #3a81c3;">]</span>
-          <span style="color: #3a81c3;">(</span><span style="color: #3a81c3; font-weight: bold;">progn</span> <span style="color: #6c3163;">(</span>message <span style="color: #2d9574;">"results: %S"</span> results<span style="color: #6c3163;">)</span>
-                 <span style="color: #6c3163;">(</span><span style="color: #3a81c3; font-weight: bold;">if</span> callback <span style="color: #2d9574;">(</span>funcall callback results<span style="color: #2d9574;">)</span><span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
+<pre class="src src-elisp">     <span style="color: #61bfff;">(</span><span style="color: #ff79c6;">defun</span> <span style="color: #50fa7b;">proximel-enum-count</span> <span style="color: #ff79c6;">(</span>node expr <span style="color: #bd93f9;">&amp;optional</span> callback<span style="color: #ff79c6;">)</span>
+       <span style="color: #8995ba;">"Use NODE to generate a list of completions for EXPR.  Optionally</span>
+<span style="color: #8995ba;">     call CALLBACK with the completions."</span>
+       <span style="color: #ff79c6;">(</span>erl-spawn
+         <span style="color: #50fa7b;">(</span>erl-send-rpc node <span style="color: #ff79c6;">'</span><span style="color: #8be9fd;">Elixir.Proximel</span> <span style="color: #ff79c6;">'</span><span style="color: #8be9fd;">expand</span> <span style="color: #bd93f9;">(</span><span style="color: #8be9fd;">list</span> expr<span style="color: #bd93f9;">)</span><span style="color: #50fa7b;">)</span>
+         <span style="color: #50fa7b;">(</span>erl-receive <span style="color: #bd93f9;">(</span>callback<span style="color: #bd93f9;">)</span>
+             <span style="color: #bd93f9;">(</span><span style="color: #61bfff;">(</span><span style="color: #ff79c6;">[</span><span style="color: #ff79c6;">'</span><span style="color: #8be9fd;">rex</span> results<span style="color: #ff79c6;">]</span>
+               <span style="color: #ff79c6;">(</span><span style="color: #ff79c6;">progn</span> <span style="color: #50fa7b;">(</span><span style="color: #8be9fd;">message</span> <span style="color: #f1fa8c;">"results: %S"</span> results<span style="color: #50fa7b;">)</span>
+                      <span style="color: #50fa7b;">(</span><span style="color: #ff79c6;">if</span> callback <span style="color: #bd93f9;">(</span><span style="color: #8be9fd;">funcall</span> callback results<span style="color: #bd93f9;">)</span><span style="color: #50fa7b;">)</span><span style="color: #ff79c6;">)</span><span style="color: #61bfff;">)</span><span style="color: #bd93f9;">)</span><span style="color: #50fa7b;">)</span><span style="color: #ff79c6;">)</span><span style="color: #61bfff;">)</span>
 </pre>
 </div>
 
@@ -209,22 +209,22 @@ interactive functions that accept a node:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp"><span style="color: #3a81c3;">(</span><span style="color: #3a81c3; font-weight: bold;">defun</span> <span style="color: #6c3163; font-weight: bold;">elixir-enum-count</span> <span style="color: #6c3163;">(</span>node list<span style="color: #6c3163;">)</span>
-  <span style="color: #da8b55;">"Use NODE to call `Enum.count(LIST)'"</span>
-  <span style="color: #6c3163;">(</span><span style="color: #3a81c3; font-weight: bold;">interactive</span> <span style="color: #2d9574;">(</span>list <span style="color: #67b11d;">(</span>erl-target-node<span style="color: #67b11d;">)</span>
-                     <span style="color: #67b11d;">(</span>read-minbuffer <span style="color: #2d9574;">"Enter list: "</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #6c3163;">)</span>
-  <span style="color: #6c3163;">(</span>erl-spawn
-    <span style="color: #2d9574;">(</span>erl-send-rpc node 'Elixir.Enum 'count <span style="color: #67b11d;">(</span>list expr<span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span>
-    <span style="color: #2d9574;">(</span>erl-receive <span style="color: #67b11d;">()</span>
-        <span style="color: #67b11d;">(</span><span style="color: #b1951d;">(</span><span style="color: #3a81c3;">[</span>'rex results<span style="color: #3a81c3;">]</span> <span style="color: #3a81c3;">(</span>message <span style="color: #2d9574;">"results: %S"</span> results<span style="color: #3a81c3;">)</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
+<pre class="src src-elisp">     <span style="color: #61bfff;">(</span><span style="color: #ff79c6;">defun</span> <span style="color: #50fa7b;">elixir-enum-count</span> <span style="color: #ff79c6;">(</span>node list<span style="color: #ff79c6;">)</span>
+       <span style="color: #8995ba;">"Use NODE to call `Enum.count(LIST)'"</span>
+       <span style="color: #ff79c6;">(</span><span style="color: #ff79c6;">interactive</span> <span style="color: #50fa7b;">(</span><span style="color: #8be9fd;">list</span> <span style="color: #bd93f9;">(</span>erl-target-node<span style="color: #bd93f9;">)</span>
+                          <span style="color: #bd93f9;">(</span>read-minbuffer <span style="color: #f1fa8c;">"Enter list: "</span><span style="color: #bd93f9;">)</span><span style="color: #50fa7b;">)</span><span style="color: #ff79c6;">)</span>
+       <span style="color: #ff79c6;">(</span>erl-spawn
+         <span style="color: #50fa7b;">(</span>erl-send-rpc node <span style="color: #ff79c6;">'</span><span style="color: #8be9fd;">Elixir.Enum</span> <span style="color: #ff79c6;">'</span><span style="color: #8be9fd;">count</span> <span style="color: #bd93f9;">(</span><span style="color: #8be9fd;">list</span> expr<span style="color: #bd93f9;">)</span><span style="color: #50fa7b;">)</span>
+         <span style="color: #50fa7b;">(</span>erl-receive <span style="color: #bd93f9;">()</span>
+             <span style="color: #bd93f9;">(</span><span style="color: #61bfff;">(</span><span style="color: #ff79c6;">[</span><span style="color: #ff79c6;">'</span><span style="color: #8be9fd;">rex</span> results<span style="color: #ff79c6;">]</span> <span style="color: #ff79c6;">(</span><span style="color: #8be9fd;">message</span> <span style="color: #f1fa8c;">"results: %S"</span> results<span style="color: #ff79c6;">)</span><span style="color: #61bfff;">)</span><span style="color: #bd93f9;">)</span><span style="color: #50fa7b;">)</span><span style="color: #ff79c6;">)</span><span style="color: #61bfff;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orga60a144" class="outline-5">
-<h5 id="orga60a144">Demos: Proximel</h5>
-<div class="outline-text-5" id="text-orga60a144">
+<div id="outline-container-org00b2263" class="outline-5">
+<h5 id="org00b2263">Demos: Proximel</h5>
+<div class="outline-text-5" id="text-org00b2263">
 <p>
 I put together a basic repo, <a href="https://github.com/jtmoulia/proximel">proximel</a>, which demos loading beam
 files compiled from Elixir source into a remote node, and basic
@@ -232,7 +232,7 @@ Elixir autocompletion.
 </p>
 
 <p>
-In a future post I'll dissect Elixir autocompletion over distel
+In a future post I&rsquo;ll dissect Elixir autocompletion over distel
 with <a href="http://company-mode.github.io/">company-mode</a>.
 </p>
 </div>
@@ -289,7 +289,7 @@ with <a href="http://company-mode.github.io/">company-mode</a>.
         </p>
       </div>
       <div class="six columns">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 27.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 28.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
           Powered by
           <a href="https://github.com/kelvinh/org-page">org-page</a> and

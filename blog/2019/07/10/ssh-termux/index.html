@@ -65,35 +65,35 @@ you to run scripts on your phone.
 </p>
 
 <p>
-Scripting using a phone's touch keyboard is rough. Unless I'm stuck without my
-laptop I'd much prefer to use a real keyboard rather than tapping about. This
+Scripting using a phone&rsquo;s touch keyboard is rough. Unless I&rsquo;m stuck without my
+laptop I&rsquo;d much prefer to use a real keyboard rather than tapping about. This
 quick guide breaks down how to use Termux to run an SSH server that lets you log
 into in from your laptop.
 </p>
 
-<div id="outline-container-orgec52052" class="outline-4">
-<h4 id="orgec52052">Requirements</h4>
-<div class="outline-text-4" id="text-orgec52052">
+<div id="outline-container-org31902a1" class="outline-4">
+<h4 id="org31902a1">Requirements</h4>
+<div class="outline-text-4" id="text-org31902a1">
 <p>
-Your phone must be addressable from your laptop for this to work, e.g. it'll
-work if they're on the same local network.
+Your phone must be addressable from your laptop for this to work, e.g. it&rsquo;ll
+work if they&rsquo;re on the same local network.
 </p>
 
 <p>
-Ths guide assumes you've installed Termux -- <a href="https://f-droid.org/packages/com.termux/">here it is on F-Droid</a>.
+Ths guide assumes you&rsquo;ve installed Termux -- <a href="https://f-droid.org/packages/com.termux/">here it is on F-Droid</a>.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgc266346" class="outline-4">
-<h4 id="orgc266346">Install OpenSSH</h4>
-<div class="outline-text-4" id="text-orgc266346">
+<div id="outline-container-orgee470aa" class="outline-4">
+<h4 id="orgee470aa">Install OpenSSH</h4>
+<div class="outline-text-4" id="text-orgee470aa">
 <p>
 First install OpenSSH in your Termux environment:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">whoami
+<pre class="src src-sh">    whoami
 </pre>
 </div>
 
@@ -102,7 +102,7 @@ Start the SSH server in Termux by running the daemon:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">sshd
+<pre class="src src-sh">    sshd
 </pre>
 </div>
 
@@ -113,35 +113,35 @@ typical 22.
 </div>
 </div>
 
-<div id="outline-container-orgc659b0e" class="outline-4">
-<h4 id="orgc659b0e">Configure Password</h4>
-<div class="outline-text-4" id="text-orgc659b0e">
+<div id="outline-container-org177e7d6" class="outline-4">
+<h4 id="org177e7d6">Configure Password</h4>
+<div class="outline-text-4" id="text-org177e7d6">
 <p>
 Set the password for your current user in Termux:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">termux $ passwd
+<pre class="src src-sh">    termux $ passwd
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org0adda85" class="outline-4">
-<h4 id="org0adda85">SSH into your Phone</h4>
-<div class="outline-text-4" id="text-org0adda85">
+<div id="outline-container-org9b14d41" class="outline-4">
+<h4 id="org9b14d41">SSH into your Phone</h4>
+<div class="outline-text-4" id="text-org9b14d41">
 <p>
 Assuming you started the SSH server earlier, you can test SSHing into your
 phone.
 </p>
 
 <p>
-Termux runs in a single-user environment, so you're stuck with the provided
+Termux runs in a single-user environment, so you&rsquo;re stuck with the provided
 username. Check the username by running from termux:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">termux $ whoami
+<pre class="src src-sh">    termux $ whoami
 </pre>
 </div>
 
@@ -156,7 +156,7 @@ your phone as its SSH host. To get this IP run (assumes network device is
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">termux $ ip addr show wlan0
+<pre class="src src-sh">    termux $ ip addr show wlan0
 </pre>
 </div>
 
@@ -169,67 +169,67 @@ From the client machine log into the Termux environment via SSH:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">client $ ssh -p <span style="color: #4e3163;">8022</span> $<span style="color: #715ab1;">TERMUX_USER</span>@$<span style="color: #715ab1;">TERMUX_HOST</span>
+<pre class="src src-sh">    client $ ssh -p <span style="color: #bd93f9; font-weight: bold;">8022</span> $<span style="color: #ffc9e8;">TERMUX_USER</span>@$<span style="color: #ffc9e8;">TERMUX_HOST</span>
 </pre>
 </div>
 
 <p>
 After confirming that you trust the host (<a href="https://en.wikipedia.org/wiki/Trust_on_first_use">TOFU!</a>) you should be logged into
-your phone's Termux environment.
+your phone&rsquo;s Termux environment.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgfe04646" class="outline-4">
-<h4 id="orgfe04646">Passwordless Login</h4>
-<div class="outline-text-4" id="text-orgfe04646">
+<div id="outline-container-org30fc129" class="outline-4">
+<h4 id="org30fc129">Passwordless Login</h4>
+<div class="outline-text-4" id="text-org30fc129">
 <p>
-It's simpler (no password!) and more secure to login using public/private key
-authentication. Assuming you've already generated an SSH RSA key parir, say
+It&rsquo;s simpler (no password!) and more secure to login using public/private key
+authentication. Assuming you&rsquo;ve already generated an SSH RSA key parir, say
 <code>~/.ssh/id_rsa[.pub]</code>, copy it into your Termux environment by calling:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">client $ ssh-copy-id -i ~/.ssh/id_rsa -p <span style="color: #4e3163;">8022</span> $<span style="color: #715ab1;">TERMUX_USER</span>@$<span style="color: #715ab1;">TERMUX_HOST</span>
+<pre class="src src-sh">    client $ ssh-copy-id -i ~/.ssh/id_rsa -p <span style="color: #bd93f9; font-weight: bold;">8022</span> $<span style="color: #ffc9e8;">TERMUX_USER</span>@$<span style="color: #ffc9e8;">TERMUX_HOST</span>
 </pre>
 </div>
 
 <p>
-Future SSH logins shouldn't require a password.
+Future SSH logins shouldn&rsquo;t require a password.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org9180e4c" class="outline-4">
-<h4 id="org9180e4c">Disable SSH Password Login</h4>
-<div class="outline-text-4" id="text-org9180e4c">
+<div id="outline-container-orgcbf628b" class="outline-4">
+<h4 id="orgcbf628b">Disable SSH Password Login</h4>
+<div class="outline-text-4" id="text-orgcbf628b">
 <p>
 Password login is now unnecessary, but still enabled leaving open an attack
-vector. It should be disabled by ensuring your Termux environment's
+vector. It should be disabled by ensuring your Termux environment&rsquo;s
 <code>$PREFIX/etc/ssh/ssh_config</code> has:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-text">PasswordAuthentication no
-ChallengeResponseAuthentication no
+<pre class="src src-text">    PasswordAuthentication no
+    ChallengeResponseAuthentication no
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org753ba74" class="outline-4">
-<h4 id="org753ba74">Client SSH Config</h4>
-<div class="outline-text-4" id="text-org753ba74">
+<div id="outline-container-orge14cdb8" class="outline-4">
+<h4 id="orge14cdb8">Client SSH Config</h4>
+<div class="outline-text-4" id="text-orge14cdb8">
 <p>
 To avoid having to remember the host and username for future logins from the
-client, save the host's SSH configuration to <code>~/.ssh/config</code>:
+client, save the host&rsquo;s SSH configuration to <code>~/.ssh/config</code>:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-text">Host local-termux
-    HostName $TERMUX_HOST
-    User $TERMUX_USER
-    Port 8022
+<pre class="src src-text">    Host local-termux
+        HostName $TERMUX_HOST
+        User $TERMUX_USER
+        Port 8022
 </pre>
 </div>
 
@@ -238,32 +238,32 @@ You can now quickly SSH into the Termux environment on the local network:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">client $ ssh local-termux
+<pre class="src src-sh">     client $ ssh local-termux
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org034a114" class="outline-4">
-<h4 id="org034a114">Stop the SSH Server</h4>
-<div class="outline-text-4" id="text-org034a114">
+<div id="outline-container-org313c003" class="outline-4">
+<h4 id="org313c003">Stop the SSH Server</h4>
+<div class="outline-text-4" id="text-org313c003">
 <p>
-A running SSH server is a potential vulnerability, so it shouldn't be running
+A running SSH server is a potential vulnerability, so it shouldn&rsquo;t be running
 in Termux while not in use. To kill the SSH server run from Termux:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">Termux $ pkill -f ssh d
+<pre class="src src-sh">    Termux $ <span style="color: #bd93f9;">pkill</span> -f ssh d
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org3584d94" class="outline-4">
-<h4 id="org3584d94">Automating</h4>
-<div class="outline-text-4" id="text-org3584d94">
+<div id="outline-container-org93bdc41" class="outline-4">
+<h4 id="org93bdc41">Automating</h4>
+<div class="outline-text-4" id="text-org93bdc41">
 <p>
-These repetitive tasks beg for automation. In the future I'll add an <a href="https://www.ansible.com/">Ansible</a>
+These repetitive tasks beg for automation. In the future I&rsquo;ll add an <a href="https://www.ansible.com/">Ansible</a>
 playbook to configure the Termux environment.
 </p>
 </div>
@@ -319,7 +319,7 @@ playbook to configure the Termux environment.
         </p>
       </div>
       <div class="six columns">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 27.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 28.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
           Powered by
           <a href="https://github.com/kelvinh/org-page">org-page</a> and

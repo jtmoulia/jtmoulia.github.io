@@ -60,39 +60,39 @@
   <div class="post">
       <h3>Intro to ob-elixir, Written with ob-elixir</h3>
     <p>
-<a href="http://about.me/olinasc">Victor Olinasc's</a> <a href="https://github.com/victorolinasc/ob-elixir">ob-elixir</a> does what it says on the tin: Org Mode
+<a href="http://about.me/olinasc">Victor Olinasc&rsquo;s</a> <a href="https://github.com/victorolinasc/ob-elixir">ob-elixir</a> does what it says on the tin: Org Mode
 Elixir language support. Also known as Elixir <a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a>
 using Emacs.
 </p>
 
 <p>
 The implementation is still a ways from parity with something like
-<a href="http://orgmode.org/w/?p=org-mode.git;a=blob_plain;f=lisp/ob-python.el;hb=c7ed6cde3aa115b7c262d0d9d3938392c4c63499">ob-python</a>, but let's kick the tires and see where it's at. This post
+<a href="http://orgmode.org/w/?p=org-mode.git;a=blob_plain;f=lisp/ob-python.el;hb=c7ed6cde3aa115b7c262d0d9d3938392c4c63499">ob-python</a>, but let&rsquo;s kick the tires and see where it&rsquo;s at. This post
 will run through examples showing some of the features ob-elixir
 currently supports. All of the code snippets were run from within
 Emacs using ob-elixir.
 </p>
 
-<div id="outline-container-org15fabe1" class="outline-4">
-<h4 id="org15fabe1">Org-Babel + Elixir</h4>
-<div class="outline-text-4" id="text-org15fabe1">
+<div id="outline-container-org5de6cd4" class="outline-4">
+<h4 id="org5de6cd4">Org-Babel + Elixir</h4>
+<div class="outline-text-4" id="text-org5de6cd4">
 <p>
 The best place to get started is with the <a href="http://orgmode.org/org.html#Working-With-Source-Code">documentation</a>, but here
 is what an Elixir code block should resemble:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org">#+begin_src elixir
-  IO.inspect :result
-\#+end_src
+<pre class="src src-org">  #+begin_src elixir
+    IO.inspect :result
+  \#+end_src
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orga4ca2a3" class="outline-4">
-<h4 id="orga4ca2a3">Output</h4>
-<div class="outline-text-4" id="text-orga4ca2a3">
+<div id="outline-container-org0fd8547" class="outline-4">
+<h4 id="org0fd8547">Output</h4>
+<div class="outline-text-4" id="text-org0fd8547">
 <p>
 ob-elixir writes your code block to a <code>.exs</code> file and then evaluates
 the file using the <code>elixir</code> executable. The first line of standard
@@ -105,9 +105,9 @@ A one dimensional list or tuple is transformed into a table row:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elixir"># it's as easy as
-[42, :foo, "bar"]
-  |&gt; IO.inspect
+<pre class="src src-elixir">    # it's as easy as
+    [42, :foo, "bar"]
+      |&gt; IO.inspect
 </pre>
 </div>
 
@@ -135,9 +135,9 @@ Each row in a two dimensional list becomes a row in a table:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elixir">[1, 2, 3]
-  |&gt; Enum.map(&amp;({&amp;1, &amp;1*&amp;1}))
-  |&gt; IO.inspect
+<pre class="src src-elixir">    [1, 2, 3]
+      |&gt; Enum.map(&amp;({&amp;1, &amp;1*&amp;1}))
+      |&gt; IO.inspect
 </pre>
 </div>
 
@@ -174,14 +174,14 @@ of reductions:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elixir">output_keys = [:registered_name, :heap_size, :total_heap_size, :reductions]
-Process.list()
-  |&gt; Enum.map(&amp;Process.info/1)
-  |&gt; Enum.filter(&amp;Dict.has_key?(&amp;1, :registered_name))
-  |&gt; Enum.sort(&amp;(&amp;1[:heap_size] &gt; &amp;2[:heap_size]))
-  |&gt; Enum.map(&amp;(for key &lt;- output_keys, do: &amp;1[key]))
-  |&gt; Enum.take(5)
-  |&gt; IO.inspect
+<pre class="src src-elixir">    output_keys = [:registered_name, :heap_size, :total_heap_size, :reductions]
+    Process.list()
+      |&gt; Enum.map(&amp;Process.info/1)
+      |&gt; Enum.filter(&amp;Dict.has_key?(&amp;1, :registered_name))
+      |&gt; Enum.sort(&amp;(&amp;1[:heap_size] &gt; &amp;2[:heap_size]))
+      |&gt; Enum.map(&amp;(for key &lt;- output_keys, do: &amp;1[key]))
+      |&gt; Enum.take(5)
+      |&gt; IO.inspect
 </pre>
 </div>
 
@@ -236,18 +236,18 @@ Process.list()
 </table>
 </div>
 
-<div id="outline-container-orged6749d" class="outline-5">
-<h5 id="orged6749d">Parsing Issues</h5>
-<div class="outline-text-5" id="text-orged6749d">
+<div id="outline-container-orgf62a68c" class="outline-5">
+<h5 id="orgf62a68c">Parsing Issues</h5>
+<div class="outline-text-5" id="text-orgf62a68c">
 <p>
-The parser currently uses python style syntax parsing, and doesn't
+The parser currently uses python style syntax parsing, and doesn&rsquo;t
 support Elixir reader expressions within lists, i.e. values
 prefixed with <code>#</code>, like <code>#PID&lt;0.0.0&gt;</code>:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elixir"># Works
-IO.inspect self
+<pre class="src src-elixir">    # Works
+    IO.inspect self
 </pre>
 </div>
 
@@ -257,27 +257,27 @@ IO.inspect self
 
 
 <div class="org-src-container">
-<pre class="src src-elixir"># Raises an error -- `Invalid read syntax: "#"`
-IO.inspect [self]
+<pre class="src src-elixir">    # Raises an error -- `Invalid read syntax: "#"`
+    IO.inspect [self]
 </pre>
 </div>
 
 <p>
-I'm sure there are additional parsing issues -- <a href="https://github.com/victorolinasc/ob-elixir/issues">report them</a> if you
+I&rsquo;m sure there are additional parsing issues -- <a href="https://github.com/victorolinasc/ob-elixir/issues">report them</a> if you
 find them!
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org2ce8158" class="outline-4">
-<h4 id="org2ce8158">Input</h4>
-<div class="outline-text-4" id="text-org2ce8158">
+<div id="outline-container-org98a737e" class="outline-4">
+<h4 id="org98a737e">Input</h4>
+<div class="outline-text-4" id="text-org98a737e">
 <p>
 You can pass variables into a code block:
 </p>
 
-<table id="org5e22e53" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="orga064032" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 <caption class="t-above"><span class="table-number">Table 4:</span> Some mammals</caption>
 
 <colgroup>
@@ -320,9 +320,9 @@ You can pass variables into a code block:
 </table>
 
 <div class="org-src-container">
-<pre class="src src-elixir">mammals
-  |&gt; Enum.filter(fn ([_, "primate"]) -&gt; true; _ -&gt; false end)
-  |&gt; IO.inspect
+<pre class="src src-elixir">    mammals
+      |&gt; Enum.filter(fn ([_, "primate"]) -&gt; true; _ -&gt; false end)
+      |&gt; IO.inspect
 </pre>
 </div>
 
@@ -349,9 +349,9 @@ You can pass variables into a code block:
 </div>
 </div>
 
-<div id="outline-container-org6979283" class="outline-4">
-<h4 id="org6979283">Future work?</h4>
-<div class="outline-text-4" id="text-org6979283">
+<div id="outline-container-org5b4ef44" class="outline-4">
+<h4 id="org5b4ef44">Future work?</h4>
+<div class="outline-text-4" id="text-org5b4ef44">
 <ul class="org-ul">
 <li>Persistent sessions -- could be backed by emacs comint or distel
 style distributed erlang.</li>
@@ -412,7 +412,7 @@ style distributed erlang.</li>
         </p>
       </div>
       <div class="six columns">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 27.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 28.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
           Powered by
           <a href="https://github.com/kelvinh/org-page">org-page</a> and

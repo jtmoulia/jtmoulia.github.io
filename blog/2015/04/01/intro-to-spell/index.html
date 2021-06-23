@@ -64,9 +64,9 @@ I contracted with <a href="https://www.mymedsandme.com">MyMeds&amp;Me</a>, a Lon
 adverse event reporting and event capture, to build <a href="https://github.com/MyMedsAndMe/spell">Spell</a>.
 </p>
 
-<div id="outline-container-org76a2215" class="outline-4">
-<h4 id="org76a2215">A WAMP Client</h4>
-<div class="outline-text-4" id="text-org76a2215">
+<div id="outline-container-org857688e" class="outline-4">
+<h4 id="org857688e">A WAMP Client</h4>
+<div class="outline-text-4" id="text-org857688e">
 <p>
 The <a href="http://wamp.ws/">Web Application Messaging Protocol</a> [WAMP] is an open messaging protocol
 designed by <a href="http://tavendo.com/">Tavendo GmbH</a>. It specifies Publish Subscribe [PubSub] and Remote
@@ -77,9 +77,9 @@ specification, it supports polyglot, service oriented backends.
 </div>
 </div>
 
-<div id="outline-container-org73e9bea" class="outline-4">
-<h4 id="org73e9bea">Spell's Purpose and Implementation</h4>
-<div class="outline-text-4" id="text-org73e9bea">
+<div id="outline-container-org1ab3327" class="outline-4">
+<h4 id="org1ab3327">Spell&rsquo;s Purpose and Implementation</h4>
+<div class="outline-text-4" id="text-org1ab3327">
 <p>
 MyMeds&amp;Me was interested in decoupling their backend and transitioning from Ruby
 to Elixir, which led them to WAMP. WAMP supports peers written in any language
@@ -99,9 +99,9 @@ project took less than two months.
 </div>
 </div>
 
-<div id="outline-container-org51b6a81" class="outline-4">
-<h4 id="org51b6a81">Example</h4>
-<div class="outline-text-4" id="text-org51b6a81">
+<div id="outline-container-orgc886848" class="outline-4">
+<h4 id="orgc886848">Example</h4>
+<div class="outline-text-4" id="text-orgc886848">
 <p>
 An involved PubSub example should make things more concrete. To make it more
 impressive, imagine that the publisher or subscriber are clients in other
@@ -109,55 +109,55 @@ languages, running on different machines.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elixir"># Events must be published to a topic.
-topic = "com.spell.example.pubsub.topic"
+<pre class="src src-elixir">  # Events must be published to a topic.
+  topic = "com.spell.example.pubsub.topic"
 
-# Create a peer with the subscriber role.
-subscriber = Spell.connect(Crossbar.uri,
-                           realm: Crossbar.get_realm(),
-                           roles: [Spell.Role.Subscriber])
+  # Create a peer with the subscriber role.
+  subscriber = Spell.connect(Crossbar.uri,
+                             realm: Crossbar.get_realm(),
+                             roles: [Spell.Role.Subscriber])
 
-# `call_subscribe/2,3` synchronously subscribes to the topic.
-{:ok, subscription} = Spell.call_subscribe(subscriber, topic)
+  # `call_subscribe/2,3` synchronously subscribes to the topic.
+  {:ok, subscription} = Spell.call_subscribe(subscriber, topic)
 
-# Create a peer with the publisher role.
-publisher = Spell.connect(Crossbar.uri,
-                          realm: Crossbar.get_realm(),
-                          roles: [Spell.Role.Publisher])
+  # Create a peer with the publisher role.
+  publisher = Spell.connect(Crossbar.uri,
+                            realm: Crossbar.get_realm(),
+                            roles: [Spell.Role.Publisher])
 
-# `call_publish/2,3` synchronously publishes a message to the topic.
-{:ok, publication} = Spell.call_publish(publisher, topic)
+  # `call_publish/2,3` synchronously publishes a message to the topic.
+  {:ok, publication} = Spell.call_publish(publisher, topic)
 
-# `receive_event/2,3` blocks to receive the event.
-case Spell.receive_event(publisher, subscription) do
-  {:ok, event}     -&gt; handle_event(event)
-  {:error, reason} -&gt; {:error, reason}
-end
+  # `receive_event/2,3` blocks to receive the event.
+  case Spell.receive_event(publisher, subscription) do
+    {:ok, event}     -&gt; handle_event(event)
+    {:error, reason} -&gt; {:error, reason}
+  end
 
-# Cleanup.
-for peer &lt;- [subscriber, publisher], do: Spell.close(peer)
+  # Cleanup.
+  for peer &lt;- [subscriber, publisher], do: Spell.close(peer)
 </pre>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-org3b3067e" class="outline-4">
-<h4 id="org3b3067e">Comments</h4>
-<div class="outline-text-4" id="text-org3b3067e">
+<div id="outline-container-org4e0d506" class="outline-4">
+<h4 id="org4e0d506">Comments</h4>
+<div class="outline-text-4" id="text-org4e0d506">
 <p>
 There was another WAMP client written in Erlang, <a href="https://github.com/bwegh/awre">awre</a>. While awre is a fine
-solution, we decided to implement a new client to take advantage of Elixir's
+solution, we decided to implement a new client to take advantage of Elixir&rsquo;s
 extensibility and ecosystem. Spell uses Elixir libraries and tools where
 possible.
 </p>
 
 <p>
-Elixir was a great fit for development. Erlang's message passing architecture
+Elixir was a great fit for development. Erlang&rsquo;s message passing architecture
 and failure handling is a natural fit for network applications. Overlaid with
-Elixir's extensibility (metaprogramming and protocols, anyone?) we had a client
+Elixir&rsquo;s extensibility (metaprogramming and protocols, anyone?) we had a client
 which supported synchronous and asynchronous styles of programming, and could be
-easily extended to support WAMP's serialization and transport options. You can
+easily extended to support WAMP&rsquo;s serialization and transport options. You can
 read more about it in the <a href="https://github.com/MyMedsAndMe/spell/blob/master/README.md">README</a>.
 </p>
 </div>
@@ -213,7 +213,7 @@ read more about it in the <a href="https://github.com/MyMedsAndMe/spell/blob/mas
         </p>
       </div>
       <div class="six columns">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 27.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 28.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
           Powered by
           <a href="https://github.com/kelvinh/org-page">org-page</a> and

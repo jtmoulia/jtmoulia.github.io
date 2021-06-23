@@ -82,3 +82,38 @@ img {
 .list-item > .list-date {
     color: grey;
 }
+
+blockquote > p {
+    border-lef: 4px solid black;
+    padding-left: 0.2em;
+}
+
+p.verse {
+    border-radius: 4px;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+    background: #F1F1F1;
+    border: 1px solid #E1E1E1;
+    padding: 0.8em;
+}
+
+h2.footnotes {
+    font-size: 2em;
+}
+
+div.footpara {
+    display: inline-block;
+    width: 90%;
+    padding-left: 0.25em;
+}
+
+.footdef > sup {
+    vertical-align: top;
+    top: 0.55em;
+    padding-left: 0.25em;
+}
+
+.post sup {
+    padding-left: 0.1em;
+    padding-right: 0.05em;
+}
