@@ -31,7 +31,7 @@ monster Makefile that could copy, symlink, and backup multiple layers of files.
 With the Makefile I could unpack some files and symlinks into my target system,
 but that was the extent of it. That finally brings us to why Ansible. Ansible
 allows installing files anywhere into the system as well as all sorts of other
-configuration tasks. It's like =make=, but the target state isn't isn't limited
+configuration tasks. It's like =make=, but the target state isn't limited
 to the existence of a file: the [[https://docs.ansible.com/ansible/latest/modules/modules_by_category.html]["targets"]] range from running a service to
 inserting a line into a file. The task definitions are a bit verbose, but super
 clear as to their intent. Beween roles and playbooks Ansible lets you layer
