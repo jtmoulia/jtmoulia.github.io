@@ -71,9 +71,9 @@ quick guide breaks down how to use Termux to run an SSH server that lets you log
 into in from your laptop.
 </p>
 
-<div id="outline-container-org69b0e49" class="outline-4">
-<h4 id="org69b0e49">Requirements</h4>
-<div class="outline-text-4" id="text-org69b0e49">
+<div id="outline-container-orgc36dd96" class="outline-4">
+<h4 id="orgc36dd96">Requirements</h4>
+<div class="outline-text-4" id="text-orgc36dd96">
 <p>
 Your phone must be addressable from your laptop for this to work, e.g. it&rsquo;ll
 work if they&rsquo;re on the same local network.
@@ -85,9 +85,9 @@ Ths guide assumes you&rsquo;ve installed Termux -- <a href="https://f-droid.org/
 </div>
 </div>
 
-<div id="outline-container-org46d445e" class="outline-4">
-<h4 id="org46d445e">Install OpenSSH</h4>
-<div class="outline-text-4" id="text-org46d445e">
+<div id="outline-container-org3c915a6" class="outline-4">
+<h4 id="org3c915a6">Install OpenSSH</h4>
+<div class="outline-text-4" id="text-org3c915a6">
 <p>
 First install OpenSSH in your Termux environment:
 </p>
@@ -113,9 +113,9 @@ typical 22.
 </div>
 </div>
 
-<div id="outline-container-orgcfab4c6" class="outline-4">
-<h4 id="orgcfab4c6">Configure Password</h4>
-<div class="outline-text-4" id="text-orgcfab4c6">
+<div id="outline-container-org010b355" class="outline-4">
+<h4 id="org010b355">Configure Password</h4>
+<div class="outline-text-4" id="text-org010b355">
 <p>
 Set the password for your current user in Termux:
 </p>
@@ -127,9 +127,9 @@ Set the password for your current user in Termux:
 </div>
 </div>
 
-<div id="outline-container-org1f2928c" class="outline-4">
-<h4 id="org1f2928c">SSH into your Phone</h4>
-<div class="outline-text-4" id="text-org1f2928c">
+<div id="outline-container-org76d4441" class="outline-4">
+<h4 id="org76d4441">SSH into your Phone</h4>
+<div class="outline-text-4" id="text-org76d4441">
 <p>
 Assuming you started the SSH server earlier, you can test SSHing into your
 phone.
@@ -180,9 +180,9 @@ your phone&rsquo;s Termux environment.
 </div>
 </div>
 
-<div id="outline-container-org9b92bc9" class="outline-4">
-<h4 id="org9b92bc9">Passwordless Login</h4>
-<div class="outline-text-4" id="text-org9b92bc9">
+<div id="outline-container-orgfcb0c02" class="outline-4">
+<h4 id="orgfcb0c02">Passwordless Login</h4>
+<div class="outline-text-4" id="text-orgfcb0c02">
 <p>
 It&rsquo;s simpler (no password!) and more secure to login using public/private key
 authentication. Assuming you&rsquo;ve already generated an SSH RSA key parir, say
@@ -200,9 +200,9 @@ Future SSH logins shouldn&rsquo;t require a password.
 </div>
 </div>
 
-<div id="outline-container-orgd9fa07b" class="outline-4">
-<h4 id="orgd9fa07b">Disable SSH Password Login</h4>
-<div class="outline-text-4" id="text-orgd9fa07b">
+<div id="outline-container-org2f0b3f0" class="outline-4">
+<h4 id="org2f0b3f0">Disable SSH Password Login</h4>
+<div class="outline-text-4" id="text-org2f0b3f0">
 <p>
 Password login is now unnecessary, but still enabled leaving open an attack
 vector. It should be disabled by ensuring your Termux environment&rsquo;s
@@ -217,9 +217,9 @@ vector. It should be disabled by ensuring your Termux environment&rsquo;s
 </div>
 </div>
 
-<div id="outline-container-org5841f28" class="outline-4">
-<h4 id="org5841f28">Client SSH Config</h4>
-<div class="outline-text-4" id="text-org5841f28">
+<div id="outline-container-org832ddf6" class="outline-4">
+<h4 id="org832ddf6">Client SSH Config</h4>
+<div class="outline-text-4" id="text-org832ddf6">
 <p>
 To avoid having to remember the host and username for future logins from the
 client, save the host&rsquo;s SSH configuration to <code>~/.ssh/config</code>:
@@ -244,9 +244,9 @@ You can now quickly SSH into the Termux environment on the local network:
 </div>
 </div>
 
-<div id="outline-container-org9c5e534" class="outline-4">
-<h4 id="org9c5e534">Stop the SSH Server</h4>
-<div class="outline-text-4" id="text-org9c5e534">
+<div id="outline-container-orgdabbf9f" class="outline-4">
+<h4 id="orgdabbf9f">Stop the SSH Server</h4>
+<div class="outline-text-4" id="text-orgdabbf9f">
 <p>
 A running SSH server is a potential vulnerability, so it shouldn&rsquo;t be running
 in Termux while not in use. To kill the SSH server run from Termux:
@@ -259,9 +259,9 @@ in Termux while not in use. To kill the SSH server run from Termux:
 </div>
 </div>
 
-<div id="outline-container-org96638db" class="outline-4">
-<h4 id="org96638db">Automating</h4>
-<div class="outline-text-4" id="text-org96638db">
+<div id="outline-container-org70bbeaa" class="outline-4">
+<h4 id="org70bbeaa">Automating</h4>
+<div class="outline-text-4" id="text-org70bbeaa">
 <p>
 These repetitive tasks beg for automation. In the future I&rsquo;ll add an <a href="https://www.ansible.com/">Ansible</a>
 playbook to configure the Termux environment.
