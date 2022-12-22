@@ -4,15 +4,29 @@
     <title>jtmoulia</title>
     <link>http://jtmoulia.pocketknife.io</link>
     <description>public notebook 📓</description>
-    <pubDate>Wed, 23 Jun 2021 13:26:16 PDT</pubDate>
-    <lastBuildDate>Wed, 23 Jun 2021 13:26:16 PDT</lastBuildDate>
+    <pubDate>Wed, 21 Dec 2022 22:15:06 PST</pubDate>
+    <lastBuildDate>Wed, 21 Dec 2022 22:15:06 PST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>My Dotfiles and Config, Managed by Guix</title>
+      <link>http://jtmoulia.pocketknife.io/blog/2022/11/05/my-dotfiles-and-config-managed-by-guix</link>
+      <description><![CDATA[Guix to manage system config]]></description>
+      <pubDate>2022-12-21</pubDate>
+      <guid>http://jtmoulia.pocketknife.io/blog/2022/11/05/my-dotfiles-and-config-managed-by-guix</guid>
+    </item>
+    <item>
+      <title>My Dotfiles and Config, Managed by Ansible</title>
+      <link>http://jtmoulia.pocketknife.io/blog/2019/03/27/my-dotfiles-and-config-managed-by-ansible</link>
+      <description><![CDATA[Ansible to manage dotfiles and various system configs.]]></description>
+      <pubDate>2022-11-05</pubDate>
+      <guid>http://jtmoulia.pocketknife.io/blog/2019/03/27/my-dotfiles-and-config-managed-by-ansible</guid>
+    </item>
     <item>
       <title>🏥 Building a Modern, Interoperable Application for Hospitals</title>
       <link>http://jtmoulia.pocketknife.io/blog/2021/06/09/hospital-integration-guide-intro</link>
       <description><![CDATA[What I learned over the last five years building an app for hospitalists]]></description>
-      <pubDate>2021-06-23</pubDate>
+      <pubDate>2021-06-24</pubDate>
       <guid>http://jtmoulia.pocketknife.io/blog/2021/06/09/hospital-integration-guide-intro</guid>
     </item>
     <item>
@@ -44,13 +58,6 @@
       <guid>http://jtmoulia.pocketknife.io/blog/2018/12/26/reaper-reference</guid>
     </item>
     <item>
-      <title>My Dotfiles and Config, Managed by Ansible</title>
-      <link>http://jtmoulia.pocketknife.io/blog/2019/03/27/my-dotfiles-and-config-managed-by-ansible</link>
-      <description><![CDATA[Ansible to manage dotfiles and various system configs.]]></description>
-      <pubDate>2019-04-03</pubDate>
-      <guid>http://jtmoulia.pocketknife.io/blog/2019/03/27/my-dotfiles-and-config-managed-by-ansible</guid>
-    </item>
-    <item>
       <title>Cookbook for this Blog</title>
       <link>http://jtmoulia.pocketknife.io/blog/2018/11/24/cookbook-for-this-blog</link>
       <description><![CDATA[A cookbook for working with this blog.]]></description>
@@ -70,13 +77,6 @@
       <description><![CDATA[Some food recipes.]]></description>
       <pubDate>2019-03-19</pubDate>
       <guid>http://jtmoulia.pocketknife.io/blog/2018/12/29/recipes</guid>
-    </item>
-    <item>
-      <title>Frying Pan</title>
-      <link>http://jtmoulia.pocketknife.io/blog/2018/12/30/frying-pan</link>
-      <description><![CDATA[Frying Pan, by Berry & Hog]]></description>
-      <pubDate>2018-12-29</pubDate>
-      <guid>http://jtmoulia.pocketknife.io/blog/2018/12/30/frying-pan</guid>
     </item>
   </channel>
 </rss>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <title>🏥 Building a Modern, Interoperable Application for Hospitals - jtmoulia</title>
+  <meta charset="utf-8" />
+  <meta name="author" content="Thomas Moulia" />
+    <meta name="description" content="What I learned over the last five years building an app for hospitalists" />
+    <meta name="keywords" content="smart-on-fhir, healthtensor" />
+  <!-- TODO Concatenate CSS -->
+  <link rel="stylesheet" href="/media/css/normalize.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/skeleton.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,700,300italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+</head>
+
+  <body class="container">
+<div class="masthead">
+  <div class="masthead-title-div u-pull-left">
+    <h1 class="masthead-title"><a href="/">
+      jtmoulia
+    </a></h1>
+    <!-- TODO Who needs a sub-title?? -->
+    <!-- <p class="masthead-sub-title"> -->
+    <!-- public notebook 📓 -->
+    <!-- </p> -->
+  </div>
+  <nav class="navbar u-pull-right">
+    <ul class="navbar-list">
+      <li><a href="/blog/">Posts</a></li>
+      <li><a href="/about/">Who</a></li>
+    </ul>
+  </nav>
+</div>
+<div class="u-cf"></div>
+
+    <!-- <div> -->
+    <!--   <header class="masthead"> -->
+    <!--     <h1 class="masthead-title"><a href="/">jtmoulia</a></h1> -->
+    <!--     <p>public notebook 📓</p> -->
+    <!--     <ul> -->
+    <!--        -->
+    <!--       <li><a href="/blog/">Blog</a></li> -->
+    <!--        -->
+    <!--       <li><a href="/tags/">Tags</a></li> -->
+    <!--       <li><a href="/about/">About</a></li> -->
+    <!--       <li><a href="http://github.com/jtmoulia">GitHub</a></li> -->
+    <!--       <li><a href="/rss.xml">RSS</a></li> -->
+    <!--     </ul> -->
+    <!--     <form method="get" id="searchform" action="http://www.google.com/search"> -->
+    <!--       <input type="text" class="field" name="q" id="s" placeholder="Search"> -->
+    <!--       <input type="hidden" name="as_sitesearch" value="jtmoulia.pocketknife.io"> -->
+    <!--     </form> -->
+    <!--      -->
+    <!--   </header> -->
+    <!-- </div> -->
+
+  <hr />
+<div class="content">
+  <div class="post">
+      <h3>🏥 Building a Modern, Interoperable Application for Hospitals</h3>
+    
+<div id="outline-container-orgf1df887" class="outline-4">
+<h4 id="orgf1df887">or, what I learned over the last five years building an app for hospitals</h4>
+<div class="outline-text-4" id="text-orgf1df887">
+<p>
+Building a clinical app <sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup> and getting healthcare providers
+onboard is hard. This guide should help.
+</p>
+
+<p>
+In this series you&rsquo;ll learn how to compose a healthcare application out of
+familiar, modern web technologies: patients / physicians authenticate via
+<b>OAuth</b>, clinical data is fetched as <b>JSON</b> over a <b>RESTful API</b>, and you can
+deliver an <b>HTML5</b> user-interface.
+</p>
+
+<p>
+As for why: this is the guide I wish I&rsquo;d had when my company, <a href="https://www.healthtensor.com/">HealthTensor</a>, set
+out to build a digital health app for hospitals back in 2017. We had experience
+developing web and mobile apps, but a clinical app? Back then we had no idea
+where to even begin and as a result our first hospital integration took well
+over a year to complete. Fast-forward several years to 2021: with a better
+understanding of the process HealthTensor can now be deployed to a new hospital
+in under a month to ensure no diagnosis is missed and patients get the care they
+need.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga244e18" class="outline-4">
+<h4 id="orga244e18">Contents</h4>
+<div class="outline-text-4" id="text-orga244e18">
+<p>
+This guide is organized as a series of four posts, each of which walks through a
+component of building a clinical app. The content is targeted at early-stage
+clinical application developers and integration managers, or for anyone curious
+about developing an application for healthcare providers.
+</p>
+
+<p>
+<b>insert image of overview here</b>
+</p>
+
+<p>
+Below is an overview of the parts; each will be linked to as it&rsquo;s written.
+</p>
+</div>
+
+<div id="outline-container-orgda60ca8" class="outline-5">
+<h5 id="orgda60ca8">Part 1: Building a relationship with the health provider and EHR</h5>
+<div class="outline-text-5" id="text-orgda60ca8">
+<p>
+For your app to be used, the first step is to develop a relationship with a
+healthcare provider and their electronic health record (EHR)<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup> so you can
+deliver your application to clinicians. Let&rsquo;s assume you have an impactful idea
+that a health provider wants developed out. With the provider onboard you&rsquo;ll be
+required you to complete a security review<sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup> and have a plan
+for testing and deploying. In parallel to completing the healthcare provider&rsquo;s
+requirements you can register your application with the EHR&rsquo;s SMART platform and
+work through their security review.
+</p>
+
+<p>
+Part 1 covers developing the clinical relationship and planning the timeline.
+<b>Note:</b> Part 1 will be linked here when available.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgeffa81b" class="outline-5">
+<h5 id="orgeffa81b">Part 2: The application platform: SMART on FHIR</h5>
+<div class="outline-text-5" id="text-orgeffa81b">
+<p>
+Next I&rsquo;ll explain how to work with <a href="https://docs.smarthealthit.org/">SMART on FHIR</a><sup><a id="fnr.4" class="footref" href="#fn.4" role="doc-backlink">4</a></sup> to handle the
+technical side of clinical integration. We&rsquo;ll work through how to register your
+application with the EHR, authenticate on behalf of patients or physicians
+(OAuth), and fetch clinical data (JSON over a RESTful API). By the end of this
+part you should understand what it takes to build a backend-only hospital
+application.
+</p>
+
+<p>
+Part 2 covers how to use SMART on FHIR for authentication and clinical data fetching.
+<b>Note:</b> Part 2 will be linked here when available.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcc54898" class="outline-5">
+<h5 id="orgcc54898">Part 3: Developing a web-application in the EHR</h5>
+<div class="outline-text-5" id="text-orgcc54898">
+<p>
+The third part covers how to deliver a user-interface to a patient or physician.
+As a composable web-based standard SMART on FHIR allows you to build your
+front-end using any technology which can speak HTTP, e.g. web, mobile, and
+desktop apps are possible. I&rsquo;ll specifically explain how to build a web-app for
+healthcare practitioners that can be loaded from a patient&rsquo;s record in the EHR
+at the point-of-care.
+</p>
+
+<p>
+Part 3 explores building a user-interface for clinical apps. <b>Note:</b> Part 3 will
+be linked here when available.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge8a17ad" class="outline-5">
+<h5 id="orge8a17ad">Part 4: Getting the most out of clinical integrations</h5>
+<div class="outline-text-5" id="text-orge8a17ad">
+<p>
+In the final part of the series you&rsquo;ll see how to get the most out of a hospital
+integration. As a new standard SMART on FHIR still has some rough edges for
+common workflows. It lacks &ldquo;hooks&rdquo; for new clinical data, bulk data fetching,
+and complex queries across multiple references. I don&rsquo;t have clean solutions,
+but I can offer some workarounds with their tradeoffs.
+</p>
+
+<p>
+Fortunately there are solutions to these issues in the works. Developing
+technologies like <a href="https://github.com/cds-hooks/sandbox">CDS hooks</a>, <a href="https://smarthealthit.org/smart-hl7-bulk-data-access-flat-fhir/">SMART/HL7 bulk data access</a>, and a <a href="https://www.hl7.org/fhir/graphql.html">GraphQL API</a> will
+fill in the gaps, and each continues the trend of leveraging industry-standards
+to solve real problems with clinical integration.
+</p>
+
+<p>
+Part 4 gets into shortcomings with SMART on FHIR, how to overcome them, and
+developing standards. <b>Note:</b> Part 4 will be linked here when available.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgafa14ad" class="outline-4">
+<h4 id="orgafa14ad">Conclusion</h4>
+<div class="outline-text-4" id="text-orgafa14ad">
+<p>
+For many reasons, some of them good, the healthcare industry is hard to build
+for. New standards have drastically lowered the technical bar to contribution,
+and I hope this guide has helped you understand what tools are available. That
+being said, I&rsquo;ll leave the business, medical, security, and bureaucratic
+challenges up to you.
+</p>
+
+<p>
+I can&rsquo;t promise a response, but you can continue the conversation over email:
+hello@healthtensor.com
+</p>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+The term <b>clinical app</b> covers a huge range of products and
+requirements. I&rsquo;ll focus on developing software applications that 1) are
+web-based, 2) requires up-to-date clinical data, and 3) are used by healthcare
+practitioners at the point-of-care in hospitals. This likely won&rsquo;t fit your
+exact requirements but is super customizable. For example, the front-end might
+be implemented as a desktop or mobile application. Or, patients can authenticate
+you to access data on their behalf instead of healthcare practitioners.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+The <b>Electronic Health Record</b> (EHR) is the system of record for a
+hopsital&rsquo;s digital data and the platform clinical workflows are built on. While
+SMART on FHIR is specified as a standard, it&rsquo;s implemented, hosted, and managed
+on the hospital&rsquo;s behalf by the individual EHRs. In other words, the EHRs are
+key stakeholders throughout clinical integration. More on <a href="https://en.wikipedia.org/wiki/Electronic_health_record">wikipedia</a>.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3" role="doc-backlink">3</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+While <b>security</b> isn&rsquo;t emphasized in this introduction,
+it&rsquo;s an absolutely critical component of clinical integration. From a business
+and legal perspective your stack must comply to <a href="https://www.hhs.gov/hipaa/for-professionals/index.html">HIPAA</a> as well as any additional
+requirements set by the healthcare provider. Fall short of that you are legally
+and financially liable for breaches. More fundamentally, from an ethical
+perspective you are being entrusted with individuals&rsquo; private information and
+are responsible for protecting that information. I&rsquo;ll touch on this more in Part
+1, but HIPAA compliance is a massive topic that is better covered elsewhere.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4" role="doc-backlink">4</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+<b>SMART on FHIR</b> is a relatively young but disruptive
+healthcare standard designed to facilitate building clinical applications. Since
+its inception at Brigham-Young in 2010 it&rsquo;s grown into a standard supported by
+all major EHRs. Apple&rsquo;s HealthKit, for example, uses SMART on FHIR to give
+patients access to their clinical information.
+</p></div></div>
+
+
+</div>
+</div>
+  </div>
+</div>
+
+<div>
+    <div class="post-meta row">
+      <div class="six columns">
+        <p>
+          Written by <span title="author" class="post-info">Thomas Moulia</span>
+        </p>
+        <p>
+          Tags: <span title="tags" class="post-info"><a href="/tags/smart-on-fhir/">smart-on-fhir</a>, <a href="/tags/healthtensor/">healthtensor</a></span>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>
+          Published:
+          <span title="post date" class="post-info">2021-06-09</span>
+        </p>
+        <p>
+          Modified:
+          <span title="last modification date" class="post-info">2021-06-24</span>
+        </p>
+      </div>
+    </div>
+  <hr />
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript">
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-60774978-1']);
+     _gaq.push(['_trackPageview']);
+     (function() {
+         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+    </script>
+  <div class="footer container">
+    <div class="row">
+      <div class="six columns">
+        <p>
+          Copyright &copy; 2015 -
+          <span id="footerYear"></span>
+        </p>
+        <p>
+          by <a href="mailto:thomas &lt;at&gt; healthtensor &lt;dot&gt; com">Thomas Moulia</a>
+        </p>
+      </div>
+      <div class="six columns">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 29.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Powered by
+          <a href="https://github.com/kelvinh/org-page">org-page</a> and
+          <a href="http://getskeleton.com/">skeleton</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+
+  </body>
+</html>
